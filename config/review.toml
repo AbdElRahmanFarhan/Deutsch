@@ -6,6 +6,11 @@ max_new_items_per_day = 20
 # When more than this many cards are due, no new words are shown until you catch up.
 pause_new_when_due_over = 100
 
+# Flashcards work any time: when few or no cards are due, the rest are practice cards from
+# words you already know, weakest first. Practising doesn't push a word further away;
+# only forgetting changes its schedule (it comes back tomorrow).
+extra_practice = true
+
 # Each word is learned in two stages:
 #   recognize: see the German, recall the English
 #   produce:   see the English, recall the German with article and plural

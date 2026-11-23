@@ -354,7 +354,19 @@ function cardQueue(limit) {
   const n = fresh.slice(0, nNew);
   // Spread new cards through the reviews.
   const q = [...r]; n.forEach((c, k) => q.splice(Math.min(q.length, Math.round(((k + 1) * (q.length + 1)) / (n.length + 1))), 0, c));
-  return { queue: q.slice(0, Math.max(limit, 0)), paused, dueReviews: reviews.length, newWaiting: fresh.length, newLeft, reviewsLeft };
+  let queue = q.slice(0, Math.max(limit, 0));
+  // Nothing (or not enough) due? Fill up with practice cards so flashcards work any time.
+  if (rv.extra_practice !== false && queue.length < limit) queue = queue.concat(practiceCards(limit - queue.length, new Set(queue.map((c) => c.it.id))));
+  return { queue, paused, dueReviews: reviews.length, newWaiting: fresh.length, newLeft, reviewsLeft };
+}
+// Words you've already met that aren't due, weakest first (most lapses, lowest ease, least practised).
+function practiceCards(n, exclude) {
+  const words = srsList().filter((it) => it.type === "word" && !exclude.has(it.id));
+  const score = (it) => { const { rec, prod } = wordStages(it); return Number(rec.lapses || 0) * 3 + Number(prod?.lapses || 0) * 3 + (3 - Number(rec.ef ?? 2.5)) * 2 + (Number(rec.reps || 0) < 2 ? 2 : 0) + Math.random() * 2; };
+  return words.map((it) => ({ it, s: score(it) })).sort((a, b) => b.s - a.s).slice(0, n).map(({ it }) => {
+    const { rec, prod } = wordStages(it); const stage = prod && Math.random() < 0.5 ? "prod" : "rec";
+    return { it, stage, sched: stage === "prod" ? prod : rec, isNew: false, practice: true };
+  });
 }
 function wordStatus() {
   const c = { learning: 0, recognize: 0, produce: 0, hard: 0, total: 0 };
@@ -617,7 +629,7 @@ function renderToday(v) {
     </div>
   </section>
   <section class="panel">
-    <div class="row" style="justify-content:space-between"><h2>Refreshers</h2><button class="btn" data-act="start-refresher">Start a ${esc(S.cfg.refreshers?.minutes || 10)}-min refresher</button></div>
+    <div class="row" style="justify-content:space-between"><h2>Refreshers</h2><div class="row" style="gap:8px"><button class="btn" data-act="start-cards">Flashcards</button><button class="btn" data-act="start-refresher">Start a ${esc(S.cfg.refreshers?.minutes || 10)}-min refresher</button></div></div>
     <p class="small">Review only: your mistakes and what you've already learned.</p>
     <p class="muted small">${slots.length ? `Planned today at <span class="mono">${slots.map(hhmm).join(", ")}</span>. Do one whenever you have ten minutes.` : "None planned today. You can still start one any time."} ${cq.dueReviews} card${cq.dueReviews === 1 ? "" : "s"} due${cq.newLeft && cq.newWaiting ? `, ${Math.min(cq.newLeft, cq.newWaiting)} new words ready` : ""}${cq.paused ? ". New words are paused until you catch up on reviews" : ""}.</p>
   </section>
@@ -848,7 +860,7 @@ const HELP = {
   missed_day_message: "brief or off", help_after_wrong_tries: "Wrong tries before help appears", help_keyword: "Type this for the English meaning", correction_style: "short or detailed",
   correct_during_speaking: "Correct while you talk (off = list mistakes at the end)", speaking_mistakes_listed: "Mistakes listed after speaking", tone: "calm, encouraging or strict",
   cards: "Most flashcards per refresher", target_accuracy: "Typed questions get harder above this share right (0-1)", weak_spot_questions: "Typed questions aimed at your most common mistake type",
-  pause_new_when_due_over: "Pause new words when more reviews than this are due", produce_after_correct: "Correct recognitions before you practise saying a word",
+  pause_new_when_due_over: "Pause new words when more reviews than this are due", extra_practice: "When few cards are due, fill flashcards with practice of words you know (weakest first)", produce_after_correct: "Correct recognitions before you practise saying a word",
   max_hard_interval_days: "Longest gap between reviews of a hard word", first_interval_days: "Days until the first review", second_interval_days: "Days until the second review",
   new_words: "New words or phrases per quick lesson", exercises: "Exercises per quick lesson", types: "Quick lesson types, rotating: words, phrases, reading, grammar", situations: "Situations the phrases type rotates through", add_words_to_review: "Add quick-lesson words to your flashcards", no_repeat_days: "Never repeat a question asked in this many days", recent_mistakes: "Weight: your mistakes, asked again in new sentences", past_lessons: "Weight: exercises from finished lessons, reworded",
   progress_facts: "Show progress facts", sayings: "Show a German saying", max_reviews_per_day: "Most reviews a day", max_new_items_per_day: "Most new items a day", leech_after_failures: "Failures before an item is flagged",
@@ -941,7 +953,7 @@ function startRefresher(parts = { cards: true, questions: true }) {
   if (parts.cards) {
     const cq = cardQueue(Number(r.cards ?? 40));
     if (cq.queue.length) { Object.assign(run, { mode: "cards", cards: cq.queue, ci: 0, revealed: false, paused: cq.paused }); render(); return; }
-    if (!parts.questions) { toast(cq.paused ? "No reviews left for today. New words are paused until your backlog is under the limit." : "No flashcards due right now."); render(); return; }
+    if (!parts.questions) { toast("No words yet. Do a Quick lesson or your first focus session to get flashcards."); render(); return; }
   }
   startQuestions();
 }
@@ -957,7 +969,7 @@ function renderCardsRun(v) {
     : `<div class="card-de">${deHtml(it.de, it.plural)}</div>`;
   v.innerHTML = `<section class="panel flash">
     <div class="row" style="justify-content:space-between"><span class="muted small">Card ${run.ci + 1} of ${run.cards.length}${run.withQuestions ? " · then a few questions" : ""}</span>
-      <span class="row" style="gap:6px">${c.isNew ? `<span class="pill">New</span>` : ""}${c.stage === "prod" ? `<span class="pill">Produce</span>` : ""}${hard ? `<span class="pill warn">Hard word</span>` : ""}</span></div>
+      <span class="row" style="gap:6px">${c.practice ? `<span class="pill">Practice</span>` : c.isNew ? `<span class="pill">New</span>` : `<span class="pill good">Due</span>`}${c.stage === "prod" ? `<span class="pill">Produce</span>` : ""}${hard ? `<span class="pill warn">Hard word</span>` : ""}</span></div>
     <div class="steps">${run.cards.map((_, k) => `<i class="${k <= run.ci ? "on" : ""}"></i>`).join("")}</div>
     ${run.ci === 0 && run.paused ? `<div class="note">You have a backlog, so new words are paused until reviews are back under ${esc(rvCfg().pause_new_when_due_over ?? 100)}.</div>` : ""}
     <div class="card">${front}${run.revealed ? `<hr>${back}${it.example ? `<div class="small" style="margin-top:6px"><em>${esc(it.example)}</em>${it.example_en ? `<div class="muted">${esc(it.example_en)}</div>` : ""}</div>` : ""}${hard && it.hook ? `<div class="hook small"><strong>Memory hook:</strong> ${esc(it.hook)}</div>` : ""}` : ""}</div>
@@ -974,9 +986,11 @@ function renderCardsRun(v) {
 }
 function rateCard(q) {
   const c = run.cards[run.ci]; if (!c || !run.revealed) return;
-  const next = rateItem(S.srs[c.it.id] || c.it, c.stage, q);
-  S.srs[next.id] = next; queueWrite(`srs/${next.id}`, next);
-  run.stats.total++; if (q >= 3) run.stats.correct++; if (c.isNew) run.stats.new++; else run.stats.reviews++;
+  // Practice cards (not due) only change the schedule when you forgot: then the word comes back tomorrow.
+  // Remembering one doesn't push it further away, so extra practice never inflates the intervals.
+  if (!c.practice || q < 3) { const next = rateItem(S.srs[c.it.id] || c.it, c.stage, q); S.srs[next.id] = next; queueWrite(`srs/${next.id}`, next); }
+  run.stats.total++; if (q >= 3) run.stats.correct++;
+  if (c.practice) run.stats.practice = (run.stats.practice || 0) + 1; else if (c.isNew) run.stats.new++; else run.stats.reviews++;
   run.ci++; run.revealed = false; render();
 }
 async function makeHook(it, btn) {
@@ -992,7 +1006,7 @@ async function makeHook(it, btn) {
 async function finishCards(v) {
   v.innerHTML = `<section class="panel"><h2>Cards done</h2><p class="muted">Saving…</p></section>`;
   await writeChain;
-  if (run.stats.total) { try { await bumpDaily({ reviews: run.stats.reviews, new: run.stats.new, cards_correct: run.stats.correct, cards_total: run.stats.total }); } catch {} }
+  if (run.stats.total) { try { await bumpDaily({ reviews: run.stats.reviews, new: run.stats.new, practice: run.stats.practice || 0, cards_correct: run.stats.correct, cards_total: run.stats.total }); } catch {} }
   if (run.withQuestions) return startQuestions();
   await saveRefresher(); finishView(v);
 }
@@ -1129,7 +1143,7 @@ function finishView(v) {
   if (rs.length) lines.push(`${rs.filter((r) => r.correct).length} of ${rs.length} questions right`);
   run.mode = null;
   const cq = cardQueue(Number(S.cfg.refreshers?.cards ?? 40));
-  v.innerHTML = `<section class="panel"><h2>Done</h2><p>${esc(lines.join(" · ") || "Nothing to save.")}</p><p class="muted small">${cq.queue.length ? `${cq.queue.length} more cards are available today.` : "No more cards due today."}</p><div class="row"><button class="btn primary" id="again">Another refresher</button><button class="btn" id="home">Back to today</button></div></section>`;
+  v.innerHTML = `<section class="panel"><h2>Done</h2><p>${esc(lines.join(" · ") || "Nothing to save.")}</p><p class="muted small">${cq.dueReviews ? `${cq.dueReviews} cards still due today.` : "Nothing due right now; more flashcards will be practice cards."}</p><div class="row"><button class="btn primary" id="again">Another refresher</button><button class="btn" id="home">Back to today</button></div></section>`;
   $("#again").onclick = () => startRefresher();
   $("#home").onclick = () => setTab("today");
 }

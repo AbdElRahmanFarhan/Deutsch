@@ -10,7 +10,8 @@ into the dashboard, replacing what's there for that area.
 | File | What it controls |
 |---|---|
 | `schedule.toml` | Weekly focus sessions: days, start times, length, kind; days off |
-| `refreshers.toml` | The 10-minute exercises through the day: on/off, how many, time window, what they draw from, question styles |
+| `refreshers.toml` | Review only: flashcards of due words, then questions on your mistakes and past lessons. How many, time window, difficulty target, no-repeat days |
+| `quick.toml` | Quick lessons: 10-15 minutes of new material for the bus. Length, words per lesson, rotating types, situations |
 | `reminders.toml` | Calendar and/or email, email address and time, notification lead time, quiet hours |
 | `plan.toml` | Goal, exam, target date, phase dates, hours per Lektion, minutes per part of a session |
 | `tutor.toml` | English explanations, when help kicks in, correction style, tone |

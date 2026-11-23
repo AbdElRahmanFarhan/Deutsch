@@ -9,7 +9,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-AREAS = ["schedule", "refreshers", "reminders", "plan", "tutor", "review",
+AREAS = ["schedule", "refreshers", "quick", "reminders", "plan", "tutor", "review",
          "accountability", "motivation", "profile"]
 DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 

@@ -395,14 +395,52 @@ async function put(path, data) {
 // Card ratings are saved one after another in the background, so the next card shows at once.
 let writeChain = Promise.resolve();
 function queueWrite(path, data) { writeChain = writeChain.then(() => put(path, data)).catch(() => {}); return writeChain; }
-async function saveMistake(m, source) {
+async function saveMistake(m, source, q) {
   const today = berlinNow().iso;
   const id = `${today}-${slug(m.right).slice(0, 40)}-${Math.random().toString(36).slice(2, 6)}`;
-  const rec = { id, date: today, wrong: m.wrong || "", right: m.right || "", reason: m.reason || "", category: m.category || "grammar", source };
+  const rec = { id, date: today, wrong: m.wrong || "", right: m.right || "", reason: m.reason || "", category: m.category || "grammar", source, q: q || "" };
   await put(`mistakes/${id}`, rec);
-  const sid = "m-" + slug(m.right);
+  const sid = "m-" + slug((q ? q.slice(0, 40) + "-" : "") + m.right);
   const prev = S.srs[sid];
-  await put(`srs/${sid}`, { ...(prev || {}), id: sid, type: "mistake", front: m.reason ? `Fix it: "${m.wrong}" (${m.reason})` : `Fix it: "${m.wrong}"`, de: m.right, en: m.reason || "", category: rec.category, due: today, ef: prev?.ef ?? 2.5, reps: 0, interval: 0, lapses: (prev?.lapses || 0) });
+  // The review card keeps the original question; the explanation is only shown after answering.
+  const doc = { ...(prev || {}), id: sid, type: "mistake", q: q || prev?.q || "", wrong: rec.wrong, de: m.right, en: m.reason || "", category: rec.category, due: today, ef: prev?.ef ?? 2.5, reps: 0, interval: 0, lapses: (prev?.lapses || 0) };
+  delete doc.front;
+  S.srs[sid] = doc;
+  await put(`srs/${sid}`, doc);
+}
+// Questions asked recently, so new ones never repeat them word for word.
+function recentAsked() {
+  const days = Number(S.cfg.refreshers?.no_repeat_days ?? 3); const since = addDays(berlinNow().iso, -days);
+  return Object.values(S.daily).filter((d) => (d.date || "") >= since).flatMap((d) => d.asked || []).slice(-80);
+}
+async function rememberAsked(qs) {
+  const t = berlinNow().iso; const d = { ...today_() };
+  d.asked = [...(d.asked || []), ...qs.map((q) => String(q).slice(0, 90))].slice(-60);
+  S.daily[t] = d;
+  try { await put(`daily/${t}`, { date: t, ...d }); } catch {}
+}
+// Step-by-step hints: 1) the answer's shape, 2) a rule reminder that doesn't give it away, 3) the answer.
+function shapeHint(answer) {
+  const words = String(answer).trim().split(/\s+/);
+  const a = articleOf(answer);
+  const pattern = words.map((w) => (w.length <= 1 ? w : w[0] + "·".repeat(w.length - 1))).join(" ");
+  return `${words.length} word${words.length > 1 ? "s" : ""}: ${pattern}${a ? ` · the noun is <span class="art art-${a}">${a === "der" ? "masculine" : a === "die" ? "feminine" : "neuter"}</span>` : ""}`;
+}
+async function ruleHint(question, answer) {
+  if (!sample) return "";
+  try {
+    const r = await sample.json(`A German learner (A1-A2) is stuck on this question. Give ONE short hint in English (max 20 words) that points to the rule or the word they need, WITHOUT writing the answer or any word of it.\nQuestion: ${question}\nAnswer (secret, never write it): ${answer}\nReply with only JSON: {"hint": string}`, { modelTier: "quick" });
+    const h = String(r.hint || "");
+    const leak = String(answer).split(/\s+/).filter((w) => w.length > 3).some((w) => norm(h).includes(norm(w)));
+    return leak ? "" : h;
+  } catch { return ""; }
+}
+async function nextHint(state, question, answer) {
+  state.n = (state.n || 0) + 1;
+  if (state.n === 1) state.text = shapeHint(answer);
+  else if (state.n === 2) { const h = await ruleHint(question, answer); state.text = h ? esc(h) : shapeHint(answer) + " · think about the ending and word order"; }
+  else state.text = `Answer: <strong>${esc(answer)}</strong>`;
+  return state;
 }
 async function addWords(words, lektionIndex) {
   const today = berlinNow().iso;
@@ -529,7 +567,7 @@ function render() {
 }
 
 function sessionLabel(s) {
-  const kinds = { split: "Lektion part", full: "Full Lektion", practice: "Practice block", weekly: "Weekly review" };
+  const kinds = { split: "Lektion part", full: "Full Lektion", practice: "Practice block", weekly: "Weekly review", quick: "Quick lesson" };
   return `${kinds[s.kind] || s.kind} · ${fmtHours(Number(s.minutes))}`;
 }
 function lessonKey(s) {
@@ -580,8 +618,13 @@ function renderToday(v) {
   </section>
   <section class="panel">
     <div class="row" style="justify-content:space-between"><h2>Refreshers</h2><button class="btn" data-act="start-refresher">Start a ${esc(S.cfg.refreshers?.minutes || 10)}-min refresher</button></div>
+    <p class="small">Review only: your mistakes and what you've already learned.</p>
     <p class="muted small">${slots.length ? `Planned today at <span class="mono">${slots.map(hhmm).join(", ")}</span>. Do one whenever you have ten minutes.` : "None planned today. You can still start one any time."} ${cq.dueReviews} card${cq.dueReviews === 1 ? "" : "s"} due${cq.newLeft && cq.newWaiting ? `, ${Math.min(cq.newLeft, cq.newWaiting)} new words ready` : ""}${cq.paused ? ". New words are paused until you catch up on reviews" : ""}.</p>
   </section>
+  ${S.cfg.quick?.enabled !== false ? (() => { const qp = quickPlan(); return `<section class="panel">
+    <div class="row" style="justify-content:space-between"><h2>Quick lesson</h2><button class="btn" data-act="start-quick">Start · ${esc(qp.minutes)} min</button></div>
+    <p class="small">Something new for the bus or train. Next up: <strong>${esc(quickLabel(qp))}</strong>${qp.doneToday ? ` · ${qp.doneToday} done today` : ""}.</p>
+  </section>`; })() : ""}
   <section class="panel">
     <h2>Where you are</h2>
     <div class="grid">
@@ -614,10 +657,15 @@ function renderPractice(v) {
   v.innerHTML = `
   <section class="panel">
     <h2>Refresher</h2>
-    <p class="muted">Up to ${esc(S.cfg.refreshers?.cards ?? 40)} flashcards (tap to reveal, rate yourself), then ${esc(S.cfg.refreshers?.questions ?? 5)} typed questions aimed at your weak spots. About ${esc(S.cfg.refreshers?.minutes || 10)} minutes.</p>
+    <p class="muted">Review only. Up to ${esc(S.cfg.refreshers?.cards ?? 40)} flashcards of words due, then ${esc(S.cfg.refreshers?.questions ?? 5)} typed questions: your past mistakes asked in new sentences, and exercises from finished lessons. About ${esc(S.cfg.refreshers?.minutes || 10)} minutes.</p>
     <div class="row"><button class="btn primary" data-act="start-refresher">Start refresher</button><button class="btn" data-act="start-cards">Flashcards only</button><button class="btn" data-act="start-questions">Questions only</button></div>
     <p class="muted small">${(() => { const cq = cardQueue(Number(S.cfg.refreshers?.cards ?? 40)); const w = weakSpots()[0]; return `${cq.dueReviews} cards due · ${Math.min(cq.newLeft, cq.newWaiting)} new words available today · questions at ${esc(LEVELS[adaptiveLevel()].split(":")[0])} level${w ? ` · focus: ${esc(w.category)}` : ""}`; })()}</p>
   </section>
+  ${S.cfg.quick?.enabled !== false ? (() => { const qp = quickPlan(); return `<section class="panel">
+    <h2>Quick lesson</h2>
+    <p class="muted">${esc(qp.minutes)} minutes of something new, made for your phone on the bus: ${esc(Object.entries(QUICK_TYPES).map(([k, d]) => d).join(", "))}, rotating day by day. Its new words join your flashcards.</p>
+    <div class="row"><button class="btn primary" data-act="start-quick">Start: ${esc(quickLabel(qp))}</button></div>
+  </section>`; })() : ""}
   <section class="panel">
     <h2>Focus session</h2>
     ${next ? `<p><strong>${esc(sessionLabel(next))}</strong><br><span class="muted">${esc(sessionPlanText(next))}</span></p>
@@ -776,7 +824,8 @@ function previewReport(text, reportId) {
 /* ---------- settings ---------- */
 const AREAS = [
   ["schedule", "Schedule", "When your focus sessions happen"],
-  ["refreshers", "Refreshers", "The short exercises during the day"],
+  ["refreshers", "Refreshers", "Short reviews of mistakes and past material"],
+  ["quick", "Quick lessons", "Short new-material lessons for the bus"],
   ["reminders", "Reminders", "Calendar and email nudges"],
   ["plan", "Plan and pace", "Goal, exam, phase dates and hours per Lektion"],
   ["accountability", "Accountability", "Streaks, missed sessions and make-up time"],
@@ -801,6 +850,7 @@ const HELP = {
   cards: "Most flashcards per refresher", target_accuracy: "Typed questions get harder above this share right (0-1)", weak_spot_questions: "Typed questions aimed at your most common mistake type",
   pause_new_when_due_over: "Pause new words when more reviews than this are due", produce_after_correct: "Correct recognitions before you practise saying a word",
   max_hard_interval_days: "Longest gap between reviews of a hard word", first_interval_days: "Days until the first review", second_interval_days: "Days until the second review",
+  new_words: "New words or phrases per quick lesson", exercises: "Exercises per quick lesson", types: "Quick lesson types, rotating: words, phrases, reading, grammar", situations: "Situations the phrases type rotates through", add_words_to_review: "Add quick-lesson words to your flashcards", no_repeat_days: "Never repeat a question asked in this many days", recent_mistakes: "Weight: your mistakes, asked again in new sentences", past_lessons: "Weight: exercises from finished lessons, reworded",
   progress_facts: "Show progress facts", sayings: "Show a German saying", max_reviews_per_day: "Most reviews a day", max_new_items_per_day: "Most new items a day", leech_after_failures: "Failures before an item is flagged",
 };
 const label = (k) => k.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
@@ -948,12 +998,13 @@ async function finishCards(v) {
 }
 function pickRefresherItems(n) {
   const r = S.cfg.refreshers || {}; const mix = r.mix || {}; const today = berlinNow().iso;
-  const curI = S.progress?.current_index ?? 0;
+  const curI = S.progress?.current_index ?? 0; const done = new Set(S.progress?.done || []);
+  const pastEx = Object.entries(S.lessons).filter(([, L]) => L.lektion_index != null && (done.has(L.lektion_index) || L.lektion_index < curI || (L.lektion_index === curI && L.part === 1 && S.progress?.current_part === 2)))
+    .flatMap(([key, L]) => (L.steps || []).filter((s) => s.type === "exercise").flatMap((s) => s.items || []).map((it, k) => ({ id: `px-${key}-${k}`, type: "exercise", q: it.q, de: it.answer })));
   const pools = {
-    due_reviews: dueCards().filter((c) => c.stage !== "rec").map((c) => c.it),
-    recent_mistakes: srsList().filter((x) => x.type === "mistake" && (x.due || today) <= addDays(today, 3)),
-    current_lektion: srsList().filter((x) => x.lektion === curI),
-    older_material: srsList().filter((x) => x.lektion != null && x.lektion < curI),
+    recent_mistakes: srsList().filter((x) => x.type === "mistake" && (x.due || today) <= today),
+    due_reviews: dueCards().filter((c) => c.stage === "prod" || (c.stage === "item" && c.it.type !== "mistake")).map((c) => c.it),
+    past_lessons: pastEx,
   };
   Object.values(pools).forEach((p) => p.sort(() => Math.random() - 0.5));
   const chosen = new Map(); const keys = Object.keys(pools).filter((k) => Number(mix[k] || 0) > 0 && pools[k].length);
@@ -966,26 +1017,37 @@ function pickRefresherItems(n) {
 }
 function localQuestions(items) {
   return items.map((it) => it.type === "mistake"
-    ? { item_id: it.id, q: it.front || `Correct this: ${it.en}`, answer: it.de, accept: [] }
+    ? { item_id: it.id, q: it.q || `Write it correctly: “${it.wrong || it.de}”`, answer: it.de, accept: [] }
+    : it.type === "exercise" ? { item_id: it.id, q: it.q, answer: it.de, accept: [] }
     : { item_id: it.id, q: `In German: “${it.en}”${it.gender ? " (with article)" : ""}`, answer: it.de, accept: [] });
+}
+const QUESTION_STYLES = ["translate a sentence into German", "fill the gap", "article and plural", "build a sentence from given words", "transform a sentence (tense, person, du/Sie)", "answer a question in a full German sentence", "spot and fix the mistake in a sentence", "translate into English"];
+// Three styles per refresher, rotating with the date and the number of refreshers done today.
+function stylesForNow() {
+  const today = berlinNow().iso; const nToday = S.refreshers.filter((x) => x.date === today).length;
+  const rnd = mulberry32(fnv1a(today + "|styles|" + nToday)); const pool = [...QUESTION_STYLES]; const out = [];
+  while (out.length < 3 && pool.length) out.push(pool.splice(Math.floor(rnd() * pool.length), 1)[0]);
+  return out;
 }
 async function startQuestions() {
   const r = S.cfg.refreshers || {}; const n = Number(r.questions ?? 5);
-  Object.assign(run, { mode: "questions", qs: null, i: 0, results: [], level: adaptiveLevel() });
+  Object.assign(run, { mode: "questions", qs: null, i: 0, results: [], hints: {}, level: adaptiveLevel() });
   goPractice(); render();
   if (n <= 0) { await saveRefresher(); return finishView($("#view")); }
   const items = pickRefresherItems(n);
   const cur = S.syllabus[S.progress?.current_index ?? 0];
   const weak = weakSpots()[0]; const nWeak = weak ? Math.min(n, Number(r.weak_spot_questions ?? 2)) : 0;
-  const styles = Object.entries(r.styles || {}).filter(([, on]) => on).map(([k]) => k.replace(/_/g, " "));
+  const styles = stylesForNow(); const asked = recentAsked();
+  if (!items.length && !weak) { run.mode = null; toast("Nothing to review yet. Try a Quick lesson, or do your first focus session."); render(); return; }
   if (sample) {
     try {
       const qs = await sample.json(
-        `Write ${n} short German practice questions for an adult A1-A2 learner living in Germany. Instructions to the learner must be in English. Each question has one clear correct answer and never contains its own answer.\n` +
-        `Difficulty: ${LEVELS[run.level]}.\nAllowed question styles: ${styles.join(", ") || "translate to german"}.\n` +
+        `Write ${n} short German review questions for an adult A1-A2 learner living in Germany. This is review only: test things the learner has already met, nothing new. Instructions to the learner must be in English. Each question has one clear correct answer and never contains its own answer, a translation of it, or the explanation of a past mistake.\n` +
+        `Difficulty: ${LEVELS[run.level]}.\nUse a mix of these question styles: ${styles.join("; ")}.\n` +
+        `Vary the everyday situation, the verbs and the people in every question.\n` +
+        (asked.length ? `Never repeat or closely copy these recently asked questions:\n${asked.map((q) => "- " + q).join("\n")}\n` : "") +
         (nWeak ? `At least ${nWeak} questions must practise the learner's most common mistake type, "${weak.category}". Their recent mistakes of that type: ${weak.examples.join("; ")}. Use item_id "weak" for those.\n` : "") +
-        (items.length ? `Base the other questions on these items (keep each id as item_id):\n${items.map((it) => JSON.stringify({ id: it.id, type: it.type, german: it.de, english: it.en, note: it.front || "" })).join("\n")}\n` : "") +
-        (cur ? `If you need more, use the current Lektion: "${cur.title}" (topic: ${cur.topic}; grammar: ${cur.grammar}) with item_id "new".\n` : "") +
+        (items.length ? `Base the other questions on these items, one question each, keeping each id as item_id:\n${items.map((it) => JSON.stringify(it.type === "mistake" ? { id: it.id, kind: "past mistake: write a NEW question in a different sentence that tests the same point", learner_wrote: it.wrong || "", correct: it.de, point: it.en, original_question: it.q || "" } : it.type === "exercise" ? { id: it.id, kind: "past exercise: reword it with a different sentence, same skill", question: it.q, answer: it.de } : { id: it.id, kind: "word to produce in a sentence", german: it.de, english: it.en })).join("\n")}\n` : "") +
         `Reply with only a JSON array of {"item_id": string, "q": "the question in English with any German to work on", "answer": "the correct German", "accept": ["other correct answers"]}.`,
         { modelTier: "quick", cache: false });
       if (Array.isArray(qs) && qs.length) run.qs = qs.slice(0, n).map((q) => ({ item_id: String(q.item_id || "new"), q: String(q.q || ""), answer: String(q.answer || ""), accept: Array.isArray(q.accept) ? q.accept.map(String) : [] }));
@@ -1010,16 +1072,24 @@ function renderQuestionsRun(v) {
     ${run.error ? `<div class="note">${esc(run.error)}</div>` : ""}
     <p class="muted small">Question ${run.i + 1} of ${run.qs.length} · ${esc(LEVELS[run.level].split(":")[0])}${q.item_id === "weak" ? " · weak spot" : ""}</p>
     <div class="q">${esc(q.q)}</div>
-    <form id="ans-form" class="row"><input type="text" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Your answer (type ${esc(S.cfg.tutor?.help_keyword || "?")} for the answer)" ${last ? "disabled" : ""} value="${esc(last?.given || "")}"><button class="btn primary" ${last ? "hidden" : ""}>Check</button></form>
+    <form id="ans-form" class="row"><input type="text" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Your answer" ${last ? "disabled" : ""} value="${esc(last?.given || "")}"><button class="btn primary" ${last ? "hidden" : ""}>Check</button>${last ? "" : `<button type="button" class="btn" id="hint">Hint${run.hints?.[run.i]?.n ? ` ${run.hints[run.i].n + 1 > 3 ? "" : run.hints[run.i].n + 1 + "/3"}` : ""}</button>`}</form>
+    ${run.hints?.[run.i]?.text && !last ? `<div class="feedback"><span class="small">${run.hints[run.i].text}</span></div>` : ""}
     <div id="fb">${last ? feedbackHtml(last) : ""}</div>
     <div class="row">${last ? `<button class="btn primary" id="next">Next</button>${!last.correct && !last.helped ? `<button class="btn" id="override">I was right</button>` : ""}` : ""}<button class="btn" id="quit">Stop</button></div>
   </section>`;
   const input = $("#ans"); if (!last) input.focus();
   $("#ans-form").onsubmit = async (e) => {
     e.preventDefault(); const given = input.value.trim(); if (!given) return;
-    if (given === (S.cfg.tutor?.help_keyword || "?")) { run.results[run.i] = { given: "", correct: false, corrected: q.answer, reason: "You asked for the answer; it comes back soon.", helped: true }; render(); return; }
+    if (given === (S.cfg.tutor?.help_keyword || "?")) { $("#hint").click(); return; }
     $("#fb").innerHTML = `<p class="muted small">Checking…</p>`;
-    run.results[run.i] = { given, ...(await grade(q.q, q.answer, q.accept, given)) };
+    const hinted = run.hints?.[run.i]?.n || 0;
+    run.results[run.i] = { given, hinted, ...(await grade(q.q, q.answer, q.accept, given)) };
+    render();
+  };
+  if ($("#hint")) $("#hint").onclick = async (e) => {
+    run.hints = run.hints || {}; const h = (run.hints[run.i] = run.hints[run.i] || {});
+    e.currentTarget.disabled = true; await nextHint(h, q.q, q.answer);
+    if (h.n >= 3) run.results[run.i] = { given: "", correct: false, corrected: q.answer, reason: "You used all three hints; it comes back soon.", helped: true };
     render();
   };
   if ($("#next")) $("#next").onclick = () => { run.i++; render(); };
@@ -1036,10 +1106,11 @@ async function renderQuestionsDone(v) {
     try {
       for (let k = 0; k < run.results.length; k++) {
         const q = run.qs[k], r = run.results[k]; const it = S.srs[q.item_id];
-        if (it) { const stage = it.type === "word" ? (it.prod ? "prod" : "rec") : "item"; const next = rateItem(it, stage, r.correct ? (r.reason ? 3 : 4) : 1); S.srs[it.id] = next; await put(`srs/${it.id}`, next); }
-        if (!r.correct && !r.helped && r.given) await saveMistake({ wrong: r.given, right: r.corrected, reason: r.reason, category: r.category || "vocabulary" }, "refresher");
+        if (it) { const stage = it.type === "word" ? (it.prod ? "prod" : "rec") : "item"; const next = rateItem(it, stage, r.correct ? (r.reason || r.hinted ? 3 : 4) : 1); S.srs[it.id] = next; await put(`srs/${it.id}`, next); }
+        if (!r.correct && !r.helped && r.given && !it) await saveMistake({ wrong: r.given, right: r.corrected, reason: r.reason, category: r.category || "vocabulary" }, "refresher", q.q);
       }
     } catch {}
+    await rememberAsked(run.qs.slice(0, run.results.length).map((q) => q.q));
     await saveRefresher();
   }
   finishView(v);
@@ -1076,7 +1147,7 @@ function withWordChecks(lesson) {
 async function startSession(id) {
   const date = id.slice(0, 10); const slot = Number(id.slice(11));
   const s = sessionsFor(date).find((x) => x.slot === slot) || { id, date, kind: "split", minutes: 60 };
-  Object.assign(run, { mode: "session", session: s, step: 0, results: [], started: Date.now(), answers: {}, error: "", wc: null });
+  Object.assign(run, { mode: "session", quick: false, session: s, step: 0, results: [], started: Date.now(), answers: {}, error: "", wc: null });
   goPractice();
   run.lesson = S.lessons[lessonKey(s)] || null;
   if (!run.lesson) {
@@ -1111,6 +1182,68 @@ async function generateLesson(s) {
     `{"type":"writing","title":string,"prompt":"a 5-6 sentence writing task in English"}, ` +
     `{"type":"speaking","title":string,"prompt":"a speaking topic for the voice session"} ]}`,
     { cache: false });
+}
+/* ---------- quick lessons ---------- */
+const QUICK_TYPES = { words: "a small themed word set", phrases: "ready-made phrases for one situation", reading: "a short text with questions", grammar: "one small grammar point" };
+// Today's next quick lesson: type and situation rotate with the date and how many you've done today.
+function quickPlan() {
+  const q = S.cfg.quick || {}; const today = berlinNow().iso;
+  const doneToday = S.refreshers.filter((x) => x.kind === "quick" && x.date === today).length;
+  const types = (q.types || Object.keys(QUICK_TYPES)).filter((x) => QUICK_TYPES[x]);
+  const day = daysBetween("2026-01-01", today);
+  const type = types[(day + doneToday) % types.length] || "words";
+  const sits = q.situations || ["daily life"];
+  const situation = sits[fnv1a(today + "|sit|" + doneToday) % sits.length];
+  return { type, situation, doneToday, minutes: Number(q.minutes || 12) };
+}
+function quickLabel(p) { return p.type === "phrases" ? `Phrases ${p.situation}` : p.type === "reading" ? "A short text to read" : p.type === "grammar" ? "A grammar bite" : "New words"; }
+async function startQuick() {
+  if (!sample) { toast("Quick lessons need Claude. Open this page in the Claude app or claude.ai."); return; }
+  const plan = quickPlan();
+  Object.assign(run, { mode: "session", quick: true, quickPlan: plan, session: { id: `Q-${berlinNow().iso}-${plan.doneToday + 1}`, kind: "quick", minutes: plan.minutes, date: berlinNow().iso }, step: 0, results: [], started: Date.now(), answers: {}, error: "", wc: null, lesson: null });
+  goPractice(); render();
+  try { run.lesson = withWordChecks(await generateQuick(plan)); }
+  catch (e) { run.mode = null; run.quick = false; toast(e?.code === "not_granted" ? "Allow Claude for this page to use quick lessons." : "Couldn't build the quick lesson. Try again."); render(); return; }
+  render();
+}
+async function generateQuick(plan) {
+  const q = S.cfg.quick || {}; const t = S.cfg.tutor || {};
+  const curI = S.progress?.current_index ?? 0; const cur = S.syllabus[curI];
+  const met = S.syllabus.slice(Math.max(0, curI - 3), curI + 1).map((x) => `${x.title} (${x.grammar})`);
+  const level = cur?.level || "A2";
+  const known = new Set(srsList().filter((x) => x.type === "word").map((x) => lemmaKey(x.de)));
+  const gaps = (S.meta.goethe?.words || []).filter(([k, l]) => !known.has(k) && (level === "A2" || l === "A1")).map(([k]) => k);
+  const rnd = mulberry32(fnv1a(run.session.id)); const pick = [];
+  while (pick.length < 60 && gaps.length) pick.push(gaps.splice(Math.floor(rnd() * gaps.length), 1)[0]);
+  const recentTitles = S.refreshers.filter((x) => x.kind === "quick").sort((a, b) => String(b.id).localeCompare(String(a.id))).slice(0, 12).map((x) => x.title);
+  const nW = Number(q.new_words || 6), nE = Number(q.exercises || 6);
+  const focus = plan.type === "phrases" ? `${nW} useful, natural phrases for this situation: ${plan.situation}. Treat each phrase as a "word" in the vocab step.`
+    : plan.type === "reading" ? `a short everyday text (6-8 sentences, ${level} level) in the explain step body, then questions about it in the exercise step. Teach ${nW} words from the text.`
+    : plan.type === "grammar" ? `one small grammar point the learner has already met in these Lektionen: ${met.join("; ") || "basic sentence order"}. Short explanation with 4 examples; ${nW} words that fit it.`
+    : `${nW} new words around one everyday theme (work, home, health, shopping, travel, free time, weather or offices), with an example sentence each.`;
+  return await sample.json(
+    `Create a ${plan.minutes}-minute quick German lesson for an adult ${level} learner living in Germany (${S.cfg.profile?.job || "office job"}), done on a phone on the bus. Explanations in English only, short and friendly. Tone: ${t.tone || "calm"}.\n` +
+    `Content: ${focus}\n` +
+    `New words must come from this list of Goethe ${level === "A1" ? "A1" : "A1/A2"} words the learner hasn't learned yet (pick ones that fit; add article, plural and English): ${pick.join(", ")}.\n` +
+    `Course so far: ${met.join("; ") || "just starting A1"}. Keep grammar within that.\n` +
+    (recentTitles.length ? `Recent quick lessons, choose something different: ${recentTitles.join("; ")}.\n` : "") +
+    `Exercises: ${nE} items using the new words or phrases, typed answers, never containing the answer.\n` +
+    `Reply with only JSON: {"title": string, "steps": [ {"type":"explain","title":string,"body":"short markdown"}, {"type":"vocab","title":string,"words":[{"de":"word or phrase, nouns with article","plural":string,"en":string,"example":"German sentence","example_en":string}]}, {"type":"exercise","title":string,"items":[{"q":"instruction in English plus the German to work on","answer":string,"accept":[string]}]} ]}`,
+    { cache: false });
+}
+async function finishQuick(v, results) {
+  const L = run.lesson; const plan = run.quickPlan || {};
+  const words = (L.steps || []).flatMap((x) => x.words || []);
+  try {
+    if (S.cfg.quick?.add_words_to_review !== false) await addWords(words, null);
+    await rememberAsked((L.steps || []).filter((s) => s.type === "exercise").flatMap((s) => (s.items || []).map((i) => i.q)));
+    const today = berlinNow().iso; const id = `${today}-q${Date.now().toString(36)}`;
+    await put(`refreshers/${id}`, { id, kind: "quick", date: today, title: String(L.title || quickLabel(plan)), type: plan.type || "", minutes: Math.max(1, Math.min(Number(plan.minutes || 12) * 2, Math.round((Date.now() - run.started) / 60000))), total: results.length, correct: results.filter((r) => r.correct).length, words: words.map((w) => w.de).slice(0, 20) });
+    v.innerHTML = `<section class="panel"><h2>Quick lesson done</h2><p>${results.filter((r) => r.correct).length} of ${results.length} right. ${words.length} new ${plan.type === "phrases" ? "phrases" : "words"} join your flashcards from tomorrow.</p><div class="row"><button class="btn primary" id="home">Back to today</button><button class="btn" id="another">Another quick lesson</button></div></section>`;
+  } catch { v.innerHTML = `<section class="panel"><h2>Couldn't save everything</h2><p class="muted">Check your connection.</p><div class="row"><button class="btn primary" id="home">Back</button></div></section>`; }
+  run.mode = null; run.quick = false;
+  $("#home").onclick = () => setTab("today");
+  if ($("#another")) $("#another").onclick = () => startQuick();
 }
 function renderWordCheck(st) {
   if (!run.wc || run.wc.step !== run.step) run.wc = { step: run.step, queue: (st.words || []).map((w) => ({ w, tries: 0 })), revealed: false, firstTry: 0, total: (st.words || []).length };
@@ -1165,16 +1298,23 @@ function renderSessionRun(v) {
 function exerciseHtml(st) {
   const key = "ex" + run.step; const res = run.answers[key] || {};
   return `<h2>${esc(st.title || "Exercises")}</h2><div class="list">${(st.items || []).map((it, k) => `<div class="item" style="flex-direction:column;align-items:stretch"><div>${k + 1}. ${esc(it.q)}</div>
-    <form class="row" data-ex="${k}"><input type="text" id="ex-${run.step}-${k}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(res[k]?.given || "")}" ${res[k] ? "disabled" : ""}><button class="btn" ${res[k] ? "hidden" : ""}>Check</button></form>
-    <div>${res[k] ? feedbackHtml(res[k]) : ""}</div></div>`).join("")}</div>`;
+    <form class="row" data-ex="${k}"><input type="text" id="ex-${run.step}-${k}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(res[k]?.given || "")}" ${res[k] ? "disabled" : ""}><button class="btn" ${res[k] ? "hidden" : ""}>Check</button>${res[k] ? "" : `<button type="button" class="btn" data-hint="${k}">Hint</button>`}</form>
+    <div>${res[k] ? feedbackHtml(res[k]) : res.hints?.[k]?.text ? `<div class="feedback"><span class="small">${res.hints[k].text}</span></div>` : ""}</div></div>`).join("")}</div>`;
 }
 function wireExercise(st) {
   const key = "ex" + run.step; run.answers[key] = run.answers[key] || {};
   document.querySelectorAll("form[data-ex]").forEach((f) => (f.onsubmit = async (e) => {
     e.preventDefault(); const k = Number(f.dataset.ex); const it = st.items[k]; const given = f.querySelector("input").value.trim(); if (!given) return;
     f.querySelector("button").disabled = true;
-    if (given === (S.cfg.tutor?.help_keyword || "?")) run.answers[key][k] = { given: "", correct: false, corrected: it.answer, reason: "You asked for help.", helped: true };
-    else run.answers[key][k] = { given, ...(await grade(it.q, it.answer, it.accept, given)) };
+    if (given === (S.cfg.tutor?.help_keyword || "?")) { f.querySelector("[data-hint]")?.click(); return; }
+    run.answers[key][k] = { given, q: it.q, hinted: run.answers[key].hints?.[k]?.n || 0, ...(await grade(it.q, it.answer, it.accept, given)) };
+    render();
+  }));
+  document.querySelectorAll("[data-hint]").forEach((b) => (b.onclick = async () => {
+    const k = Number(b.dataset.hint); const it = st.items[k]; b.disabled = true;
+    const hs = (run.answers[key].hints = run.answers[key].hints || {}); const h = (hs[k] = hs[k] || {});
+    await nextHint(h, it.q, it.answer);
+    if (h.n >= 3) run.answers[key][k] = { given: "", q: it.q, correct: false, corrected: it.answer, reason: "You used all three hints.", helped: true };
     render();
   }));
 }
@@ -1182,8 +1322,9 @@ async function finishSession(v) {
   v.innerHTML = `<section class="panel"><h2>Saving your session</h2><p class="muted">Updating progress, words and mistakes…</p></section>`;
   const s = run.session, L = run.lesson;
   try {
-    const results = Object.entries(run.answers).filter(([k]) => k.startsWith("ex")).flatMap(([, r]) => Object.values(r));
-    for (const r of results) if (!r.correct && !r.helped && r.given) await saveMistake({ wrong: r.given, right: r.corrected, reason: r.reason, category: r.category || "grammar" }, "session");
+    const results = Object.entries(run.answers).filter(([k]) => k.startsWith("ex")).flatMap(([, r]) => Object.entries(r).filter(([i]) => /^\d+$/.test(i)).map(([, x]) => x));
+    for (const r of results) if (!r.correct && !r.helped && r.given) await saveMistake({ wrong: r.given, right: r.corrected, reason: r.reason, category: r.category || "grammar" }, run.quick ? "quick" : "session", r.q);
+    if (run.quick) return finishQuick(v, results);
     for (const m of run.answers.writingMistakes || []) await saveMistake(m, "writing");
     const p = S.progress || { current_index: 0, current_part: 1, done: [] };
     const words = (L.steps || []).flatMap((x) => x.words || []);
@@ -1209,6 +1350,7 @@ document.getElementById("view").addEventListener("click", (e) => {
   const b = e.target.closest("[data-act]"); if (!b) return;
   const act = b.dataset.act;
   if (act === "start-refresher") startRefresher();
+  if (act === "start-quick") startQuick();
   if (act === "start-cards") startRefresher({ cards: true, questions: false });
   if (act === "start-questions") startRefresher({ cards: false, questions: true });
   if (act === "start-session") startSession(b.dataset.id);

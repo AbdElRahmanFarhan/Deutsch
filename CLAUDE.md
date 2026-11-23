@@ -29,9 +29,9 @@ builds the calendar and sends the daily email.
 | `meta/rebuild` | `{requested_at, done_at}`: the learner pressed Rebuild |
 | `progress/main` | `{current_index, current_part, done: [indexes], started}` |
 | `sessions/<YYYY-MM-DD-slot>` | A focus session: `status` done/missed/extra, `minutes`, `kind`, `lektion_index`, `phase` |
-| `refreshers/<id>` | A finished refresher: `date`, `minutes`, typed questions `total`/`correct`, their difficulty `level` (1-3), and `cards`/`cards_correct` |
+| `refreshers/<id>` | A finished refresher, or a quick lesson when `kind: "quick"` (`title`, `type`, `words`). Refresher: `date`, `minutes`, typed questions `total`/`correct`, their difficulty `level` (1-3), and `cards`/`cards_correct` |
 | `srs/<id>` | Review item. Words (`w-…`): `de` (with article), `en`, `plural`, `example`, `gender`, `lektion`, `hook`, `leech`, and two schedules `rec` (German→English) and `prod` (English→German, opens after 2 correct recognitions), each `{ef, reps, interval, due, lapses, correct, last}`. Mistakes (`m-…`): `de`, `front`, `category` and the schedule fields at top level |
-| `daily/<YYYY-MM-DD>` | Flashcard counts for the day: `reviews`, `new`, `cards_correct`, `cards_total` (daily limits) |
+| `daily/<YYYY-MM-DD>` | Flashcard counts for the day: `reviews`, `new`, `cards_correct`, `cards_total` (daily limits), and `asked`: questions asked that day, so new ones don't repeat them |
 | `meta/goethe` | Goethe A1/A2 headwords as `[key, level]` pairs, for coverage. Full list: `curriculum/goethe_words.json` (private, from the official PDFs in `Cirriculum/goethe/`) |
 | `mistakes/<id>` | `date`, `wrong`, `right`, `reason`, `category`, `source` |
 | `lessons/<key>` | Prepared lesson. Key: `L<index>-p1`/`L<index>-p2` (split sessions), `L<index>-full`, or a session id for practice/weekly sessions |
@@ -49,6 +49,14 @@ A lesson document is `{title, lektion_index, part, kind, minutes, steps: [...]}`
 - `/prepare`: prepare the next lessons from the book into the dashboard.
 - `/push-config <area>`: copy a `config/<area>.toml` file into the dashboard.
 - The daily email runs as a Claude app scheduled task ("Deutsch daily plan").
+
+## Refreshers vs quick lessons
+
+- **Refreshers** review only: flashcards of due words, then typed questions on past mistakes (re-asked
+  in new sentences) and on exercises from finished lessons. They never teach new material.
+- **Quick lessons** (10-15 min, made in the dashboard by Claude) teach something new without moving the
+  book pointer: a themed word set, phrases for a situation, a short reading, or a grammar bite, rotating.
+  Their words come from the Goethe list gaps and join the flashcards.
 
 ## Rules for tutoring content
 

@@ -1,0 +1,22 @@
+# Quick lessons: 10-15 minute bites of NEW material, made for the bus or train.
+# (Refreshers only review mistakes and past material; quick lessons teach something new.)
+# They don't move you forward in the Menschen book; their new words join your review queue.
+
+enabled = true
+minutes = 12
+new_words = 6        # new words per quick lesson, from the Goethe word list
+exercises = 6
+
+# The type rotates day by day and with each quick lesson you do:
+#   words    - a small themed word set with example sentences
+#   phrases  - ready-made phrases for one everyday situation
+#   reading  - a short text at your level with questions
+#   grammar  - one small grammar point from what you've studied, with practice
+types = ["words", "phrases", "reading", "grammar"]
+
+# Situations the "phrases" type rotates through.
+situations = ["at the doctor", "at the Bürgeramt", "on the phone", "at the supermarket",
+              "in a work meeting", "on the train", "with neighbours", "at the bank",
+              "at the pharmacy", "small talk with colleagues", "renting a flat", "at a restaurant"]
+
+add_words_to_review = true

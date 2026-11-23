@@ -1,10 +1,11 @@
-# Short refresher exercises spread through the day, separate from the focus sessions.
-# You can always start one yourself (on the bus, in a queue), whatever these settings say.
+# Refreshers: short REVIEW of what you've already met — your mistakes and past material.
+# Nothing new is taught here; for that, use a Quick lesson (quick.toml).
+# You can always start one yourself, whatever these settings say.
 
 enabled = true
 
-# A refresher has two parts: fast flashcards (tap to reveal, rate yourself),
-# then a few typed questions aimed at your weak spots.
+# A refresher has two parts: fast flashcards of words due for review (tap to reveal,
+# rate yourself), then a few typed questions on your mistakes and past lessons.
 minutes = 10
 cards = 40          # most flashcards per refresher
 questions = 5       # typed questions after the cards
@@ -26,17 +27,11 @@ target_accuracy = 0.85
 # How many typed questions aim at your most common mistake type (articles, cases, ...).
 weak_spot_questions = 2
 
+# Questions asked in the last this-many days are never repeated word for word.
+no_repeat_days = 3
+
 # What the typed questions draw from, as relative weights.
 [mix]
+recent_mistakes = 5    # your mistakes, re-asked as new questions on the same point
 due_reviews = 3        # grammar items and words due in spaced repetition
-recent_mistakes = 5    # entries from the mistakes log
-current_lektion = 2    # material from the Lektion you're on now
-older_material = 1     # random items from earlier Lektionen, even if not due
-
-# Question styles the typed questions may use.
-[styles]
-translate_to_german = true
-translate_to_english = true
-fill_the_gap = true
-article_and_plural = true
-build_a_sentence = true
+past_lessons = 2       # exercises from lessons you've finished, reworded

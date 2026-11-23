@@ -1,0 +1,9760 @@
+[
+{
+"key": "ab",
+"de": "ab",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "abend",
+"de": "der Abend",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "aber",
+"de": "aber",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "abfahren",
+"de": "abfahren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "abfahrt",
+"de": "die Abfahrt",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "abfliegen",
+"de": "abfliegen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "abflug",
+"de": "der Abflug",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "abgeben",
+"de": "abgeben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "abholen",
+"de": "abholen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "abschließen",
+"de": "abschließen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "absender",
+"de": "der Absender",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "achtung",
+"de": "Achtung",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "adresse",
+"de": "die Adresse",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "ahnung",
+"de": "die Ahnung",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "aktiv",
+"de": "aktiv",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aktuell",
+"de": "aktuell",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "all",
+"de": "all-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "allein",
+"de": "allein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "alltagskommuni",
+"de": "der Alltagskommuni",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "als",
+"de": "als",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "also",
+"de": "also",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "alt",
+"de": "alt",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "alter",
+"de": "das Alter",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ampel",
+"de": "die Ampel",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "an",
+"de": "an",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "an sein",
+"de": "an sein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "an sein / aus sein",
+"de": "an sein / aus sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "anbieten",
+"de": "anbieten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ander",
+"de": "ander-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anders",
+"de": "anders",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "anfang",
+"de": "der Anfang",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anfangen",
+"de": "anfangen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "angebot",
+"de": "das Angebot",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "angst",
+"de": "die Angst",
+"article": "die",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "anklicken",
+"de": "anklicken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ankommen",
+"de": "ankommen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ankreuzen",
+"de": "ankreuzen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ankunft",
+"de": "die Ankunft",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anmachen",
+"de": "anmachen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anmelden",
+"de": "anmelden",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anmeldung",
+"de": "die Anmeldung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anrede",
+"de": "die Anrede",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anruf",
+"de": "der Anruf",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "anrufen",
+"de": "anrufen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ansage",
+"de": "die Ansage",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "anschluss",
+"de": "der Anschluss",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ansehen",
+"de": "ansehen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "anspruchsniveau",
+"de": "das Anspruchsniveau",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "antwort",
+"de": "die Antwort",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "antworten",
+"de": "antworten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anweisungen",
+"de": "der Anweisungen",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "anzeige",
+"de": "die Anzeige",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "anziehen",
+"de": "anziehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "anzug",
+"de": "der Anzug",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "apartment",
+"de": "das Apartment",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "apfel",
+"de": "der Apfel",
+"article": "der",
+"plural": "-Ä",
+"level": "A1"
+},
+{
+"key": "apotheke",
+"de": "die Apotheke",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "apparat",
+"de": "der Apparat",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "appetit",
+"de": "der Appetit",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "april",
+"de": "der April",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "arbeit",
+"de": "die Arbeit",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "arbeiten",
+"de": "arbeiten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "arbeitslos",
+"de": "arbeitslos",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "arbeitsplatz",
+"de": "der Arbeitsplatz",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "arm",
+"de": "der Arm",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "artikel",
+"de": "der Artikel",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "arzt",
+"de": "der Arzt",
+"article": "der",
+"plural": "-Ä",
+"level": "A1"
+},
+{
+"key": "auch",
+"de": "auch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "auf",
+"de": "auf",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "auf jeden/",
+"de": "auf jeden/",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "auf sein",
+"de": "auf sein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "aufgabe",
+"de": "der Aufgabe",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "aufhören",
+"de": "aufhören",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "aufmachen",
+"de": "aufmachen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aufnahme",
+"de": "die Aufnahme",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aufpassen",
+"de": "aufpassen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aufregend",
+"de": "aufregend",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aufräumen",
+"de": "aufräumen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aufstehen",
+"de": "aufstehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "aufzug",
+"de": "der Aufzug",
+"article": "der",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "auge",
+"de": "das Auge",
+"article": "das",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "august",
+"de": "der August",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "aus",
+"de": "aus",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "aus sein",
+"de": "aus sein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausbildung",
+"de": "die Ausbildung",
+"article": "die",
+"plural": "-en Ich möchte eine Ausbildung zum Krankenpfleger",
+"level": "A2"
+},
+{
+"key": "ausflug",
+"de": "der Ausflug",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausfüllen",
+"de": "ausfüllen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausgang",
+"de": "der Ausgang",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausgeben",
+"de": "ausgeben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ausgehen",
+"de": "ausgehen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "auskunft",
+"de": "die Auskunft",
+"article": "die",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "ausland",
+"de": "das Ausland",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausländer",
+"de": "der Ausländer",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausländisch",
+"de": "ausländisch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausmachen",
+"de": "ausmachen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "auspacken",
+"de": "auspacken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ausruhen",
+"de": "ausruhen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aussage",
+"de": "die Aussage",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "aussehen",
+"de": "aussehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "aussprechen",
+"de": "aussprechen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "aussteigen",
+"de": "aussteigen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausstellung",
+"de": "die Ausstellung",
+"article": "die",
+"plural": "-en Gehen wir morgen zusammen in die Ausstellung?",
+"level": "A2"
+},
+{
+"key": "austragen",
+"de": "austragen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ausweis",
+"de": "der Ausweis",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ausziehen",
+"de": "ausziehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "auto",
+"de": "das Auto",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "autobahn",
+"de": "die Autobahn",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "automat",
+"de": "der Automat",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "automatisch",
+"de": "automatisch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "außer",
+"de": "außer",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "außerdem",
+"de": "außerdem",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "außerhalb",
+"de": "außerhalb",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "baby",
+"de": "das Baby",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "babysitter",
+"de": "der Babysitter",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "backen",
+"de": "backen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bad",
+"de": "das Bad",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "baden",
+"de": "baden",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bahn",
+"de": "die Bahn",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bahnhof",
+"de": "der Bahnhof",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bahnsteig",
+"de": "der Bahnsteig",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bald",
+"de": "bald",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "balkon",
+"de": "der Balkon",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ball",
+"de": "der Ball",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "banane",
+"de": "die Banane",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "band",
+"de": "die Band",
+"article": "die",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "bank",
+"de": "die Bank",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bar",
+"de": "bar",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "basketball",
+"de": "der Basketball",
+"article": "der",
+"plural": "¨-e Yannick spielt lieber Basketball als Fußball.",
+"level": "A2"
+},
+{
+"key": "basteln",
+"de": "basteln",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bauch",
+"de": "der Bauch",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bauen",
+"de": "bauen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "baum",
+"de": "der Baum",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "baustelle",
+"de": "die Baustelle",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "beamte",
+"de": "der Beamte",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "beantworten",
+"de": "beantworten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beantworter",
+"de": "beantworter",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bedanken",
+"de": "bedanken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bedeuten",
+"de": "bedeuten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "beeilen",
+"de": "beeilen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beenden",
+"de": "beenden",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beginnen",
+"de": "beginnen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "begriffe",
+"de": "der Begriffe",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "begründen",
+"de": "begründen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bei",
+"de": "bei",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "beide",
+"de": "beide",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bein",
+"de": "das Bein",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "beispiel",
+"de": "das Beispiel",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "bekannt",
+"de": "bekannt",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bekannte",
+"de": "Bekannte",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bekommen",
+"de": "bekommen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "beliebt",
+"de": "beliebt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "benutzen",
+"de": "benutzen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bequem",
+"de": "bequem",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beraten",
+"de": "beraten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "berg",
+"de": "der Berg",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "berichten",
+"de": "berichten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beruf",
+"de": "der Beruf",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "berühmt",
+"de": "berühmt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bescheid",
+"de": "der Bescheid",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beschreiben",
+"de": "beschreiben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beschweren",
+"de": "beschweren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "beschwert",
+"de": "beschwert",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "besetzt",
+"de": "besetzt",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "besichtigen",
+"de": "besichtigen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "besonders",
+"de": "besonders",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "besser",
+"de": "besser",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "best",
+"de": "best-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bestehen",
+"de": "bestehen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bestellen",
+"de": "bestellen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bestätigen",
+"de": "bestätigen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "besuch",
+"de": "der Besuch",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "besuchen",
+"de": "besuchen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bett",
+"de": "das Bett",
+"article": "das",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "bewerben",
+"de": "bewerben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bewerbung",
+"de": "die Bewerbung",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "bewältigung",
+"de": "die Bewältigung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bewölkt",
+"de": "bewölkt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bezahlen",
+"de": "bezahlen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bibliothek",
+"de": "die Bibliothek",
+"article": "die",
+"plural": "-en Sie lernt jeden Tag in der Bibliothek.",
+"level": "A2"
+},
+{
+"key": "bier",
+"de": "das Bier",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bild",
+"de": "das Bild",
+"article": "das",
+"plural": "-er",
+"level": "A1"
+},
+{
+"key": "billig",
+"de": "billig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "birne",
+"de": "die Birne",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "bis",
+"de": "bis",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bisschen",
+"de": "bisschen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bitte",
+"de": "bitte",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bitten",
+"de": "bitten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bitter",
+"de": "bitter",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "blatt",
+"de": "das Blatt",
+"article": "das",
+"plural": "¨-er",
+"level": "A2"
+},
+{
+"key": "bleiben",
+"de": "bleiben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bleistift",
+"de": "der Bleistift",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "blick",
+"de": "der Blick",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "blond",
+"de": "blond",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "blume",
+"de": "die Blume",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "bluse",
+"de": "die Bluse",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "blöd",
+"de": "blöd",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bogen",
+"de": "der Bogen",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bohne",
+"de": "die Bohne",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "braten",
+"de": "braten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "brauchen",
+"de": "brauchen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "breit",
+"de": "breit",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "brief",
+"de": "der Brief",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "briefmarke",
+"de": "die Briefmarke",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "brille",
+"de": "die Brille",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "bringen",
+"de": "bringen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "brot",
+"de": "das Brot",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "bruder",
+"de": "der Bruder",
+"article": "der",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "brötchen",
+"de": "das Brötchen",
+"article": "das",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "brücke",
+"de": "die Brücke",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "buch",
+"de": "das Buch",
+"article": "das",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "buchen",
+"de": "buchen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "buchstabe",
+"de": "der Buchstabe",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "buchstabieren",
+"de": "buchstabieren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bunt",
+"de": "bunt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "bus",
+"de": "der Bus",
+"article": "der",
+"plural": "-se",
+"level": "A1"
+},
+{
+"key": "butter",
+"de": "die Butter",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "bäckerei",
+"de": "die Bäckerei",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "böse",
+"de": "böse",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "büro",
+"de": "das Büro",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "cafeteria",
+"de": "die Cafeteria",
+"article": "die",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "café",
+"de": "das Café",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "cd",
+"de": "die CD",
+"article": "die",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "chatten",
+"de": "chatten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "chef",
+"de": "der Chef",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "chefin",
+"de": "die Chefin",
+"article": "die",
+"plural": "-nen",
+"level": "A2"
+},
+{
+"key": "circa/ca.",
+"de": "circa/ca.",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "club",
+"de": "der Club",
+"article": "der",
+"plural": "-s /",
+"level": "A2"
+},
+{
+"key": "computer",
+"de": "der Computer",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "creme",
+"de": "die Creme",
+"article": "die",
+"plural": "-s/-n",
+"level": "A2"
+},
+{
+"key": "da",
+"de": "da",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dabei",
+"de": "dabei",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "dafür/dagegen sein",
+"de": "dafür/dagegen sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "dagegen gewesen",
+"de": "dagegen gewesen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "damals",
+"de": "damals",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "dame",
+"de": "die Dame",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "daneben",
+"de": "daneben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dank",
+"de": "der Dank",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "danke",
+"de": "danke",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "danken",
+"de": "danken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dann",
+"de": "dann",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dass",
+"de": "dass",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "datei",
+"de": "die Datei",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "datum",
+"de": "das Datum",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dauern",
+"de": "dauern",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dein",
+"de": "dein-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "denken",
+"de": "denken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "denn",
+"de": "denn",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "der",
+"de": "der",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "der/das blog",
+"de": "der/das Blog",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "der/das comic",
+"de": "der/das Comic",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "der/das laptop",
+"de": "der/das Laptop",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "der/die",
+"de": "der/die",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "der/die bekannte",
+"de": "der/die Bekannte",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "deshalb",
+"de": "deshalb",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "deutlich",
+"de": "deutlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "deutsche",
+"de": "die Deutsche",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "deutschlernende",
+"de": "die Deutschlernende",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "deutschprüfung",
+"de": "der Deutschprüfung",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dezember",
+"de": "der Dezember",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dich",
+"de": "dich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dick",
+"de": "dick",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "dienstag",
+"de": "der Dienstag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dies",
+"de": "dies-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ding",
+"de": "das Ding",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "dir",
+"de": "dir",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "direkt",
+"de": "direkt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "disco",
+"de": "die Disco",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "disko",
+"de": "die Disko",
+"article": "die",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "diskutieren",
+"de": "diskutieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "dium",
+"de": "dium",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "doch",
+"de": "doch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "doktor",
+"de": "der Doktor",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "donnerstag",
+"de": "der Donnerstag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "doppelzimmer",
+"de": "das Doppelzimmer",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dorf",
+"de": "das Dorf",
+"article": "das",
+"plural": "-ö",
+"level": "A1"
+},
+{
+"key": "dort",
+"de": "dort",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "draußen",
+"de": "draußen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dringend",
+"de": "dringend",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "drinnen",
+"de": "drinnen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "drucken",
+"de": "drucken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "drucker",
+"de": "der Drucker",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "drüben",
+"de": "drüben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "drücken",
+"de": "drücken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dumm",
+"de": "dumm",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "dunkel",
+"de": "dunkel",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "durch",
+"de": "durch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "durchsage",
+"de": "die Durchsage",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "durst",
+"de": "der Durst",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dusche",
+"de": "die Dusche",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "duschen",
+"de": "duschen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "dünn",
+"de": "dünn",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "dürfen",
+"de": "dürfen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "e-book",
+"de": "das E-Book",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "e-mail",
+"de": "die E-Mail",
+"article": "die",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "echt",
+"de": "echt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ecke",
+"de": "die Ecke",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "egal",
+"de": "egal",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ehefrau",
+"de": "die Ehefrau",
+"article": "die",
+"plural": "-en/",
+"level": "A1"
+},
+{
+"key": "ehemann",
+"de": "der Ehemann",
+"article": "der",
+"plural": "ä",
+"level": "A1"
+},
+{
+"key": "ehepartner",
+"de": "der Ehepartner",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "ei",
+"de": "das Ei",
+"article": "das",
+"plural": "-er",
+"level": "A1"
+},
+{
+"key": "eigen",
+"de": "eigen-",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "eigentlich",
+"de": "eigentlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "eilig",
+"de": "eilig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ein",
+"de": "die Ein",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ein paar",
+"de": "ein paar",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "einfach",
+"de": "einfach",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "eingang",
+"de": "der Eingang",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einig",
+"de": "einig-",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "einkaufen",
+"de": "einkaufen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einkaufs",
+"de": "das Einkaufs-",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "einladen",
+"de": "einladen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einladung",
+"de": "die Einladung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einmal",
+"de": "einmal",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einpacken",
+"de": "einpacken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "einsteigen",
+"de": "einsteigen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "eintragen",
+"de": "eintragen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "eintritt",
+"de": "der Eintritt",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einträge",
+"de": "der Einträge",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einverstanden",
+"de": "einverstanden",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "einzel",
+"de": "einzel-",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "einzelzimmer",
+"de": "das Einzelzimmer",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "einziehen",
+"de": "einziehen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "einübung",
+"de": "die Einübung",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "eis",
+"de": "das Eis",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "eltern",
+"de": "die Eltern",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "empfehlen",
+"de": "empfehlen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "empfänger",
+"de": "der Empfänger",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "ende",
+"de": "das Ende",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "enden",
+"de": "enden",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "endlich",
+"de": "endlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "eng",
+"de": "eng",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "entschuldi",
+"de": "die Entschuldi-",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "entschuldigen",
+"de": "entschuldigen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "entschuldigung",
+"de": "die Entschuldigung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "er",
+"de": "er",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "erdgeschoss",
+"de": "das Erdgeschoss",
+"article": "das",
+"plural": "-e Ich wohne im Erdgeschoss.",
+"level": "A2"
+},
+{
+"key": "erfahrung",
+"de": "die Erfahrung",
+"article": "die",
+"plural": "-en Ich habe zehn Jahre Erfahrung in diesem Beruf.",
+"level": "A2"
+},
+{
+"key": "ergebnis",
+"de": "das Ergebnis",
+"article": "das",
+"plural": "-se",
+"level": "A1"
+},
+{
+"key": "erinnern",
+"de": "erinnern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "erklären",
+"de": "erklären",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "erkältet sein",
+"de": "erkältet sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "erlauben",
+"de": "erlauben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "erlaubt sein",
+"de": "erlaubt sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ermäßigung",
+"de": "die Ermäßigung",
+"article": "die",
+"plural": "-en Für Schüler",
+"level": "A2"
+},
+{
+"key": "erreichen",
+"de": "erreichen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "erst",
+"de": "erst",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "erwachsene",
+"de": "der Erwachsene",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "erwachsenenprüfung",
+"de": "die Erwachsenenprüfung",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "erzählen",
+"de": "erzählen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "es",
+"de": "es",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "essen",
+"de": "essen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "etwas",
+"de": "etwas",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "euer",
+"de": "euer",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fach",
+"de": "das Fach",
+"article": "das",
+"plural": "¨-er",
+"level": "A2"
+},
+{
+"key": "fahren",
+"de": "fahren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fahrer",
+"de": "der Fahrer",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fahrkarte",
+"de": "die Fahrkarte",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "fahrplan",
+"de": "der Fahrplan",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "fahrrad",
+"de": "das Fahrrad",
+"article": "das",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "fallen",
+"de": "fallen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "falsch",
+"de": "falsch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "familie",
+"de": "die Familie",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "familien",
+"de": "der Familien-",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "familienname",
+"de": "der Familienname",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "familienstand",
+"de": "der Familienstand",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fan",
+"de": "der Fan",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "fantastisch",
+"de": "fantastisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "farbe",
+"de": "die Farbe",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "fast",
+"de": "fast",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "faul",
+"de": "faul",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "fax",
+"de": "das Fax",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "februar",
+"de": "der Februar",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fehlen",
+"de": "fehlen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fehler",
+"de": "der Fehler",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "feier",
+"de": "Feier-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "feiern",
+"de": "feiern",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fenster",
+"de": "das Fenster",
+"article": "das",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "ferien",
+"de": "die Ferien",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "fernsehen",
+"de": "fernsehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fernseher",
+"de": "der Fernseher",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "fertig",
+"de": "fertig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fertig sein",
+"de": "fertig sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "fest",
+"de": "das Fest",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "festival",
+"de": "das Festival",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "fett",
+"de": "fett",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "feuer",
+"de": "das Feuer",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fieber",
+"de": "das Fieber",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "film",
+"de": "der Film",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "finden",
+"de": "finden",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "firma",
+"de": "die Firma",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fisch",
+"de": "der Fisch",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "fit sein",
+"de": "fit sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "flasche",
+"de": "die Flasche",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "fleisch",
+"de": "das Fleisch",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fleißig",
+"de": "fleißig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "fliegen",
+"de": "fliegen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "flohmarkt",
+"de": "der Flohmarkt",
+"article": "der",
+"plural": "¨-e Ich gehe gern auf den Flohmarkt.",
+"level": "A2"
+},
+{
+"key": "flug",
+"de": "der Flug",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "flughafen",
+"de": "der Flughafen",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "flugzeug",
+"de": "das Flugzeug",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fluss",
+"de": "der Fluss",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "formular",
+"de": "das Formular",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "foto",
+"de": "das Foto",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "fotoapparat",
+"de": "der Fotoapparat",
+"article": "der",
+"plural": "-e Ich möchte mir einen Fotoapparat kaufen.",
+"level": "A2"
+},
+{
+"key": "fotografieren",
+"de": "fotografieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "frage",
+"de": "die Frage",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "fragen",
+"de": "fragen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "frau",
+"de": "die Frau",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "frei",
+"de": "frei",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "freitag",
+"de": "der Freitag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "freiwillig",
+"de": "freiwillig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "freizeit",
+"de": "die Freizeit",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fremd",
+"de": "fremd",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "freuen",
+"de": "freuen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "freund",
+"de": "der Freund",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "freundlich",
+"de": "freundlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "freut",
+"de": "freut",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "frisch",
+"de": "frisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "froh",
+"de": "froh",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "früh",
+"de": "früh",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "früher",
+"de": "früher",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "frühjahr",
+"de": "das Frühjahr",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "frühling",
+"de": "der Frühling",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "frühstück",
+"de": "das Frühstück",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "frühstücken",
+"de": "frühstücken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fundsachen",
+"de": "die Fundsachen",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "furchtbar",
+"de": "furchtbar",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "fuß",
+"de": "der Fuß",
+"article": "der",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "fußball",
+"de": "der Fußball",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fähigkeit",
+"de": "die Fähigkeit",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "fühlen",
+"de": "fühlen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "führer",
+"de": "der Führer-",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "führung",
+"de": "die Führung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "für",
+"de": "für",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gabel",
+"de": "die Gabel",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "gang",
+"de": "gang",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ganz",
+"de": "ganz",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "garage",
+"de": "die Garage",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "garten",
+"de": "der Garten",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gast",
+"de": "der Gast",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "geben",
+"de": "geben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geben/sagen)",
+"de": "geben/sagen)",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "geboren",
+"de": "geboren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geburts",
+"de": "Geburts-",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "geburtsjahr",
+"de": "das Geburtsjahr",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geburtsort",
+"de": "der Geburtsort",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geburtstag",
+"de": "der Geburtstag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geehrt",
+"de": "geehrt-",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gefallen",
+"de": "gefallen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gefährlich",
+"de": "gefährlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gegen",
+"de": "gegen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gegenteil",
+"de": "das Gegenteil",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "gegenüber",
+"de": "gegenüber",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gehalt",
+"de": "das Gehalt",
+"article": "das",
+"plural": "¨-er",
+"level": "A2"
+},
+{
+"key": "gehen",
+"de": "gehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gehängt",
+"de": "gehängt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gehören",
+"de": "gehören",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geld",
+"de": "das Geld",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geldbörse",
+"de": "die Geldbörse",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "gemüse",
+"de": "das Gemüse",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "genau",
+"de": "genau",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "genug",
+"de": "genug",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gepäck",
+"de": "das Gepäck",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gerade",
+"de": "gerade",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geradeaus",
+"de": "geradeaus",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gericht",
+"de": "das Gericht",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "gern",
+"de": "gern",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gerät",
+"de": "das Gerät",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "geschenk",
+"de": "das Geschenk",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "geschichte",
+"de": "die Geschichte",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "geschirr",
+"de": "das Geschirr",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "geschlossen",
+"de": "geschlossen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geschwister",
+"de": "die Geschwister",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "geschäft",
+"de": "das Geschäft",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "gesicht",
+"de": "das Gesicht",
+"article": "das",
+"plural": "-er",
+"level": "A2"
+},
+{
+"key": "gespräch",
+"de": "das Gespräch",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "gestern",
+"de": "gestern",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gestorben",
+"de": "gestorben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gesund",
+"de": "gesund",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gesundheit",
+"de": "die Gesundheit",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "getränk",
+"de": "das Getränk",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "gewesen",
+"de": "gewesen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gewicht",
+"de": "das Gewicht",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gewinnen",
+"de": "gewinnen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gewitter",
+"de": "das Gewitter",
+"article": "das",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "gezogen",
+"de": "gezogen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "geöffnet",
+"de": "geöffnet",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gitarre",
+"de": "die Gitarre",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "glas",
+"de": "das Glas",
+"article": "das",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "glauben",
+"de": "glauben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gleich",
+"de": "gleich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gleis",
+"de": "das Gleis",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "glück",
+"de": "das Glück",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "glücklich",
+"de": "glücklich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "glückwunsch",
+"de": "der Glückwunsch",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "grad",
+"de": "Grad",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gratulieren",
+"de": "gratulieren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "grillen",
+"de": "grillen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "grippe",
+"de": "die Grippe",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "groß",
+"de": "groß",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "großeltern",
+"de": "die Großeltern",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "großmutter",
+"de": "die Großmutter",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "großvater",
+"de": "der Großvater",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "grundlage",
+"de": "der Grundlage",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gruppe",
+"de": "die Gruppe",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "gruß",
+"de": "der Gruß",
+"article": "der",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "größe",
+"de": "die Größe",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gung",
+"de": "gung",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "gut",
+"de": "gut",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gültig",
+"de": "gültig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "gültig sein",
+"de": "gültig sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "günstig",
+"de": "günstig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "haar",
+"de": "das Haar",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "haben",
+"de": "haben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "halbpension",
+"de": "die Halbpension",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "halle",
+"de": "die Halle",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hallo",
+"de": "hallo",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hals",
+"de": "der Hals",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "halten",
+"de": "halten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "haltestelle",
+"de": "die Haltestelle",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hamburger",
+"de": "der Hamburger",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "hand",
+"de": "die Hand",
+"article": "die",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "handtuch",
+"de": "das Handtuch",
+"article": "das",
+"plural": "¨-er Gibst du mir bitte ein frisches Handtuch?",
+"level": "A2"
+},
+{
+"key": "handy",
+"de": "das Handy",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "hart",
+"de": "hart",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hauptstadt",
+"de": "die Hauptstadt",
+"article": "die",
+"plural": "¨-e Berlin ist die Hauptstadt von Deutschland.",
+"level": "A2"
+},
+{
+"key": "haus",
+"de": "das Haus",
+"article": "das",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "hausaufgabe",
+"de": "die Hausaufgabe",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "hausfrau",
+"de": "die Hausfrau",
+"article": "die",
+"plural": "-en/",
+"level": "A1"
+},
+{
+"key": "haushalt",
+"de": "der Haushalt",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "hausmann",
+"de": "der Hausmann",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "heft",
+"de": "das Heft",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "heimat",
+"de": "die Heimat",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "heiraten",
+"de": "heiraten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "heizung",
+"de": "die Heizung",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "heiß",
+"de": "heiß",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "heißen",
+"de": "heißen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "helfen",
+"de": "helfen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hell",
+"de": "hell",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hemd",
+"de": "das Hemd",
+"article": "das",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "her/her-/-her",
+"de": "her/her-/-her",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "heraus/raus",
+"de": "heraus/raus",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "herberge",
+"de": "herberge",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "herbst",
+"de": "der Herbst",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "herd",
+"de": "der Herd",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "herein/rein",
+"de": "herein/rein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "herr",
+"de": "der Herr",
+"article": "der",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "herstellen",
+"de": "herstellen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "herunterladen",
+"de": "herunterladen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "herzlich",
+"de": "herzlich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "heute",
+"de": "heute",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hier",
+"de": "hier",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hilfe",
+"de": "die Hilfe",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "himmel",
+"de": "der Himmel",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hin/hin-/-hin",
+"de": "hin/hin-/-hin",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hinten",
+"de": "hinten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hinter",
+"de": "hinter",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hobby",
+"de": "das Hobby",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "hoch",
+"de": "hoch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hochzeit",
+"de": "die Hochzeit",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "hoffen",
+"de": "hoffen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hoffentlich",
+"de": "hoffentlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "holen",
+"de": "holen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "homepage",
+"de": "die Homepage",
+"article": "die",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "hose",
+"de": "die Hose",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "hotel",
+"de": "das Hotel",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "hund",
+"de": "der Hund",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "hunger",
+"de": "der Hunger",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "husten",
+"de": "husten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hähnchen",
+"de": "das Hähnchen",
+"article": "das",
+"plural": "-",
+"level": "A1"
+},
+{
+"key": "hängen",
+"de": "hängen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hässlich",
+"de": "hässlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hör",
+"de": "der Hör",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "hören",
+"de": "hören",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ich",
+"de": "ich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "idee",
+"de": "die Idee",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "ihr/ihm/ihn",
+"de": "ihr/ihm/ihn",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "immer",
+"de": "immer",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "in",
+"de": "in",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "information",
+"de": "die Information",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "informieren",
+"de": "informieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "insel",
+"de": "die Insel",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "instrument",
+"de": "das Instrument",
+"article": "das",
+"plural": "-e Ich spiele Klavier. Spielen Sie auch ein Instrument?",
+"level": "A2"
+},
+{
+"key": "intelligent",
+"de": "intelligent",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "interessant",
+"de": "interessant",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "interesse",
+"de": "das Interesse",
+"article": "das",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "interessieren",
+"de": "interessieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "interessiert",
+"de": "interessiert",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "international",
+"de": "international",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "internet",
+"de": "das Internet",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "interview",
+"de": "das Interview",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "ja",
+"de": "ja",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "jacke",
+"de": "die Jacke",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "jahr",
+"de": "das Jahr",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "januar",
+"de": "der Januar",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "jeans",
+"de": "die Jeans",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "jed",
+"de": "jed-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "jeder",
+"de": "jeder",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "jemand",
+"de": "jemand",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "jetzt",
+"de": "jetzt",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "job",
+"de": "der Job",
+"article": "der",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "joggen",
+"de": "joggen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "jugend",
+"de": "die Jugend-",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "jugendliche",
+"de": "der Jugendliche",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "jugendprüfung",
+"de": "die Jugendprüfung",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "juli",
+"de": "der Juli",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "jung",
+"de": "jung",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "junge",
+"de": "der Junge",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "juni",
+"de": "der Juni",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kaffee",
+"de": "der Kaffee",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kalender",
+"de": "der Kalender",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "kalt",
+"de": "kalt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "kamera",
+"de": "die Kamera",
+"article": "die",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "kaputt",
+"de": "kaputt",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "karte",
+"de": "die Karte",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "kartoffel",
+"de": "die Kartoffel",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "kasse",
+"de": "die Kasse",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "katze",
+"de": "die Katze",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "kaufen",
+"de": "kaufen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kaufhaus",
+"de": "das Kaufhaus",
+"article": "das",
+"plural": "-¨er Meine Pullover kaufe ich immer im Kaufhaus",
+"level": "A2"
+},
+{
+"key": "kein",
+"de": "kein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "keinen fall",
+"de": "keinen Fall",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "keller",
+"de": "der Keller",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "kennen",
+"de": "kennen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kennenlernen",
+"de": "kennenlernen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kette",
+"de": "die Kette",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "kind",
+"de": "das Kind",
+"article": "das",
+"plural": "-er",
+"level": "A1"
+},
+{
+"key": "kindergarten",
+"de": "der Kindergarten",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kino",
+"de": "das Kino",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "kiosk",
+"de": "der Kiosk",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kirche",
+"de": "die Kirche",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "klappen",
+"de": "klappen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "klar",
+"de": "klar",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "klasse",
+"de": "die Klasse",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "klavier",
+"de": "das Klavier",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "kleid",
+"de": "das Kleid",
+"article": "das",
+"plural": "-er",
+"level": "A2"
+},
+{
+"key": "kleidung",
+"de": "die Kleidung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "klein",
+"de": "klein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "klub",
+"de": "Klub",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "klug",
+"de": "klug",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "kochen",
+"de": "kochen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "koffer",
+"de": "der Koffer",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "kollege",
+"de": "der Kollege",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "kollegin",
+"de": "die Kollegin",
+"article": "die",
+"plural": "-nen",
+"level": "A2"
+},
+{
+"key": "komisch",
+"de": "komisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "kommen",
+"de": "kommen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kontakt",
+"de": "der Kontakt",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "konto",
+"de": "das Konto",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kontrollieren",
+"de": "kontrollieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "konzert",
+"de": "das Konzert",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "kopf",
+"de": "der Kopf",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kosmetik",
+"de": "die Kosmetik",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "kosten",
+"de": "kosten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kostenlos",
+"de": "kostenlos",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "krank",
+"de": "krank",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kranken",
+"de": "das Kranken-",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "krankheit",
+"de": "die Krankheit",
+"article": "die",
+"plural": "-en Welche Krankheit hat Herr Brandner?",
+"level": "A2"
+},
+{
+"key": "kredit",
+"de": "der Kredit",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "kreuzung",
+"de": "die Kreuzung",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "kriegen",
+"de": "kriegen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "krimi",
+"de": "der Krimi",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "kuchen",
+"de": "der Kuchen",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kugelschreiber",
+"de": "der Kugelschreiber",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kultur",
+"de": "die Kultur",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "kulturell",
+"de": "kulturell",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kunde",
+"de": "der Kunde",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "kundin",
+"de": "die Kundin",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kunst",
+"de": "die Kunst",
+"article": "die",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "kurs",
+"de": "der Kurs",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "kurz",
+"de": "kurz",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "käse",
+"de": "der Käse",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "können",
+"de": "können",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "körper",
+"de": "der Körper",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "küche",
+"de": "die Küche",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kühl",
+"de": "kühl",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "kühlschrank",
+"de": "der Kühlschrank",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "kümmern",
+"de": "kümmern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "kündigen",
+"de": "kündigen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "lachen",
+"de": "lachen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "laden",
+"de": "der Laden",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "lampe",
+"de": "die Lampe",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "land",
+"de": "das Land",
+"article": "das",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "landschaft",
+"de": "die Landschaft",
+"article": "die",
+"plural": "-en Die Landschaft ist sehr schön.",
+"level": "A2"
+},
+{
+"key": "lang",
+"de": "lang",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lange",
+"de": "lange",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "langsam",
+"de": "langsam",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "langweilig",
+"de": "langweilig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "lassen",
+"de": "lassen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "laufen",
+"de": "laufen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "laut",
+"de": "laut",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "leben",
+"de": "leben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lebens",
+"de": "die Lebens-",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ledig",
+"de": "ledig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "leer",
+"de": "leer",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "legen",
+"de": "legen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lehrer",
+"de": "der Lehrer",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lehrerin",
+"de": "die Lehrerin",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "leicht",
+"de": "leicht",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "leider",
+"de": "leider",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "leidtun/leid tun",
+"de": "leidtun/leid tun",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "leihen",
+"de": "leihen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "leise",
+"de": "leise",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lernen",
+"de": "lernen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lernende",
+"de": "die Lernende",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lesen",
+"de": "lesen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "letzt",
+"de": "letzt-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "leute",
+"de": "die Leute",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "licht",
+"de": "das Licht",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lieb",
+"de": "lieb-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lieben",
+"de": "lieben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lieber",
+"de": "lieber",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lieblings",
+"de": "Lieblings-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lied",
+"de": "das Lied",
+"article": "das",
+"plural": "-er",
+"level": "A1"
+},
+{
+"key": "liefern",
+"de": "liefern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "liegen",
+"de": "liegen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "link",
+"de": "der Link",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "links",
+"de": "links",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "literatur",
+"de": "Literatur",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lkw",
+"de": "der Lkw",
+"article": "der",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "lokal",
+"de": "das Lokal",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "lust",
+"de": "die Lust",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "lustig",
+"de": "lustig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "löffel",
+"de": "der Löffel",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "lösung",
+"de": "die Lösung",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "lüge",
+"de": "die Lüge",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "lügen",
+"de": "lügen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "machen",
+"de": "machen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "machen/-helfen)",
+"de": "machen/-helfen)",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "magen",
+"de": "der Magen",
+"article": "der",
+"plural": "¨-",
+"level": "A2"
+},
+{
+"key": "mai",
+"de": "der Mai",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mail",
+"de": "die Mail",
+"article": "die",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "mailbox",
+"de": "die Mailbox",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "mal / das mal",
+"de": "mal / das Mal",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "malen",
+"de": "malen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "man",
+"de": "man",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "manch",
+"de": "manch-",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "manchmal",
+"de": "manchmal",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "mann",
+"de": "der Mann",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "mannschaft",
+"de": "die Mannschaft",
+"article": "die",
+"plural": "-en Meine Lieblingsmannschaft hat 1:0 verloren.",
+"level": "A2"
+},
+{
+"key": "mantel",
+"de": "der Mantel",
+"article": "der",
+"plural": "¨-",
+"level": "A2"
+},
+{
+"key": "markt",
+"de": "der Markt",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "maschine",
+"de": "die Maschine",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "medikament",
+"de": "das Medikament",
+"article": "das",
+"plural": "-e Nehmen Sie dieses Medikament dreimal pro Tag!",
+"level": "A2"
+},
+{
+"key": "meer",
+"de": "das Meer",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mehr",
+"de": "mehr",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mein",
+"de": "mein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "meinen",
+"de": "meinen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "meinung",
+"de": "die Meinung",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "meist",
+"de": "meist-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "meistens",
+"de": "meistens",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "menge",
+"de": "die Menge",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "mensch",
+"de": "der Mensch",
+"article": "der",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "merken",
+"de": "merken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "messe",
+"de": "die Messe",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "messer",
+"de": "das Messer",
+"article": "das",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "miete",
+"de": "die Miete",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mieten",
+"de": "mieten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "milch",
+"de": "die Milch",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mindestens",
+"de": "mindestens",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "mineral",
+"de": "das Mineral-",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "minute",
+"de": "die Minute",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "mit",
+"de": "mit",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mitarbeiter",
+"de": "der Mitarbeiter",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "mitbringen",
+"de": "mitbringen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mitkommen",
+"de": "mitkommen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mitmachen",
+"de": "mitmachen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mitnehmen",
+"de": "mitnehmen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mitschüler",
+"de": "der Mitschüler",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "mittag",
+"de": "der Mittag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mittagessen",
+"de": "das Mittagessen",
+"article": "das",
+"plural": "- Um zwölf Uhr gibt es Mittagessen.",
+"level": "A2"
+},
+{
+"key": "mitte",
+"de": "die Mitte",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mittel",
+"de": "mittel",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mittwoch",
+"de": "der Mittwoch",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mobil",
+"de": "das Mobil-",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "mode",
+"de": "die Mode",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "modern",
+"de": "modern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "modern language learning by adults",
+"de": "modern language learning by adults",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "moment",
+"de": "der Moment",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "montag",
+"de": "der Montag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "morgen",
+"de": "der Morgen",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "motor",
+"de": "der Motor",
+"article": "der",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "motorroller",
+"de": "der Motorroller",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "mund",
+"de": "der Mund",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "museum",
+"de": "das Museum",
+"article": "das",
+"plural": "-een Im Kunstmuseum gibt es eine neue Ausstellung.",
+"level": "A2"
+},
+{
+"key": "musik",
+"de": "die Musik",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "mutter",
+"de": "die Mutter",
+"article": "die",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "mädchen",
+"de": "das Mädchen",
+"article": "das",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "männlich",
+"de": "männlich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "märz",
+"de": "der März",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "möbel",
+"de": "die Möbel",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "möchten",
+"de": "möchten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mögen",
+"de": "mögen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "möglich",
+"de": "möglich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "müde",
+"de": "müde",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "müll",
+"de": "der Müll",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "müller",
+"de": "Müller",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "müssen",
+"de": "müssen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "mütze",
+"de": "die Mütze",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "nach",
+"de": "nach",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nachbar",
+"de": "der Nachbar",
+"article": "der",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "nachmittag",
+"de": "der Nachmittag",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "nachricht",
+"de": "die Nachricht",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "nacht",
+"de": "die Nacht",
+"article": "die",
+"plural": "¨-e",
+"level": "A1"
+},
+{
+"key": "name",
+"de": "der Name",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "nass",
+"de": "nass",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "natur",
+"de": "die Natur",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "natürlich",
+"de": "natürlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "neben",
+"de": "neben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "nebenan",
+"de": "nebenan",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "neblig",
+"de": "neblig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "nehmen",
+"de": "nehmen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nein",
+"de": "nein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nennen",
+"de": "nennen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "nervös",
+"de": "nervös",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "nett",
+"de": "nett",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "neu",
+"de": "neu",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nicht",
+"de": "nicht",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nichts",
+"de": "nichts",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nie",
+"de": "nie",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "niemand",
+"de": "niemand",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "nirgends",
+"de": "nirgends",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "niveau",
+"de": "das Niveau",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "niveaustufe",
+"de": "der Niveaustufe",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "noch",
+"de": "noch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "norden",
+"de": "der Norden",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "normal",
+"de": "normal",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "note",
+"de": "die Note",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "notieren",
+"de": "notieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "notiz",
+"de": "die Notiz",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "notwendig",
+"de": "notwendig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "november",
+"de": "der November",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nudel",
+"de": "die Nudel",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "nummer",
+"de": "die Nummer",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "nur",
+"de": "nur",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nächst",
+"de": "nächst-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "nächste",
+"de": "nächste",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "nähe",
+"de": "die Nähe",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "nützlich",
+"de": "nützlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "oben",
+"de": "oben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "obst",
+"de": "das Obst",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "oder",
+"de": "oder",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "offen",
+"de": "offen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "oft",
+"de": "oft",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ohne",
+"de": "ohne",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ohr",
+"de": "das Ohr",
+"article": "das",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "oktober",
+"de": "der Oktober",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "oma",
+"de": "die Oma",
+"article": "die",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "online",
+"de": "online",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "opa",
+"de": "der Opa",
+"article": "der",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "orange",
+"de": "die Orange",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "ordnung",
+"de": "die Ordnung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "organisieren",
+"de": "organisieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ort",
+"de": "der Ort",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "osten",
+"de": "der Osten",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "paar",
+"de": "das Paar",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "packen",
+"de": "packen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "paket",
+"de": "das Paket",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "papier",
+"de": "das Papier",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "papiere",
+"de": "die Papiere",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "parfüm",
+"de": "das Parfüm",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "park",
+"de": "der Park",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "parken",
+"de": "parken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "partner",
+"de": "der Partner",
+"article": "der",
+"plural": "-/",
+"level": "A1"
+},
+{
+"key": "partnerin",
+"de": "die Partnerin",
+"article": "die",
+"plural": "-nen",
+"level": "A1"
+},
+{
+"key": "party",
+"de": "die Party",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "pass",
+"de": "der Pass",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "passen",
+"de": "passen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "passieren",
+"de": "passieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "passwort",
+"de": "das Passwort",
+"article": "das",
+"plural": "¨-er Bitte schreiben Sie Ihr Passwort.",
+"level": "A2"
+},
+{
+"key": "pause",
+"de": "die Pause",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "person",
+"de": "die Person",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "pferd",
+"de": "das Pferd",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "pflanze",
+"de": "die Pflanze",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "pizza",
+"de": "die Pizza",
+"article": "die",
+"plural": "-s/-en",
+"level": "A2"
+},
+{
+"key": "plakat",
+"de": "das Plakat",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "plan",
+"de": "der Plan",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "planen",
+"de": "planen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "platz",
+"de": "der Platz",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "plötzlich",
+"de": "plötzlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "polizei",
+"de": "die Polizei",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "pommes frites",
+"de": "die Pommes frites",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "portion",
+"de": "die Portion",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "post",
+"de": "die Post",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "poster",
+"de": "das Poster",
+"article": "das",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "postkarte",
+"de": "die Postkarte",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "postleit",
+"de": "die Postleit-",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "postleitzahl",
+"de": "die Postleitzahl",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "praktikum",
+"de": "das Praktikum",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "praktisch",
+"de": "praktisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "praxis",
+"de": "die Praxis",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "preis",
+"de": "der Preis",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "preiswert",
+"de": "preiswert",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "privat",
+"de": "privat",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "pro",
+"de": "pro",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "probieren",
+"de": "probieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "problem",
+"de": "das Problem",
+"article": "das",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "produkt",
+"de": "das Produkt",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "profile deutsch. lernzielbestimmungen",
+"de": "Profile Deutsch. Lernzielbestimmungen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "programm",
+"de": "das Programm",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "projekt",
+"de": "das Projekt",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "prospekt",
+"de": "der Prospekt",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "prüfen",
+"de": "prüfen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "prüfung",
+"de": "der Prüfung",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "prüfungsauf",
+"de": "der Prüfungsauf",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "publikation",
+"de": "der Publikation",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "pullover",
+"de": "der Pullover",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "putzen",
+"de": "putzen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "pünktlich",
+"de": "pünktlich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "qualität",
+"de": "die Qualität",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "quiz",
+"de": "das Quiz",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rad",
+"de": "das Rad",
+"article": "das",
+"plural": "¨-er Wenn es nicht regnet",
+"level": "A2"
+},
+{
+"key": "rad fahren",
+"de": "Rad fahren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "radio",
+"de": "das Radio",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "raten",
+"de": "raten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rathaus",
+"de": "das Rathaus",
+"article": "das",
+"plural": "¨-er",
+"level": "A2"
+},
+{
+"key": "rauchen",
+"de": "rauchen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "raum",
+"de": "der Raum",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "rechnen",
+"de": "rechnen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rechnung",
+"de": "die Rechnung",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "recht haben",
+"de": "recht haben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rechts",
+"de": "rechts",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "rechtslage",
+"de": "die Rechtslage",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "reden",
+"de": "reden",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "regel",
+"de": "der Regel",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "regen",
+"de": "der Regen",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "regnen",
+"de": "regnen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "reich",
+"de": "reich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "reifen",
+"de": "der Reifen",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "reihe",
+"de": "die Reihe",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "reinigung",
+"de": "die Reinigung",
+"article": "die",
+"plural": "-en Bringst du bitte die Bluse in die Reinigung? Man",
+"level": "A2"
+},
+{
+"key": "reis",
+"de": "der Reis",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "reise",
+"de": "die Reise",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "reisebüro",
+"de": "das Reisebüro",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "reiseführer",
+"de": "der Reiseführer",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "reisen",
+"de": "reisen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "reiten",
+"de": "reiten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "relevanz",
+"de": "die Relevanz",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "renovieren",
+"de": "renovieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rentner",
+"de": "der Rentner",
+"article": "der",
+"plural": "- /",
+"level": "A2"
+},
+{
+"key": "rentnerin",
+"de": "die Rentnerin",
+"article": "die",
+"plural": "-nen",
+"level": "A2"
+},
+{
+"key": "reparatur",
+"de": "die Reparatur",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "reparieren",
+"de": "reparieren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "reservieren",
+"de": "reservieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rest",
+"de": "der Rest",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "restaurant",
+"de": "das Restaurant",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "rezept",
+"de": "das Rezept",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "rezeption",
+"de": "die Rezeption",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "richtig",
+"de": "richtig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "riechen",
+"de": "riechen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "rind",
+"de": "das Rind",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ring",
+"de": "der Ring",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "rock",
+"de": "der Rock",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "romantisch",
+"de": "romantisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rose",
+"de": "die Rose",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "rucksack",
+"de": "der Rucksack",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "rufen",
+"de": "rufen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ruhe",
+"de": "die Ruhe",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ruhig",
+"de": "ruhig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "rund",
+"de": "rund",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "rundgang",
+"de": "der Rundgang",
+"article": "der",
+"plural": "¨-e Der Rundgang durch das Schloss beginnt in wenigen",
+"level": "A2"
+},
+{
+"key": "rätsel",
+"de": "das Rätsel",
+"article": "das",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "rücken",
+"de": "der Rücken",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "s-bahn",
+"de": "die S-Bahn",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sache",
+"de": "die Sache",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "saft",
+"de": "der Saft",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sagen",
+"de": "sagen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "salat",
+"de": "der Salat",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "salz",
+"de": "das Salz",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sammeln",
+"de": "sammeln",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "samstag",
+"de": "der Samstag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "satz",
+"de": "Satz",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sauber",
+"de": "sauber",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sauer",
+"de": "sauer",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schade",
+"de": "schade",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schaffen",
+"de": "schaffen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schalter",
+"de": "der Schalter",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "scharf",
+"de": "scharf",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schein",
+"de": "schein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "scheinen",
+"de": "scheinen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schenken",
+"de": "schenken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schere",
+"de": "die Schere",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "schicken",
+"de": "schicken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schiff",
+"de": "das Schiff",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "schild",
+"de": "das Schild",
+"article": "das",
+"plural": "-er",
+"level": "A1"
+},
+{
+"key": "schimpfen",
+"de": "schimpfen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schinken",
+"de": "der Schinken",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "schirm",
+"de": "der Schirm",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schlafen",
+"de": "schlafen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schlafzimmer",
+"de": "das Schlafzimmer",
+"article": "das",
+"plural": "- Hier ist das Schlafzimmer.",
+"level": "A2"
+},
+{
+"key": "schlecht",
+"de": "schlecht",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schließen",
+"de": "schließen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schlimm",
+"de": "schlimm",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schloss",
+"de": "das Schloss",
+"article": "das",
+"plural": "¨-er",
+"level": "A2"
+},
+{
+"key": "schluss",
+"de": "der Schluss",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schlüssel",
+"de": "der Schlüssel",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "schmecken",
+"de": "schmecken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schmerz",
+"de": "der Schmerz",
+"article": "der",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "schmutzig",
+"de": "schmutzig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schnee",
+"de": "der Schnee",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schneiden",
+"de": "schneiden",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schneien",
+"de": "schneien",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schnell",
+"de": "schnell",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schokolade",
+"de": "die Schokolade",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schon",
+"de": "schon",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schrank",
+"de": "der Schrank",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "schrecklich",
+"de": "schrecklich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schreiben",
+"de": "schreiben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schriftlich",
+"de": "schriftlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schuh",
+"de": "der Schuh",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "schule",
+"de": "die Schule",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schwach",
+"de": "schwach",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schwanger",
+"de": "schwanger",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schwein",
+"de": "das Schwein",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "schweiz",
+"de": "der Schweiz",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schwer",
+"de": "schwer",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schwester",
+"de": "die Schwester",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "schwierig",
+"de": "schwierig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schwimm",
+"de": "das Schwimm-",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schwimmbad",
+"de": "das Schwimmbad",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schwimmen",
+"de": "schwimmen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schädlich",
+"de": "schädlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schön",
+"de": "schön",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "schüler",
+"de": "der Schüler",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "schülerin",
+"de": "die Schülerin",
+"article": "die",
+"plural": "-nen Schüler.",
+"level": "A2"
+},
+{
+"key": "see",
+"de": "der See",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sehen",
+"de": "sehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sehens",
+"de": "die Sehens-",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sehenswürdigkeit",
+"de": "die Sehenswürdigkeit",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "sehr",
+"de": "sehr",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "seife",
+"de": "die Seife",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "sein",
+"de": "sein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "seit",
+"de": "seit",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "seite",
+"de": "die Seite",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "sekunde",
+"de": "die Sekunde",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "selbst",
+"de": "selbst",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "selbstständig",
+"de": "selbstständig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sendung",
+"de": "die Sendung",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "september",
+"de": "der September",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "service",
+"de": "der Service",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "setzen",
+"de": "setzen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "setzung",
+"de": "setzung",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sich",
+"de": "sich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sich kümmern",
+"de": "sich kümmern",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sich umziehen",
+"de": "sich umziehen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sicher",
+"de": "sicher",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sie",
+"de": "sie",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "singen",
+"de": "singen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "situation",
+"de": "die Situation",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "sitzen",
+"de": "sitzen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ski",
+"de": "der Ski",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "so",
+"de": "so",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sofa",
+"de": "das Sofa",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sofort",
+"de": "sofort",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sogar",
+"de": "sogar",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sohn",
+"de": "der Sohn",
+"article": "der",
+"plural": "-ö",
+"level": "A1"
+},
+{
+"key": "sollen",
+"de": "sollen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sommer",
+"de": "der Sommer",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sonne",
+"de": "die Sonne",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sonnig",
+"de": "sonnig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sonntag",
+"de": "der Sonntag",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sonst",
+"de": "sonst",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "spannend",
+"de": "spannend",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sparen",
+"de": "sparen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "spazier",
+"de": "der Spazier-",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "spazieren gehen",
+"de": "spazieren gehen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "spaß",
+"de": "der Spaß",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "speichern",
+"de": "speichern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "speisekarte",
+"de": "die Speisekarte",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "spiel",
+"de": "das Spiel",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "spielen",
+"de": "spielen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sport",
+"de": "der Sport",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sportlich",
+"de": "sportlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sportplatz",
+"de": "der Sportplatz",
+"article": "der",
+"plural": "¨-e Das Fußballtraining ist um 17 Uhr auf dem",
+"level": "A2"
+},
+{
+"key": "sprache",
+"de": "die Sprache",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "sprachkenntnisse",
+"de": "der Sprachkenntnisse",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sprachkompetenz",
+"de": "der Sprachkompetenz",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sprachniveau",
+"de": "das Sprachniveau",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sprech",
+"de": "die Sprech-",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sprechen",
+"de": "sprechen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "spät",
+"de": "spät",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "später",
+"de": "später",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "stadt",
+"de": "die Stadt",
+"article": "die",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "stadtplan",
+"de": "der Stadtplan",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "star",
+"de": "der Star",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "stark",
+"de": "stark",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "start",
+"de": "der Start",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "stattfinden",
+"de": "stattfinden",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "stehen",
+"de": "stehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "stelle",
+"de": "die Stelle",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "stellen",
+"de": "stellen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "sterben",
+"de": "sterben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "stiefel",
+"de": "der Stiefel",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "stift",
+"de": "der Stift",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "stipen",
+"de": "das Stipen-",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "stock",
+"de": "der Stock",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "stockwerk",
+"de": "das Stockwerk",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "strand",
+"de": "der Strand",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "straße",
+"de": "die Straße",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "straßen",
+"de": "die Straßen-",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "straßenbahn",
+"de": "die Straßenbahn",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "streiten",
+"de": "streiten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "streng",
+"de": "streng",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "stress",
+"de": "der Stress",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "stressig",
+"de": "stressig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "student",
+"de": "der Student",
+"article": "der",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "studieren",
+"de": "studieren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "studium",
+"de": "das Studium",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "stufe",
+"de": "der Stufe",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "stuhl",
+"de": "der Stuhl",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "stunde",
+"de": "die Stunde",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "stören",
+"de": "stören",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "stück",
+"de": "das Stück",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "suchen",
+"de": "suchen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "super",
+"de": "super",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "supermarkt",
+"de": "der Supermarkt",
+"article": "der",
+"plural": "¨-e Ich kaufe oft im Supermarkt ein.",
+"level": "A2"
+},
+{
+"key": "suppe",
+"de": "die Suppe",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "surfen",
+"de": "surfen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "sympathisch",
+"de": "sympathisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "süden",
+"de": "der Süden",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "süß",
+"de": "süß",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "süßigkeiten",
+"de": "die Süßigkeiten",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "t-shirt",
+"de": "das T-Shirt",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "tablet",
+"de": "das Tablet",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "tablette",
+"de": "die Tablette",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "tafel",
+"de": "die Tafel",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "tag",
+"de": "der Tag",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "tanzen",
+"de": "tanzen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "tasche",
+"de": "die Tasche",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "taschengeld",
+"de": "das Taschengeld",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tasse",
+"de": "die Tasse",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "tauschen",
+"de": "tauschen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "taxi",
+"de": "das Taxi",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "team",
+"de": "das Team",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "tee",
+"de": "der Tee",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "teil",
+"de": "der Teil",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "teilen",
+"de": "teilen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "teilnehmen",
+"de": "teilnehmen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "telefon",
+"de": "das Telefon",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "telefonieren",
+"de": "telefonieren",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "teller",
+"de": "der Teller",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "tennis",
+"de": "das Tennis",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "termin",
+"de": "der Termin",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "test",
+"de": "der Test",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "teuer",
+"de": "teuer",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "text",
+"de": "der Text",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "theater",
+"de": "das Theater",
+"article": "das",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "thema",
+"de": "das Thema",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "themenbereiche",
+"de": "die Themenbereiche",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ticket",
+"de": "das Ticket",
+"article": "das",
+"plural": "-s",
+"level": "A1"
+},
+{
+"key": "tief",
+"de": "tief",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tier",
+"de": "das Tier",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "tipp",
+"de": "der Tipp",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "tisch",
+"de": "der Tisch",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "titel",
+"de": "der Titel",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "tochter",
+"de": "die Tochter",
+"article": "die",
+"plural": "-ö",
+"level": "A1"
+},
+{
+"key": "toilette",
+"de": "die Toilette",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "toll",
+"de": "toll",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tomate",
+"de": "die Tomate",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "topf",
+"de": "der Topf",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "torte",
+"de": "die Torte",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "tot",
+"de": "tot",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "total",
+"de": "total",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tour",
+"de": "die Tour",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "tourist",
+"de": "der Tourist",
+"article": "der",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "tragen",
+"de": "tragen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "trainieren",
+"de": "trainieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "training",
+"de": "das Training",
+"article": "das",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "traum",
+"de": "der Traum",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "traurig",
+"de": "traurig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "treffen",
+"de": "treffen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "treppe",
+"de": "die Treppe",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "trifft",
+"de": "trifft",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "trinken",
+"de": "trinken",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "trocken",
+"de": "trocken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "träumen",
+"de": "träumen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tschüs",
+"de": "tschüs",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tschüss",
+"de": "tschüss",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "tun",
+"de": "tun",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "tung",
+"de": "tung",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tur",
+"de": "tur",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "typisch",
+"de": "typisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "tür",
+"de": "die Tür",
+"article": "die",
+"plural": "-en",
+"level": "A2"
+},
+{
+"key": "uhr",
+"de": "die Uhr",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "um",
+"de": "um",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "umsteigen",
+"de": "umsteigen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "umziehen",
+"de": "umziehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "umzug",
+"de": "der Umzug",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "unbedingt",
+"de": "unbedingt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "und",
+"de": "und",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "unfall",
+"de": "der Unfall",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "universität",
+"de": "die Universität",
+"article": "die",
+"plural": "-en Er studiert an der Universität Freiburg.",
+"level": "A2"
+},
+{
+"key": "unser",
+"de": "unser-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "unten",
+"de": "unten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "unter",
+"de": "unter",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "unterhalten",
+"de": "unterhalten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "unterhält",
+"de": "unterhält",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "unterkunft",
+"de": "die Unterkunft",
+"article": "die",
+"plural": "¨-e Ich suche noch eine Unterkunft in Basel. Kennst du",
+"level": "A2"
+},
+{
+"key": "unternehmen",
+"de": "unternehmen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "unterricht",
+"de": "der Unterricht",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "unterschied",
+"de": "der Unterschied",
+"article": "der",
+"plural": "-e Was ist der Unterschied zwischen den beiden",
+"level": "A2"
+},
+{
+"key": "unterschreiben",
+"de": "unterschreiben",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "unterschrift",
+"de": "die Unterschrift",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "untersuchen",
+"de": "untersuchen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "unterwegs sein",
+"de": "unterwegs sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "urlaub",
+"de": "der Urlaub",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "urteilen",
+"de": "urteilen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vater",
+"de": "der Vater",
+"article": "der",
+"plural": "-ä",
+"level": "A1"
+},
+{
+"key": "verabredet sein",
+"de": "verabredet sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "veranstal",
+"de": "die Veranstal-",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verbieten /",
+"de": "verbieten /",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verboten",
+"de": "verboten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "verboten sein",
+"de": "verboten sein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verdienen",
+"de": "verdienen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "verein",
+"de": "der Verein",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vereinbaren",
+"de": "vereinbaren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vergessen",
+"de": "vergessen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vergleichen",
+"de": "vergleichen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verheiratet",
+"de": "verheiratet",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "verkaufen",
+"de": "verkaufen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "verkehr",
+"de": "der Verkehr",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verkehrs",
+"de": "das Verkehrs-",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verkäufer",
+"de": "der Verkäufer",
+"article": "der",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "verletzen",
+"de": "verletzen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verlieben",
+"de": "verlieben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verlieren",
+"de": "verlieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vermieten",
+"de": "vermieten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vermieter",
+"de": "der Vermieter",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vermieterin",
+"de": "die Vermieterin",
+"article": "die",
+"plural": "-nen",
+"level": "A2"
+},
+{
+"key": "verpassen",
+"de": "verpassen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verreisen",
+"de": "verreisen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verschieben",
+"de": "verschieben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verschieden",
+"de": "verschieden",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "verspätung",
+"de": "die Verspätung",
+"article": "die",
+"plural": "-en Unser Zug hat leider 15 Minuten Verspätung.",
+"level": "A2"
+},
+{
+"key": "verstehen",
+"de": "verstehen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "versuchen",
+"de": "versuchen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vertrag",
+"de": "der Vertrag",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "verwandte",
+"de": "der Verwandte",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "verwendung",
+"de": "die Verwendung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "viel",
+"de": "viel",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vielleicht",
+"de": "vielleicht",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vogel",
+"de": "der Vogel",
+"article": "der",
+"plural": "¨-",
+"level": "A2"
+},
+{
+"key": "voll",
+"de": "voll",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "volleyball",
+"de": "der Volleyball",
+"article": "der",
+"plural": "¨-e Ich spiele gern Volleyball.",
+"level": "A2"
+},
+{
+"key": "von",
+"de": "von",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vor",
+"de": "vor",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vorbei",
+"de": "vorbei",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vorbereiten",
+"de": "vorbereiten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vorbereitung",
+"de": "der Vorbereitung",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vorgestern",
+"de": "vorgestern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vorhandensein",
+"de": "das Vorhandensein",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vorher",
+"de": "vorher",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vormittag",
+"de": "der Vormittag",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "vorn",
+"de": "vorn",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vorname",
+"de": "der Vorname",
+"article": "der",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "vorschlag",
+"de": "der Vorschlag",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "vorsicht",
+"de": "die Vorsicht",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vorsichtig",
+"de": "vorsichtig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "vorstellen",
+"de": "vorstellen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vorwahl",
+"de": "die Vorwahl",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "vorwärts",
+"de": "vorwärts",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wach",
+"de": "wach",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wagen",
+"de": "der Wagen",
+"article": "der",
+"plural": "–",
+"level": "A2"
+},
+{
+"key": "wahr",
+"de": "wahr",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wahrscheinlich",
+"de": "wahrscheinlich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wald",
+"de": "der Wald",
+"article": "der",
+"plural": "¨-er",
+"level": "A2"
+},
+{
+"key": "wandern",
+"de": "wandern",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wann",
+"de": "wann",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "war einverstanden",
+"de": "war einverstanden",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "warm",
+"de": "warm",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "warten",
+"de": "warten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "warum",
+"de": "warum",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "was",
+"de": "was",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "was für ein",
+"de": "was für ein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "waschen",
+"de": "waschen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wasser",
+"de": "das Wasser",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "webseite",
+"de": "die Webseite",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "wechseln",
+"de": "wechseln",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wecken",
+"de": "wecken",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "weg",
+"de": "der Weg",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "weg sein",
+"de": "weg sein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "weg/weg",
+"de": "weg/weg-",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wegen",
+"de": "wegen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "weh tun",
+"de": "weh tun",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wehtun",
+"de": "wehtun",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "weiblich",
+"de": "weiblich",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "weich",
+"de": "weich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "weil",
+"de": "weil",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wein",
+"de": "der Wein",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "weinen",
+"de": "weinen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "weit",
+"de": "weit",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "weiter",
+"de": "weiter",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "welch",
+"de": "welch-",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "welcher",
+"de": "welcher",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "welt",
+"de": "die Welt",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wenig",
+"de": "wenig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wenigstens",
+"de": "wenigstens",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wenn",
+"de": "wenn",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wer",
+"de": "wer",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wer (wen",
+"de": "wer (wen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "werden",
+"de": "werden",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "werk",
+"de": "das Werk",
+"article": "das",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "werkstatt",
+"de": "die Werkstatt",
+"article": "die",
+"plural": "¨-en Mein Auto ist kaputt. Es ist in der Werkstatt.",
+"level": "A2"
+},
+{
+"key": "westen",
+"de": "der Westen",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wettbewerb",
+"de": "der Wettbewerb",
+"article": "der",
+"plural": "-e Mein Sohn hat bei einem Wettbewerb gewonnen.",
+"level": "A2"
+},
+{
+"key": "wetter",
+"de": "das Wetter",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wichtig",
+"de": "wichtig",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wie",
+"de": "wie",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wie viel",
+"de": "wie viel",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wieder",
+"de": "wieder",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wiederholen",
+"de": "wiederholen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wiederhören",
+"de": "das Wiederhören",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wiedersehen",
+"de": "das Wiedersehen",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "willkommen",
+"de": "willkommen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wind",
+"de": "der Wind",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "windig",
+"de": "windig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "winter",
+"de": "der Winter",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wir",
+"de": "wir",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wirklich",
+"de": "wirklich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wissen",
+"de": "wissen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "witz",
+"de": "der Witz",
+"article": "der",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "witzig",
+"de": "witzig",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wo",
+"de": "wo",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "woche",
+"de": "die Woche",
+"article": "die",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "wochenende",
+"de": "das Wochenende",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wochentag",
+"de": "der Wochentag",
+"article": "der",
+"plural": "-e",
+"level": "A1"
+},
+{
+"key": "woher",
+"de": "woher",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wohin",
+"de": "wohin",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wohnen",
+"de": "wohnen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wohnung",
+"de": "die Wohnung",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "wohnzimmer",
+"de": "das Wohnzimmer",
+"article": "das",
+"plural": "- Die Kinder sitzen im Wohnzimmer und sehen fern.",
+"level": "A2"
+},
+{
+"key": "wolke",
+"de": "die Wolke",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "wollen",
+"de": "wollen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "workshop",
+"de": "der Workshop",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "wort",
+"de": "das Wort",
+"article": "das",
+"plural": "-ö",
+"level": "A1"
+},
+{
+"key": "wortbildung",
+"de": "der Wortbildung",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wortliste",
+"de": "die Wortliste",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wortschatzliste",
+"de": "der Wortschatzliste",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wortschatzlisten",
+"de": "die Wortschatzlisten",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wunderbar",
+"de": "wunderbar",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "wunsch",
+"de": "wunsch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wurst",
+"de": "die Wurst",
+"article": "die",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "wählen",
+"de": "wählen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "wäsche",
+"de": "die Wäsche",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "wünschen",
+"de": "wünschen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "würdigkeit",
+"de": "würdigkeit",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zahl",
+"de": "zahl",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zahlen",
+"de": "zahlen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zahlung",
+"de": "die Zahlung",
+"article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zahn",
+"de": "der Zahn",
+"article": "der",
+"plural": "¨-e",
+"level": "A2"
+},
+{
+"key": "zeichnen",
+"de": "zeichnen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zeigen",
+"de": "zeigen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zeit",
+"de": "die Zeit",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zeitschrift",
+"de": "die Zeitschrift",
+"article": "die",
+"plural": "-en Diese Zeitschrift kauft Andrea jede Woche.",
+"level": "A2"
+},
+{
+"key": "zeitung",
+"de": "die Zeitung",
+"article": "die",
+"plural": "-en",
+"level": "A1"
+},
+{
+"key": "zelt",
+"de": "das Zelt",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "zentrum",
+"de": "zentrum",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zettel",
+"de": "der Zettel",
+"article": "der",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "zeugnis",
+"de": "das Zeugnis",
+"article": "das",
+"plural": "-se",
+"level": "A2"
+},
+{
+"key": "ziel",
+"de": "das Ziel",
+"article": "das",
+"plural": "-e",
+"level": "A2"
+},
+{
+"key": "zigarette",
+"de": "die Zigarette",
+"article": "die",
+"plural": "-n",
+"level": "A1"
+},
+{
+"key": "zimmer",
+"de": "das Zimmer",
+"article": "das",
+"plural": "–",
+"level": "A1"
+},
+{
+"key": "zirkus",
+"de": "der Zirkus",
+"article": "der",
+"plural": "-se",
+"level": "A2"
+},
+{
+"key": "zitrone",
+"de": "die Zitrone",
+"article": "die",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "zoll",
+"de": "der Zoll",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zoo",
+"de": "der Zoo",
+"article": "der",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "zu",
+"de": "zu",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zu sein",
+"de": "zu sein",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zucker",
+"de": "der Zucker",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zuerst",
+"de": "zuerst",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zufrieden",
+"de": "zufrieden",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zug",
+"de": "der Zug",
+"article": "der",
+"plural": "-ü",
+"level": "A1"
+},
+{
+"key": "zuhören",
+"de": "zuhören",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zuletzt",
+"de": "zuletzt",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zum beispiel",
+"de": "zum Beispiel",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zumachen",
+"de": "zumachen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zurzeit",
+"de": "zurzeit",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zurück",
+"de": "zurück",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zusammen",
+"de": "zusammen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zusammensetzung",
+"de": "die Zusammensetzung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "zusammenstellung",
+"de": "der Zusammenstellung",
+"article": "der",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "zwischen",
+"de": "zwischen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "ändern",
+"de": "ändern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "ärgern",
+"de": "ärgern",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "öffnen",
+"de": "öffnen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "öl",
+"de": "das Öl",
+"article": "das",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "üben",
+"de": "üben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "über",
+"de": "über",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "überall",
+"de": "überall",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "übermorgen",
+"de": "übermorgen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "übernachten",
+"de": "übernachten",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "übernachtung",
+"de": "die Übernachtung",
+"article": "die",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "übersetzen",
+"de": "übersetzen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "überweisen",
+"de": "überweisen",
+"article": "",
+"plural": "",
+"level": "A1"
+}
+]

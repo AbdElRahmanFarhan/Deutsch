@@ -3,9 +3,11 @@
 
 enabled = true
 
-# How long one refresher takes and how many questions it has.
+# A refresher has two parts: fast flashcards (tap to reveal, rate yourself),
+# then a few typed questions aimed at your weak spots.
 minutes = 10
-questions = 8
+cards = 40          # most flashcards per refresher
+questions = 5       # typed questions after the cards
 
 # Scheduled refreshers per day. Their times are picked at random inside the window,
 # at least min_gap_minutes apart, and never inside a focus session.
@@ -17,14 +19,21 @@ min_gap_minutes = 90
 # Days refreshers run on: any of mon tue wed thu fri sat sun.
 days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
-# What a refresher draws from, as relative weights.
-[mix]
-due_reviews = 5        # words and grammar due in spaced repetition
-recent_mistakes = 3    # entries from the mistakes log
-current_lektion = 2    # material from the Lektion you're on now
-older_material = 0     # random items from earlier Lektionen, even if not due
+# Typed questions adapt to your accuracy: above the target they get harder
+# (whole sentences), well below it they get easier (single words).
+target_accuracy = 0.85
 
-# Question styles a refresher may use.
+# How many typed questions aim at your most common mistake type (articles, cases, ...).
+weak_spot_questions = 2
+
+# What the typed questions draw from, as relative weights.
+[mix]
+due_reviews = 3        # grammar items and words due in spaced repetition
+recent_mistakes = 5    # entries from the mistakes log
+current_lektion = 2    # material from the Lektion you're on now
+older_material = 1     # random items from earlier Lektionen, even if not due
+
+# Question styles the typed questions may use.
 [styles]
 translate_to_german = true
 translate_to_english = true

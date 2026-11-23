@@ -8,8 +8,12 @@ description: Prepare upcoming Deutsch lessons from the Menschen book and store t
 Read CLAUDE.md first (dashboard URL, lesson format, the rule about the book).
 
 1. Read the live state with `ArtifactData`: `progress/main`, `config/schedule`, `config/plan`,
-   `config/tutor`, `config/profile`, and the ids in `lessons` (list with a small limit, or
-   `out_dir: "build/db"` to keep it out of the conversation).
+   `config/tutor`, `config/profile`, the ids in `lessons`, plus `mistakes` and `srs` (use
+   `out_dir: "build/db"` for the big ones to keep them out of the conversation). Then work out:
+   - **weak spots:** the most common `category` among mistakes of the last 21 days, with examples;
+   - **hard words:** `srs` words with `leech: true`;
+   - **word gaps:** run `python3 scripts/word_gaps.py <index>` for Goethe-list words that fit this
+     Lektion's topic and aren't in the review queue yet.
 2. Work out which lesson keys the next 3 days of sessions need, starting from
    `current_index` / `current_part`:
    - a `split` session uses `L<index>-p<part>`, then moves to part 2, or to the next Lektion after part 2;
@@ -30,6 +34,10 @@ Read CLAUDE.md first (dashboard URL, lesson format, the rule about the book).
    - `full` (2-3 h): both parts together, with ~25 words.
    - `practice` / `weekly`: mixed exercises on the last 2-4 Lektionen, one Goethe-A2-style task,
      `speaking`; `weekly` adds a 10-item mini-test.
+   Words: take them from the Lektion, and every one must be on the Goethe A1/A2 list
+   (`curriculum/goethe_words.json`) unless the book makes it essential. Nouns always with article
+   and plural. If the Lektion has fewer than needed, fill up from the word gaps.
+   Personalise: 2-3 exercise items on the top weak spot, and reuse 2-3 hard words in examples.
    Exercise items: `q` in English plus the German to work on, never containing the answer;
    `answer` the correct German; `accept` other correct forms. Explanations English only.
    Don't copy book texts, dialogues or exercises; refer to them by page and number instead.

@@ -16,17 +16,20 @@
   --good-soft: #e5f3ec;
   --warn: #9a5b00;
   --warn-soft: #fbf0dc;
+  --der: #1f5fbf;          /* article colours */
+  --die: #c8102e;
+  --das: #1f7a4d;
   --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #161415; --panel: #211e1f; --ink: #f1eeee; --muted: #a49c9e; --line: #36302f;
-  --red: #ff5a6e; --red-soft: #3a1d22; --good: #5fcf96; --good-soft: #17322a; --warn: #f0b45a; --warn-soft: #3a2c16;
+  --red: #ff5a6e; --red-soft: #3a1d22; --good: #5fcf96; --good-soft: #17322a; --warn: #f0b45a; --warn-soft: #3a2c16; --der: #7fb0ff; --die: #ff6b80; --das: #6fdca6;
   color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #161415; --panel: #211e1f; --ink: #f1eeee; --muted: #a49c9e; --line: #36302f;
-  --red: #ff5a6e; --red-soft: #3a1d22; --good: #5fcf96; --good-soft: #17322a; --warn: #f0b45a; --warn-soft: #3a2c16;
+  --red: #ff5a6e; --red-soft: #3a1d22; --good: #5fcf96; --good-soft: #17322a; --warn: #f0b45a; --warn-soft: #3a2c16; --der: #7fb0ff; --die: #ff6b80; --das: #6fdca6;
   color-scheme: dark }
 
 * { box-sizing: border-box }
@@ -109,6 +112,17 @@ pre.prompt { white-space: pre-wrap; font: 13px/1.45 var(--mono); background: var
 .table th, .table td { text-align: left; padding: 6px; border-top: 1px solid var(--line); font-size: 14px; }
 .table th { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; border-top: 0; }
 details summary { cursor: pointer; font-weight: 600; }
+/* Flashcards and gender colours */
+.art { font-weight: 600; }
+.art-der { color: var(--der); } .art-die { color: var(--die); } .art-das { color: var(--das); }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 24px 16px; text-align: center; display: flex; flex-direction: column; gap: 6px; align-items: center; background: var(--bg); min-height: 150px; justify-content: center; }
+.card hr { width: 60%; border: 0; border-top: 1px solid var(--line); margin: 8px 0; }
+.card-de { font-size: 26px; font-weight: 600; }
+.card-en { font-size: 22px; }
+.hook { background: var(--warn-soft); border-radius: 8px; padding: 6px 10px; margin-top: 6px; }
+.rate { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.rate .btn { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; }
+.rate .btn small { font: 11px var(--mono); opacity: .7; }
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
 @media (prefers-reduced-motion: no-preference) { .bar > i { transition: width .4s ease; } }
 </style>
@@ -167,7 +181,7 @@ function fnv1a(text) { let h = 0x811c9dc5; for (let i = 0; i < text.length; i++)
 function mulberry32(a) { return function () { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
 /* ---------- state ---------- */
-const S = { cfg: {}, progress: null, syllabus: [], sayings: [], sessions: {}, refreshers: [], srs: {}, mistakes: [], lessons: {}, reports: [], meta: {}, loaded: false, offline: false };
+const S = { cfg: {}, progress: null, syllabus: [], sayings: [], sessions: {}, refreshers: [], srs: {}, mistakes: [], lessons: {}, reports: [], daily: {}, meta: {}, loaded: false, offline: false };
 let db = null, sample = null, tab = "today";
 const run = { mode: null }; // active practice run
 
@@ -279,21 +293,98 @@ function computePlan() {
 function phaseOf(index) { const it = S.syllabus[index]; return it ? it.level : "exam"; }
 
 /* ---------- words and SRS ---------- */
-function sm2(item, quality) {
-  const rv = S.cfg.review || {};
-  let ef = Number(item.ef ?? rv.starting_ease ?? 2.5), reps = Number(item.reps || 0), interval = Number(item.interval || 0), lapses = Number(item.lapses || 0);
+// Words have two schedules: rec (German -> English) and prod (English -> German with article
+// and plural, opened after `produce_after_correct` correct recognitions). Mistakes and grammar
+// items keep one schedule in their top-level fields.
+const rvCfg = () => S.cfg.review || {};
+function newSched(due) { return { ef: Number(rvCfg().starting_ease ?? 2.5), reps: 0, interval: 0, lapses: 0, due, last: null, correct: 0 }; }
+function sm2Step(sched, quality) {
+  const rv = rvCfg(); const today = berlinNow().iso;
+  let ef = Number(sched.ef ?? rv.starting_ease ?? 2.5), reps = Number(sched.reps || 0), interval = Number(sched.interval || 0), lapses = Number(sched.lapses || 0), correct = Number(sched.correct || 0);
   if (quality >= 3) {
     interval = reps === 0 ? Number(rv.first_interval_days ?? 1) : reps === 1 ? Number(rv.second_interval_days ?? 6) : Math.round(interval * ef);
-    reps += 1;
+    reps += 1; correct += 1;
   } else { reps = 0; interval = 1; lapses += 1; }
   ef = Math.max(Number(rv.minimum_ease ?? 1.3), ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)));
-  const today = berlinNow().iso;
-  return { ef: Math.round(ef * 100) / 100, reps, interval, lapses, due: addDays(today, interval), last: today, leech: lapses >= Number(rv.leech_after_failures ?? 4) };
+  if (lapses >= Number(rv.leech_after_failures ?? 4)) interval = Math.min(interval, Number(rv.max_hard_interval_days ?? 4));
+  return { ef: Math.round(ef * 100) / 100, reps, interval, lapses, correct, due: addDays(today, interval), last: today };
+}
+const isHard = (sched) => Number(sched?.lapses || 0) >= Number(rvCfg().leech_after_failures ?? 4);
+function wordStages(it) {
+  const rec = it.rec || { ef: it.ef, reps: it.reps, interval: it.interval, lapses: it.lapses, due: it.due, last: it.last || null, correct: it.reps || 0 };
+  return { rec, prod: it.prod || null };
+}
+// Apply one rating to an item and return the full updated document.
+function rateItem(it, stage, quality) {
+  if (it.type !== "word") return { ...it, ...sm2Step(it, quality), leech: isHard(sm2Step(it, quality)) };
+  const { rec, prod } = wordStages(it);
+  const next = { ...it, rec, prod };
+  next[stage] = sm2Step(next[stage] || newSched(berlinNow().iso), quality);
+  if (stage === "rec" && !next.prod && next.rec.correct >= Number(rvCfg().produce_after_correct ?? 2)) next.prod = newSched(addDays(berlinNow().iso, 1));
+  next.leech = isHard(next.rec) || isHard(next.prod);
+  return next;
 }
 const srsList = () => Object.values(S.srs);
-const dueItems = () => { const t = berlinNow().iso; return srsList().filter((x) => (x.due || t) <= t); };
-const wordsKnown = () => srsList().filter((x) => x.type === "word" && Number(x.reps || 0) >= 1).length;
+// Every card due today: one per due stage of a word, one per due mistake/grammar item.
+function dueCards() {
+  const t = berlinNow().iso; const out = [];
+  for (const it of srsList()) {
+    if (it.type === "word") {
+      const { rec, prod } = wordStages(it);
+      if ((rec.due || t) <= t) out.push({ it, stage: "rec", sched: rec, isNew: !rec.last && !Number(rec.reps) });
+      if (prod && (prod.due || t) <= t) out.push({ it, stage: "prod", sched: prod, isNew: false });
+    } else if ((it.due || t) <= t) out.push({ it, stage: "item", sched: it, isNew: false });
+  }
+  return out;
+}
+const dueItems = () => dueCards().map((c) => c.it);
+const today_ = () => S.daily[berlinNow().iso] || { reviews: 0, new: 0, cards_correct: 0, cards_total: 0 };
+// The flashcard queue for one run, honouring the daily limits and the backlog pause.
+function cardQueue(limit) {
+  const rv = rvCfg(); const d = today_();
+  const cards = dueCards().filter((c) => c.stage !== "item");
+  const reviews = cards.filter((c) => !c.isNew).sort((a, b) => (isHard(b.sched) - isHard(a.sched)) || String(a.sched.due).localeCompare(String(b.sched.due)));
+  const fresh = cards.filter((c) => c.isNew).sort((a, b) => String(a.it.added || "").localeCompare(String(b.it.added || "")));
+  const reviewsLeft = Math.max(0, Number(rv.max_reviews_per_day ?? 150) - d.reviews);
+  const paused = reviews.length > Number(rv.pause_new_when_due_over ?? 100);
+  const newLeft = paused ? 0 : Math.max(0, Number(rv.max_new_items_per_day ?? 20) - d.new);
+  // New words get the room reviews leave, and at least a quarter of the run when they're allowed.
+  const nNew = Math.min(newLeft, fresh.length, Math.max(limit - Math.min(reviews.length, reviewsLeft), Math.ceil(limit / 4)));
+  const r = reviews.slice(0, Math.max(0, Math.min(reviewsLeft, limit - nNew)));
+  const n = fresh.slice(0, nNew);
+  // Spread new cards through the reviews.
+  const q = [...r]; n.forEach((c, k) => q.splice(Math.min(q.length, Math.round(((k + 1) * (q.length + 1)) / (n.length + 1))), 0, c));
+  return { queue: q.slice(0, Math.max(limit, 0)), paused, dueReviews: reviews.length, newWaiting: fresh.length, newLeft, reviewsLeft };
+}
+function wordStatus() {
+  const c = { learning: 0, recognize: 0, produce: 0, hard: 0, total: 0 };
+  for (const it of srsList()) {
+    if (it.type !== "word") continue; c.total++;
+    const { rec, prod } = wordStages(it);
+    if (it.leech) c.hard++;
+    if (prod && Number(prod.reps) >= 2) c.produce++;
+    else if (Number(rec.reps) >= 2) c.recognize++;
+    else c.learning++;
+  }
+  return c;
+}
+const wordsKnown = () => srsList().filter((x) => x.type === "word" && Number(wordStages(x).rec.reps || 0) >= 1).length;
 const slug = (s) => String(s).toLowerCase().normalize("NFKD").replace(/[^\w]+/g, "-").replace(/^-|-$/g, "").slice(0, 80) || "item";
+// "der Tisch, -e" / "die Frau" -> "tisch" / "frau", matching curriculum/goethe_words.json keys.
+function lemmaKey(de) { return String(de || "").replace(/^(der|die|das)\s+/i, "").split(",")[0].replace(/\(.*?\)/g, "").trim().toLowerCase().replace(/-$/, ""); }
+function goetheCoverage() {
+  const list = S.meta.goethe?.words || []; const known = new Set();
+  for (const it of srsList()) if (it.type === "word" && Number(wordStages(it).rec.reps || 0) >= 1) known.add(lemmaKey(it.de));
+  const out = { A1: { known: 0, total: 0 }, A2: { known: 0, total: 0 } };
+  for (const [k, lvl] of list) { if (!out[lvl]) continue; out[lvl].total++; if (known.has(k)) out[lvl].known++; }
+  return out;
+}
+function articleOf(de) { const m = String(de || "").match(/^(der|die|das)\s/i); return m ? m[1].toLowerCase() : ""; }
+// German with its article coloured by gender.
+function deHtml(de, plural) {
+  const a = articleOf(de); const rest = a ? String(de).slice(a.length + 1) : String(de);
+  return `${a ? `<span class="art art-${a}">${a}</span> ` : ""}${esc(rest)}${plural ? ` <span class="muted small">(pl. ${esc(plural)})</span>` : ""}`;
+}
 
 /* ---------- db writes ---------- */
 async function put(path, data) {
@@ -301,6 +392,9 @@ async function put(path, data) {
   try { await db.doc(path).set(data); }
   catch (e) { if (e?.code === "unavailable") { await new Promise((r) => setTimeout(r, 600 + Math.random() * 600)); await db.doc(path).set(data); } else { toast(e?.code === "quota_exceeded" ? "Storage is full. Delete old items first." : "Couldn't save. Try again."); throw e; } }
 }
+// Card ratings are saved one after another in the background, so the next card shows at once.
+let writeChain = Promise.resolve();
+function queueWrite(path, data) { writeChain = writeChain.then(() => put(path, data)).catch(() => {}); return writeChain; }
 async function saveMistake(m, source) {
   const today = berlinNow().iso;
   const id = `${today}-${slug(m.right).slice(0, 40)}-${Math.random().toString(36).slice(2, 6)}`;
@@ -316,9 +410,34 @@ async function addWords(words, lektionIndex) {
     if (!w?.de) continue;
     const id = "w-" + slug(w.de);
     if (S.srs[id]) continue;
-    await put(`srs/${id}`, { id, type: "word", de: w.de, en: w.en || "", plural: w.plural || "", example: w.example || "", lektion: lektionIndex ?? null, due: addDays(today, 1), ef: Number(S.cfg.review?.starting_ease ?? 2.5), reps: 0, interval: 0, lapses: 0, added: today });
+    const doc = { id, type: "word", de: w.de, en: w.en || "", plural: w.plural || "", example: w.example || "", example_en: w.example_en || "", gender: articleOf(w.de), lektion: lektionIndex ?? null, added: today, rec: newSched(addDays(today, 1)), prod: null };
+    S.srs[id] = doc; // so a second call in the same session doesn't add it twice
+    await put(`srs/${id}`, doc);
   }
 }
+async function bumpDaily(delta) {
+  const t = berlinNow().iso; const d = { ...today_() };
+  for (const [k, v] of Object.entries(delta)) d[k] = Number(d[k] || 0) + v;
+  S.daily[t] = d;
+  await put(`daily/${t}`, { date: t, ...d });
+}
+// Mistake types over the last three weeks, most frequent first, with a few examples each.
+function weakSpots() {
+  const since = addDays(berlinNow().iso, -21); const by = {};
+  for (const m of S.mistakes) { if ((m.date || "") < since) continue; const k = m.category || "grammar"; (by[k] = by[k] || []).push(m); }
+  return Object.entries(by).sort((a, b) => b[1].length - a[1].length).map(([category, list]) => ({ category, count: list.length, examples: list.slice(-3).map((m) => `${m.wrong} -> ${m.right}`) }));
+}
+// Typed-question difficulty 1-3, nudged after each refresher toward the target accuracy.
+function adaptiveLevel() {
+  const target = Number(S.cfg.refreshers?.target_accuracy ?? 0.85);
+  const last = [...S.refreshers].filter((r) => r.level && r.total).sort((a, b) => String(a.id).localeCompare(String(b.id))).pop();
+  if (!last) return 2;
+  const acc = last.correct / last.total;
+  if (acc >= target + 0.05) return Math.min(3, last.level + 1);
+  if (acc < target - 0.15) return Math.max(1, last.level - 1);
+  return last.level;
+}
+const LEVELS = { 1: "easy: single words, articles and short gap fills", 2: "medium: phrases and short sentences", 3: "hard: full sentences, transformations, word order and cases" };
 
 /* ---------- answer checking ---------- */
 function norm(s) {
@@ -363,7 +482,8 @@ notes: <one line: what went well, what to practise>
 function speakingPrompt(session, lesson) {
   const t = S.cfg.tutor || {}, p = S.cfg.profile || {};
   const cur = S.syllabus[S.progress?.current_index ?? 0];
-  const words = (lesson?.steps || []).flatMap((s) => s.words || []).map((w) => w.de).slice(0, 20);
+  const words = (lesson?.steps || []).flatMap((s) => s.words || []).map((w) => w.de).slice(0, 15);
+  const reviewWords = [...new Set(dueCards().filter((c) => c.it.type === "word").sort((a, b) => (b.it.leech ? 1 : 0) - (a.it.leech ? 1 : 0)).map((c) => c.it.de))].filter((w) => !words.includes(w)).slice(0, 12);
   const recent = [...S.mistakes].sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 5).map((m) => `${m.wrong} -> ${m.right}`);
   const topic = lesson?.speaking || (cur ? `${cur.topic} (Menschen ${cur.volume}, Lektion ${cur.lektion}: "${cur.title}")` : "daily life in Germany");
   return `You are my German speaking partner. I am ${p.name || "a learner"}, I live and work in Germany (${p.job || "office job"}), and I'm at A1 moving to A2. Explain everything in English, never in another language.
@@ -376,7 +496,9 @@ Rules:
 
 Today's topic: ${topic}
 ${cur ? `Grammar to use: ${cur.grammar}` : ""}
-${words.length ? `Words to use: ${words.join(", ")}` : ""}
+${words.length ? `New words from today's lesson: ${words.join(", ")}` : ""}
+${reviewWords.length ? `Words I'm reviewing today: ${reviewWords.join(", ")}` : ""}
+${words.length || reviewWords.length ? "Steer the conversation so I have to use as many of these words as possible, and ask me questions whose answers need them." : ""}
 ${recent.length ? `My recent mistakes to watch for: ${recent.join("; ")}` : ""}
 
 At the end, list my ${t.speaking_mistakes_listed || 3} biggest mistakes, then:
@@ -432,7 +554,7 @@ function renderToday(v) {
   const mot = S.cfg.motivation || {};
   const saying = S.sayings.length ? S.sayings[fnv1a(today) % S.sayings.length] : null;
   const makeToday = P.makeup.filter((m) => m.date === today);
-  const due = dueItems().length;
+  const cq = cardQueue(Number(S.cfg.refreshers?.cards ?? 40));
   const doneIdx = (S.progress?.done || []).length;
   const pct = Math.round((doneIdx / 48) * 100);
   let missedLine = "";
@@ -458,7 +580,7 @@ function renderToday(v) {
   </section>
   <section class="panel">
     <div class="row" style="justify-content:space-between"><h2>Refreshers</h2><button class="btn" data-act="start-refresher">Start a ${esc(S.cfg.refreshers?.minutes || 10)}-min refresher</button></div>
-    <p class="muted small">${slots.length ? `Planned today at <span class="mono">${slots.map(hhmm).join(", ")}</span>. Do one whenever you have ten minutes.` : "None planned today. You can still start one any time."} ${due} item${due === 1 ? "" : "s"} due for review.</p>
+    <p class="muted small">${slots.length ? `Planned today at <span class="mono">${slots.map(hhmm).join(", ")}</span>. Do one whenever you have ten minutes.` : "None planned today. You can still start one any time."} ${cq.dueReviews} card${cq.dueReviews === 1 ? "" : "s"} due${cq.newLeft && cq.newWaiting ? `, ${Math.min(cq.newLeft, cq.newWaiting)} new words ready` : ""}${cq.paused ? ". New words are paused until you catch up on reviews" : ""}.</p>
   </section>
   <section class="panel">
     <h2>Where you are</h2>
@@ -492,8 +614,9 @@ function renderPractice(v) {
   v.innerHTML = `
   <section class="panel">
     <h2>Refresher</h2>
-    <p class="muted">${esc(S.cfg.refreshers?.questions || 8)} quick questions from your due words, recent mistakes and the current Lektion. About ${esc(S.cfg.refreshers?.minutes || 10)} minutes.</p>
-    <div class="row"><button class="btn primary" data-act="start-refresher">Start refresher</button><span class="muted small">${dueItems().length} due now</span></div>
+    <p class="muted">Up to ${esc(S.cfg.refreshers?.cards ?? 40)} flashcards (tap to reveal, rate yourself), then ${esc(S.cfg.refreshers?.questions ?? 5)} typed questions aimed at your weak spots. About ${esc(S.cfg.refreshers?.minutes || 10)} minutes.</p>
+    <div class="row"><button class="btn primary" data-act="start-refresher">Start refresher</button><button class="btn" data-act="start-cards">Flashcards only</button><button class="btn" data-act="start-questions">Questions only</button></div>
+    <p class="muted small">${(() => { const cq = cardQueue(Number(S.cfg.refreshers?.cards ?? 40)); const w = weakSpots()[0]; return `${cq.dueReviews} cards due · ${Math.min(cq.newLeft, cq.newWaiting)} new words available today · questions at ${esc(LEVELS[adaptiveLevel()].split(":")[0])} level${w ? ` · focus: ${esc(w.category)}` : ""}`; })()}</p>
   </section>
   <section class="panel">
     <h2>Focus session</h2>
@@ -563,9 +686,25 @@ function renderProgress(v) {
     <div class="list">${upcoming.map((it) => `<div class="item"><div class="main"><h3>${esc(it.volume)} L${it.lektion} · ${esc(it.title)}</h3><div class="muted small">${esc(it.topic)} · ${esc(it.grammar)} · Kursbuch p. ${it.page}</div></div><span class="pill">${esc(lektionHours(it))} h</span></div>`).join("") || `<p class="muted">All Lektionen done. Exam prep is next.</p>`}</div>
   </section>
   <section class="panel">
+    <h2>Vocabulary</h2>
+    ${(() => {
+      const ws = wordStatus(); const gc = goetheCoverage(); const cq = cardQueue(9999); const d = today_();
+      const pct = (a) => (a.total ? Math.round((a.known / a.total) * 100) : 0);
+      return `<div class="grid">
+        <div class="stat"><b>${ws.learning}</b><span>Learning</span></div>
+        <div class="stat"><b>${ws.recognize}</b><span>Recognise</span></div>
+        <div class="stat"><b>${ws.produce}</b><span>Can say</span></div>
+        <div class="stat"><b>${cq.dueReviews}</b><span>Due today</span></div>
+      </div>
+      ${["A1", "A2"].map((l) => `<div class="field"><div class="row" style="justify-content:space-between"><span class="small"><strong>Goethe ${l} word list</strong></span><span class="small mono">${gc[l].known} / ${gc[l].total} · ${pct(gc[l])}%</span></div><div class="bar"><i style="width:${pct(gc[l])}%"></i></div></div>`).join("")}
+      <p class="muted small">Today: ${d.reviews || 0} reviews and ${d.new || 0} new words of your ${esc(rvCfg().max_reviews_per_day ?? 150)} / ${esc(rvCfg().max_new_items_per_day ?? 20)} daily limits.${cq.paused ? " New words are paused: more than " + esc(rvCfg().pause_new_when_due_over ?? 100) + " reviews are due." : ""} "Can say" means you produce the word with its article from English.</p>`;
+    })()}
+  </section>
+  <section class="panel">
     <h2>Weak spots</h2>
     ${weakList.length ? `<div class="row">${weakList.map(([k, n]) => `<span class="pill red">${esc(k)} · ${n}</span>`).join("")}</div>` : `<p class="muted">Your mistakes will show up here, grouped by type.</p>`}
-    ${leeches.length ? `<p class="small"><strong>Keep failing:</strong> ${leeches.map((x) => esc(x.de)).join(", ")}</p>` : ""}
+    ${weakSpots()[0] ? `<p class="small">Refreshers currently aim ${esc(S.cfg.refreshers?.weak_spot_questions ?? 2)} questions at <strong>${esc(weakSpots()[0].category)}</strong>, your most common mistake in the last three weeks. Question level: ${esc(LEVELS[adaptiveLevel()])}.</p>` : ""}
+    ${leeches.length ? `<p class="small"><strong>Hard words</strong> (reviewed at least every ${esc(rvCfg().max_hard_interval_days ?? 4)} days): ${leeches.map((x) => deHtml(x.de)).join(", ")}</p>` : ""}
   </section>`;
 }
 function madeUpText(P, m) {
@@ -659,6 +798,9 @@ const HELP = {
   comeback_after_missed: "Missed sessions in a row before a comeback session", comeback_minutes: "Length of a comeback session", min_sessions_per_7_days: "Below this, the finish date uses your real pace",
   missed_day_message: "brief or off", help_after_wrong_tries: "Wrong tries before help appears", help_keyword: "Type this for the English meaning", correction_style: "short or detailed",
   correct_during_speaking: "Correct while you talk (off = list mistakes at the end)", speaking_mistakes_listed: "Mistakes listed after speaking", tone: "calm, encouraging or strict",
+  cards: "Most flashcards per refresher", target_accuracy: "Typed questions get harder above this share right (0-1)", weak_spot_questions: "Typed questions aimed at your most common mistake type",
+  pause_new_when_due_over: "Pause new words when more reviews than this are due", produce_after_correct: "Correct recognitions before you practise saying a word",
+  max_hard_interval_days: "Longest gap between reviews of a hard word", first_interval_days: "Days until the first review", second_interval_days: "Days until the second review",
   progress_facts: "Show progress facts", sayings: "Show a German saying", max_reviews_per_day: "Most reviews a day", max_new_items_per_day: "Most new items a day", leech_after_failures: "Failures before an item is flagged",
 };
 const label = (k) => k.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
@@ -740,11 +882,75 @@ function renderPrefs(v) {
 }
 
 /* ---------- practice runs ---------- */
+function goPractice() { tab = "practice"; document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === "practice"))); }
+// A refresher is flashcards first, then a few typed questions. Either part can run alone.
+function startRefresher(parts = { cards: true, questions: true }) {
+  const r = S.cfg.refreshers || {};
+  Object.assign(run, { mode: null, stats: { reviews: 0, new: 0, correct: 0, total: 0 }, qResults: [], started: Date.now(), saved: false, withQuestions: parts.questions, error: "" });
+  goPractice();
+  if (parts.cards) {
+    const cq = cardQueue(Number(r.cards ?? 40));
+    if (cq.queue.length) { Object.assign(run, { mode: "cards", cards: cq.queue, ci: 0, revealed: false, paused: cq.paused }); render(); return; }
+    if (!parts.questions) { toast(cq.paused ? "No reviews left for today. New words are paused until your backlog is under the limit." : "No flashcards due right now."); render(); return; }
+  }
+  startQuestions();
+}
+function renderCardsRun(v) {
+  const c = run.cards[run.ci];
+  if (!c) return finishCards(v);
+  const it = c.it; const hard = it.leech;
+  const front = c.stage === "rec"
+    ? `<div class="card-de">${deHtml(it.de)}</div><p class="muted small">What does it mean in English?</p>`
+    : `<div class="card-en">${esc(it.en)}</div><p class="muted small">Say it in German${it.gender ? ", with article and plural" : ""}.</p>`;
+  const back = c.stage === "rec"
+    ? `<div class="card-en">${esc(it.en)}</div>${it.plural ? `<div class="small muted">Plural: ${esc(it.plural)}</div>` : ""}`
+    : `<div class="card-de">${deHtml(it.de, it.plural)}</div>`;
+  v.innerHTML = `<section class="panel flash">
+    <div class="row" style="justify-content:space-between"><span class="muted small">Card ${run.ci + 1} of ${run.cards.length}${run.withQuestions ? " · then a few questions" : ""}</span>
+      <span class="row" style="gap:6px">${c.isNew ? `<span class="pill">New</span>` : ""}${c.stage === "prod" ? `<span class="pill">Produce</span>` : ""}${hard ? `<span class="pill warn">Hard word</span>` : ""}</span></div>
+    <div class="steps">${run.cards.map((_, k) => `<i class="${k <= run.ci ? "on" : ""}"></i>`).join("")}</div>
+    ${run.ci === 0 && run.paused ? `<div class="note">You have a backlog, so new words are paused until reviews are back under ${esc(rvCfg().pause_new_when_due_over ?? 100)}.</div>` : ""}
+    <div class="card">${front}${run.revealed ? `<hr>${back}${it.example ? `<div class="small" style="margin-top:6px"><em>${esc(it.example)}</em>${it.example_en ? `<div class="muted">${esc(it.example_en)}</div>` : ""}</div>` : ""}${hard && it.hook ? `<div class="hook small"><strong>Memory hook:</strong> ${esc(it.hook)}</div>` : ""}` : ""}</div>
+    ${run.revealed
+      ? `<div class="rate"><button class="btn" data-q="1">Again<small>1</small></button><button class="btn" data-q="3">Hard<small>2</small></button><button class="btn primary" data-q="4">Good<small>3</small></button><button class="btn" data-q="5">Easy<small>4</small></button></div>
+         ${hard && !it.hook && sample ? `<button class="btn" id="hook">Get a memory hook</button>` : ""}`
+      : `<button class="btn primary" id="reveal" style="width:100%">Show answer <small class="muted">space</small></button>`}
+    <div class="row"><button class="btn" id="stop-cards">Stop here</button></div>
+  </section>`;
+  if ($("#reveal")) $("#reveal").onclick = () => { run.revealed = true; render(); };
+  v.querySelectorAll("[data-q]").forEach((b) => (b.onclick = () => rateCard(Number(b.dataset.q))));
+  if ($("#hook")) $("#hook").onclick = (e) => makeHook(it, e.currentTarget);
+  $("#stop-cards").onclick = () => { run.cards = run.cards.slice(0, run.ci); render(); };
+}
+function rateCard(q) {
+  const c = run.cards[run.ci]; if (!c || !run.revealed) return;
+  const next = rateItem(S.srs[c.it.id] || c.it, c.stage, q);
+  S.srs[next.id] = next; queueWrite(`srs/${next.id}`, next);
+  run.stats.total++; if (q >= 3) run.stats.correct++; if (c.isNew) run.stats.new++; else run.stats.reviews++;
+  run.ci++; run.revealed = false; render();
+}
+async function makeHook(it, btn) {
+  btn.disabled = true; btn.textContent = "Thinking…";
+  try {
+    const r = await sample.json(`A learner keeps forgetting the German word "${it.de}" (${it.en}). They are an Egyptian engineer living in Germany and study in English. Give one short, vivid memory hook in English (sound-alike or image; include the article's gender if it's a noun) and one new simple A2 example sentence from their daily life. Reply with only JSON: {"hook": string, "example": "German sentence", "example_en": "English translation"}`, { modelTier: "quick", cache: false });
+    const next = { ...(S.srs[it.id] || it), hook: String(r.hook || ""), example: String(r.example || it.example || ""), example_en: String(r.example_en || it.example_en || "") };
+    S.srs[it.id] = next; queueWrite(`srs/${it.id}`, next);
+    run.cards[run.ci] = { ...run.cards[run.ci], it: next };
+  } catch { toast("Couldn't make a hook right now."); }
+  render();
+}
+async function finishCards(v) {
+  v.innerHTML = `<section class="panel"><h2>Cards done</h2><p class="muted">Saving…</p></section>`;
+  await writeChain;
+  if (run.stats.total) { try { await bumpDaily({ reviews: run.stats.reviews, new: run.stats.new, cards_correct: run.stats.correct, cards_total: run.stats.total }); } catch {} }
+  if (run.withQuestions) return startQuestions();
+  await saveRefresher(); finishView(v);
+}
 function pickRefresherItems(n) {
   const r = S.cfg.refreshers || {}; const mix = r.mix || {}; const today = berlinNow().iso;
   const curI = S.progress?.current_index ?? 0;
   const pools = {
-    due_reviews: dueItems().filter((x) => x.type !== "mistake"),
+    due_reviews: dueCards().filter((c) => c.stage !== "rec").map((c) => c.it),
     recent_mistakes: srsList().filter((x) => x.type === "mistake" && (x.due || today) <= addDays(today, 3)),
     current_lektion: srsList().filter((x) => x.lektion === curI),
     older_material: srsList().filter((x) => x.lektion != null && x.lektion < curI),
@@ -761,47 +967,131 @@ function pickRefresherItems(n) {
 function localQuestions(items) {
   return items.map((it) => it.type === "mistake"
     ? { item_id: it.id, q: it.front || `Correct this: ${it.en}`, answer: it.de, accept: [] }
-    : { item_id: it.id, q: `In German: “${it.en}”${/^(der|die|das) /i.test(it.de) ? " (with article)" : ""}`, answer: it.de, accept: [] });
+    : { item_id: it.id, q: `In German: “${it.en}”${it.gender ? " (with article)" : ""}`, answer: it.de, accept: [] });
 }
-async function startRefresher() {
-  const r = S.cfg.refreshers || {}; const n = Number(r.questions || 8);
+async function startQuestions() {
+  const r = S.cfg.refreshers || {}; const n = Number(r.questions ?? 5);
+  Object.assign(run, { mode: "questions", qs: null, i: 0, results: [], level: adaptiveLevel() });
+  goPractice(); render();
+  if (n <= 0) { await saveRefresher(); return finishView($("#view")); }
   const items = pickRefresherItems(n);
-  run.mode = "refresher"; run.items = items; run.qs = null; run.i = 0; run.results = []; run.started = Date.now(); run.error = "";
-  tab = "practice"; document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === "practice"))); render();
   const cur = S.syllabus[S.progress?.current_index ?? 0];
+  const weak = weakSpots()[0]; const nWeak = weak ? Math.min(n, Number(r.weak_spot_questions ?? 2)) : 0;
   const styles = Object.entries(r.styles || {}).filter(([, on]) => on).map(([k]) => k.replace(/_/g, " "));
   if (sample) {
     try {
       const qs = await sample.json(
-        `Write ${n} short German practice questions for an A1-A2 learner who lives in Germany. Instructions to the learner must be in English. Each question has one clear correct answer.\n` +
-        `Allowed question styles: ${styles.join(", ") || "translate to german"}.\n` +
-        (items.length ? `Base the questions on these items (one question per item, keep its id):\n${items.map((it) => JSON.stringify({ id: it.id, type: it.type, german: it.de, english: it.en, note: it.front || "" })).join("\n")}\n` : "") +
-        (items.length < n && cur ? `Fill the remaining questions from the current Lektion: "${cur.title}" (topic: ${cur.topic}; grammar: ${cur.grammar}). Use item_id "new".\n` : "") +
+        `Write ${n} short German practice questions for an adult A1-A2 learner living in Germany. Instructions to the learner must be in English. Each question has one clear correct answer and never contains its own answer.\n` +
+        `Difficulty: ${LEVELS[run.level]}.\nAllowed question styles: ${styles.join(", ") || "translate to german"}.\n` +
+        (nWeak ? `At least ${nWeak} questions must practise the learner's most common mistake type, "${weak.category}". Their recent mistakes of that type: ${weak.examples.join("; ")}. Use item_id "weak" for those.\n` : "") +
+        (items.length ? `Base the other questions on these items (keep each id as item_id):\n${items.map((it) => JSON.stringify({ id: it.id, type: it.type, german: it.de, english: it.en, note: it.front || "" })).join("\n")}\n` : "") +
+        (cur ? `If you need more, use the current Lektion: "${cur.title}" (topic: ${cur.topic}; grammar: ${cur.grammar}) with item_id "new".\n` : "") +
         `Reply with only a JSON array of {"item_id": string, "q": "the question in English with any German to work on", "answer": "the correct German", "accept": ["other correct answers"]}.`,
         { modelTier: "quick", cache: false });
       if (Array.isArray(qs) && qs.length) run.qs = qs.slice(0, n).map((q) => ({ item_id: String(q.item_id || "new"), q: String(q.q || ""), answer: String(q.answer || ""), accept: Array.isArray(q.accept) ? q.accept.map(String) : [] }));
-    } catch (e) { run.error = e?.code === "not_granted" ? "" : "Couldn't build mixed questions, so this one uses your word list only."; }
+    } catch (e) { run.error = e?.code === "not_granted" ? "" : "Couldn't build mixed questions, so these use your word list only."; }
   }
   if (!run.qs) run.qs = localQuestions(items);
-  if (!run.qs.length) { run.mode = null; toast("Nothing to review yet. Do your first focus session to add words."); render(); return; }
+  if (!run.qs.length) { await saveRefresher(); return finishView($("#view")); }
   render();
+}
+function renderRun(v) {
+  if (run.mode === "cards") return renderCardsRun(v);
+  if (run.mode === "questions") return renderQuestionsRun(v);
+  return renderSessionRun(v);
+}
+function renderQuestionsRun(v) {
+  if (!run.qs) { v.innerHTML = `<section class="panel"><h2>Questions</h2><p class="muted">Building your questions…</p></section>`; return; }
+  const q = run.qs[run.i];
+  if (!q) return renderQuestionsDone(v);
+  const last = run.results[run.i];
+  v.innerHTML = `<section class="panel">
+    <div class="steps">${run.qs.map((_, k) => `<i class="${k <= run.i ? "on" : ""}"></i>`).join("")}</div>
+    ${run.error ? `<div class="note">${esc(run.error)}</div>` : ""}
+    <p class="muted small">Question ${run.i + 1} of ${run.qs.length} · ${esc(LEVELS[run.level].split(":")[0])}${q.item_id === "weak" ? " · weak spot" : ""}</p>
+    <div class="q">${esc(q.q)}</div>
+    <form id="ans-form" class="row"><input type="text" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Your answer (type ${esc(S.cfg.tutor?.help_keyword || "?")} for the answer)" ${last ? "disabled" : ""} value="${esc(last?.given || "")}"><button class="btn primary" ${last ? "hidden" : ""}>Check</button></form>
+    <div id="fb">${last ? feedbackHtml(last) : ""}</div>
+    <div class="row">${last ? `<button class="btn primary" id="next">Next</button>${!last.correct && !last.helped ? `<button class="btn" id="override">I was right</button>` : ""}` : ""}<button class="btn" id="quit">Stop</button></div>
+  </section>`;
+  const input = $("#ans"); if (!last) input.focus();
+  $("#ans-form").onsubmit = async (e) => {
+    e.preventDefault(); const given = input.value.trim(); if (!given) return;
+    if (given === (S.cfg.tutor?.help_keyword || "?")) { run.results[run.i] = { given: "", correct: false, corrected: q.answer, reason: "You asked for the answer; it comes back soon.", helped: true }; render(); return; }
+    $("#fb").innerHTML = `<p class="muted small">Checking…</p>`;
+    run.results[run.i] = { given, ...(await grade(q.q, q.answer, q.accept, given)) };
+    render();
+  };
+  if ($("#next")) $("#next").onclick = () => { run.i++; render(); };
+  if ($("#override")) $("#override").onclick = () => { run.results[run.i].correct = true; run.results[run.i].reason = "Marked right by you."; run.i++; render(); };
+  $("#quit").onclick = () => { run.qs = run.qs.slice(0, run.results.length); run.i = run.results.length; render(); };
+}
+function feedbackHtml(r) {
+  return `<div class="feedback ${r.correct ? "ok" : "bad"}"><strong>${r.correct ? "Right" : "Not quite"}</strong>${!r.correct && r.given ? `<span>You wrote: ${esc(r.given)}</span>` : ""}<span>Correct: <strong>${esc(r.corrected)}</strong></span>${r.reason ? `<span class="small">${esc(r.reason)}</span>` : ""}</div>`;
+}
+async function renderQuestionsDone(v) {
+  v.innerHTML = `<section class="panel"><h2>Saving…</h2></section>`;
+  if (!run.saved) {
+    run.saved = true;
+    try {
+      for (let k = 0; k < run.results.length; k++) {
+        const q = run.qs[k], r = run.results[k]; const it = S.srs[q.item_id];
+        if (it) { const stage = it.type === "word" ? (it.prod ? "prod" : "rec") : "item"; const next = rateItem(it, stage, r.correct ? (r.reason ? 3 : 4) : 1); S.srs[it.id] = next; await put(`srs/${it.id}`, next); }
+        if (!r.correct && !r.helped && r.given) await saveMistake({ wrong: r.given, right: r.corrected, reason: r.reason, category: r.category || "vocabulary" }, "refresher");
+      }
+    } catch {}
+    await saveRefresher();
+  }
+  finishView(v);
+}
+async function saveRefresher() {
+  const rs = run.results || []; const today = berlinNow().iso; const id = `${today}-${Date.now().toString(36)}`;
+  if (!rs.length && !run.stats?.total) return;
+  try {
+    await put(`refreshers/${id}`, { id, date: today, minutes: Math.max(1, Math.round((Date.now() - run.started) / 60000)), total: rs.length, correct: rs.filter((r) => r.correct).length, level: run.level || null, cards: run.stats?.total || 0, cards_correct: run.stats?.correct || 0 });
+  } catch {}
+}
+function finishView(v) {
+  const rs = run.results || []; const st = run.stats || { total: 0, correct: 0 };
+  const lines = [];
+  if (st.total) lines.push(`${st.total} cards, ${st.correct} remembered`);
+  if (rs.length) lines.push(`${rs.filter((r) => r.correct).length} of ${rs.length} questions right`);
+  run.mode = null;
+  const cq = cardQueue(Number(S.cfg.refreshers?.cards ?? 40));
+  v.innerHTML = `<section class="panel"><h2>Done</h2><p>${esc(lines.join(" · ") || "Nothing to save.")}</p><p class="muted small">${cq.queue.length ? `${cq.queue.length} more cards are available today.` : "No more cards due today."}</p><div class="row"><button class="btn primary" id="again">Another refresher</button><button class="btn" id="home">Back to today</button></div></section>`;
+  $("#again").onclick = () => startRefresher();
+  $("#home").onclick = () => setTab("today");
+}
+document.addEventListener("keydown", (e) => {
+  if (run.mode !== "cards" || tab !== "practice" || e.target.closest?.("input,textarea,select")) return;
+  if (!run.revealed && (e.key === " " || e.key === "Enter")) { e.preventDefault(); run.revealed = true; render(); }
+  else if (run.revealed && ["1", "2", "3", "4"].includes(e.key)) rateCard([1, 3, 4, 5][Number(e.key) - 1]);
+});
+// Insert a quick recall check after every vocabulary step of a lesson.
+function withWordChecks(lesson) {
+  const steps = [];
+  for (const st of lesson.steps || []) { steps.push(st); if (st.type === "vocab" && (st.words || []).length) steps.push({ type: "wordcheck", title: "Quick check", words: st.words }); }
+  return { ...lesson, steps };
 }
 async function startSession(id) {
   const date = id.slice(0, 10); const slot = Number(id.slice(11));
   const s = sessionsFor(date).find((x) => x.slot === slot) || { id, date, kind: "split", minutes: 60 };
-  run.mode = "session"; run.session = s; run.step = 0; run.results = []; run.started = Date.now(); run.answers = {}; run.error = "";
-  tab = "practice"; document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === "practice")));
+  Object.assign(run, { mode: "session", session: s, step: 0, results: [], started: Date.now(), answers: {}, error: "", wc: null });
+  goPractice();
   run.lesson = S.lessons[lessonKey(s)] || null;
   if (!run.lesson) {
     render();
     if (!sample) { run.mode = null; toast("This session isn't prepared yet. Run /prepare in Claude Code."); render(); return; }
     try { run.lesson = await generateLesson(s); } catch (e) { run.mode = null; toast("Couldn't build the lesson. Try again, or run /prepare in Claude Code."); render(); return; }
   }
+  run.lesson = withWordChecks(run.lesson);
   render();
 }
 async function generateLesson(s) {
   const p = S.progress || {}; const cur = S.syllabus[p.current_index ?? 0]; const t = S.cfg.tutor || {};
   const recent = [...S.mistakes].sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 6).map((m) => `${m.wrong} -> ${m.right} (${m.reason})`);
+  const weak = weakSpots().slice(0, 2).map((w) => w.category);
+  const hardWords = srsList().filter((x) => x.leech).slice(0, 8).map((x) => x.de);
   const nWords = Math.round(Number(S.cfg.plan?.pace?.new_words_per_hour || 15) * Math.min(2, Number(s.minutes) / 60));
   const part = s.kind === "split" ? (p.current_part === 2 ? "second half: book exercises, more practice and a short writing task" : "first half: the grammar point and the new words") : s.kind === "full" ? "the whole Lektion" : s.kind === "practice" ? "mixed practice of recent Lektionen with one exam-style task" : "a weekly review of the last few Lektionen with a mini-test";
   const pages = cur ? `Kursbuch pages ${cur.page}-${cur.page + 3}` : "";
@@ -809,6 +1099,9 @@ async function generateLesson(s) {
     `Create a ${s.minutes}-minute German lesson for an adult A1-A2 learner who lives and works in Germany (${S.cfg.profile?.job || "office job"}). All explanations in English only.\n` +
     (cur ? `Course: Menschen ${cur.volume}, Lektion ${cur.lektion} "${cur.title}" (${pages}). Topic: ${cur.topic}. Grammar: ${cur.grammar}.\n` : "Course: Goethe A2 exam preparation.\n") +
     `This session covers ${part}.\n${recent.length ? `Recent mistakes to revisit: ${recent.join("; ")}\n` : ""}` +
+    (weak.length ? `Weakest areas, add exercises on them: ${weak.join(", ")}.\n` : "") +
+    (hardWords.length ? `Words the learner keeps forgetting, reuse some in examples: ${hardWords.join(", ")}.\n` : "") +
+    `Choose new words from the Goethe-Zertifikat A1/A2 word lists. Nouns always with article and plural.\n` +
     `Use everyday situations in Germany (${(t.situations || []).join(", ")}). Tone: ${t.tone || "calm"}.\n` +
     `Reply with only JSON: {"title": string, "steps": [ ` +
     `{"type":"explain","title":string,"body":"short markdown explanation with examples"}, ` +
@@ -819,60 +1112,19 @@ async function generateLesson(s) {
     `{"type":"speaking","title":string,"prompt":"a speaking topic for the voice session"} ]}`,
     { cache: false });
 }
-function renderRun(v) {
-  if (run.mode === "refresher") return renderRefresherRun(v);
-  return renderSessionRun(v);
+function renderWordCheck(st) {
+  if (!run.wc || run.wc.step !== run.step) run.wc = { step: run.step, queue: (st.words || []).map((w) => ({ w, tries: 0 })), revealed: false, firstTry: 0, total: (st.words || []).length };
+  const wc = run.wc; const cur = wc.queue[0];
+  if (!cur) return `<h2>Quick check done</h2><p>You knew ${wc.firstTry} of ${wc.total} words on the first try. They come back as flashcards from tomorrow.</p>`;
+  return `<h2>${esc(st.title || "Quick check")}</h2><p class="muted small">Say the German for each word before you reveal it. ${wc.queue.length} left.</p>
+    <div class="card"><div class="card-en">${esc(cur.w.en)}</div>${wc.revealed ? `<hr><div class="card-de">${deHtml(cur.w.de, cur.w.plural)}</div>` : ""}</div>
+    ${wc.revealed ? `<div class="row"><button class="btn" id="wc-no">Not yet</button><button class="btn primary" id="wc-yes">Knew it</button></div>` : `<button class="btn primary" id="wc-reveal" style="width:100%">Show</button>`}`;
 }
-function renderRefresherRun(v) {
-  if (!run.qs) { v.innerHTML = `<section class="panel"><h2>Refresher</h2><p class="muted">Building your questions…</p></section>`; return; }
-  const q = run.qs[run.i];
-  if (!q) return renderRefresherDone(v);
-  const last = run.results[run.i];
-  v.innerHTML = `<section class="panel">
-    <div class="steps">${run.qs.map((_, k) => `<i class="${k <= run.i ? "on" : ""}"></i>`).join("")}</div>
-    ${run.error ? `<div class="note">${esc(run.error)}</div>` : ""}
-    <p class="muted small">Question ${run.i + 1} of ${run.qs.length}</p>
-    <div class="q">${esc(q.q)}</div>
-    <form id="ans-form" class="row"><input type="text" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Your answer (type ${esc(S.cfg.tutor?.help_keyword || "?")} for the English meaning)" ${last ? "disabled" : ""} value="${esc(last?.given || "")}"><button class="btn primary" ${last ? "hidden" : ""}>Check</button></form>
-    <div id="fb">${last ? feedbackHtml(last) : ""}</div>
-    <div class="row">${last ? `<button class="btn primary" id="next">Next</button>${!last.correct ? `<button class="btn" id="override">I was right</button>` : ""}` : ""}<button class="btn" id="quit">Stop</button></div>
-  </section>`;
-  const input = $("#ans"); if (!last) input.focus();
-  $("#ans-form").onsubmit = async (e) => {
-    e.preventDefault(); const given = input.value.trim(); if (!given) return;
-    if (given === (S.cfg.tutor?.help_keyword || "?")) { $("#fb").innerHTML = `<div class="feedback"><span>Answer: <strong>${esc(q.answer)}</strong></span><span class="muted small">Counted as a miss so it comes back soon.</span></div>`; run.results[run.i] = { given: "", correct: false, corrected: q.answer, reason: "You asked for help.", helped: true }; renderSoon(); return; }
-    $("#fb").innerHTML = `<p class="muted small">Checking…</p>`;
-    run.results[run.i] = { given, ...(await grade(q.q, q.answer, q.accept, given)) };
-    render();
-  };
-  if ($("#next")) $("#next").onclick = () => { run.i++; render(); };
-  if ($("#override")) $("#override").onclick = () => { run.results[run.i].correct = true; run.results[run.i].reason = "Marked right by you."; run.i++; render(); };
-  $("#quit").onclick = () => { run.qs = run.qs.slice(0, run.results.length); run.i = run.results.length; render(); };
-}
-function renderSoon() { setTimeout(render, 900); }
-function feedbackHtml(r) {
-  return `<div class="feedback ${r.correct ? "ok" : "bad"}"><strong>${r.correct ? "Right" : "Not quite"}</strong>${!r.correct && r.given ? `<span>You wrote: ${esc(r.given)}</span>` : ""}<span>Correct: <strong>${esc(r.corrected)}</strong></span>${r.reason ? `<span class="small">${esc(r.reason)}</span>` : ""}</div>`;
-}
-async function renderRefresherDone(v) {
-  const total = run.results.length, right = run.results.filter((r) => r.correct).length;
-  v.innerHTML = `<section class="panel"><h2>Refresher done</h2><p><strong>${right} of ${total}</strong> right.</p><p class="muted small">Saving…</p></section>`;
-  if (run.saved) return finishView(v, right, total);
-  run.saved = true;
-  try {
-    for (let k = 0; k < total; k++) {
-      const q = run.qs[k], r = run.results[k]; const it = S.srs[q.item_id];
-      if (it) await put(`srs/${it.id}`, { ...it, ...sm2(it, r.correct ? (r.reason ? 3 : 4) : 1) });
-      if (!r.correct && !r.helped && r.given) await saveMistake({ wrong: r.given, right: r.corrected, reason: r.reason, category: r.category || "vocabulary" }, "refresher");
-    }
-    const today = berlinNow().iso; const id = `${today}-${Date.now().toString(36)}`;
-    if (total) await put(`refreshers/${id}`, { id, date: today, minutes: Math.max(1, Math.round((Date.now() - run.started) / 60000)), total, correct: right });
-  } catch {}
-  finishView(v, right, total);
-}
-function finishView(v, right, total) {
-  v.innerHTML = `<section class="panel"><h2>Done</h2><p><strong>${right} of ${total}</strong> right. Your review queue is updated.</p><div class="row"><button class="btn primary" id="again">Another refresher</button><button class="btn" id="home">Back to today</button></div></section>`;
-  $("#again").onclick = () => { run.mode = null; run.saved = false; startRefresher(); };
-  $("#home").onclick = () => { run.mode = null; run.saved = false; setTab("today"); };
+function wireWordCheck() {
+  const wc = run.wc; if (!wc) return;
+  if ($("#wc-reveal")) $("#wc-reveal").onclick = () => { wc.revealed = true; render(); };
+  if ($("#wc-yes")) $("#wc-yes").onclick = () => { const c = wc.queue.shift(); if (!c.tries) wc.firstTry++; wc.revealed = false; render(); };
+  if ($("#wc-no")) $("#wc-no").onclick = () => { const c = wc.queue.shift(); c.tries++; if (c.tries < 3) wc.queue.push(c); wc.revealed = false; render(); };
 }
 function renderSessionRun(v) {
   const L = run.lesson; const s = run.session;
@@ -882,12 +1134,17 @@ function renderSessionRun(v) {
   const header = `<div class="steps">${steps.map((_, k) => `<i class="${k <= run.step ? "on" : ""}"></i>`).join("")}</div><p class="muted small">${esc(L.title || "")} · step ${run.step + 1} of ${steps.length}</p>`;
   let body = "";
   if (st.type === "explain" || st.type === "book") body = `<h2>${esc(st.title || (st.type === "book" ? "Work from your book" : "Grammar"))}</h2><div class="prose">${mdLite(st.body)}</div>`;
-  else if (st.type === "vocab") body = `<h2>${esc(st.title || "New words")}</h2><div class="vocab">${(st.words || []).map((w) => `<div><strong>${esc(w.de)}</strong>${w.plural ? ` <span class="muted small">pl. ${esc(w.plural)}</span>` : ""}<div class="small">${esc(w.en)}</div>${w.example ? `<div class="small" style="margin-top:4px"><em>${esc(w.example)}</em></div><details class="small"><summary>English</summary>${esc(w.example_en || "")}</details>` : ""}</div>`).join("")}</div><p class="muted small">These words join your review queue when you finish the session.</p>`;
+  else if (st.type === "vocab") body = `<h2>${esc(st.title || "New words")}</h2><p class="muted small">Read each word and its example out loud. Articles are coloured: <span class="art art-der">der</span> <span class="art art-die">die</span> <span class="art art-das">das</span>. A quick check comes next.</p><div class="vocab">${(st.words || []).map((w) => `<div><strong>${deHtml(w.de, w.plural)}</strong><div class="small">${esc(w.en)}</div>${w.example ? `<div class="small" style="margin-top:4px"><em>${esc(w.example)}</em></div><details class="small"><summary>English</summary>${esc(w.example_en || "")}</details>` : ""}</div>`).join("")}</div>`;
+  else if (st.type === "wordcheck") body = renderWordCheck(st);
   else if (st.type === "exercise") body = exerciseHtml(st);
   else if (st.type === "writing") body = `<h2>${esc(st.title || "Writing")}</h2><p>${esc(st.prompt)}</p><textarea id="writing">${esc(run.answers.writing || "")}</textarea><div class="row"><button class="btn" id="check-writing">Check my text</button></div><div id="writing-fb">${run.answers.writingFb || ""}</div>`;
   else if (st.type === "speaking") { const pr = speakingPrompt(s, L); body = `<h2>${esc(st.title || "Speaking")}</h2><p>${esc(st.prompt)}</p><p class="muted small">Copy the prompt, open the Claude app, paste it and switch to voice. Paste the report into the Inbox afterwards.</p><pre class="prompt">${esc(pr)}</pre><div class="row"><button class="btn" id="copy-sp">Copy prompt</button></div>`; }
   v.innerHTML = `<section class="panel">${header}${body}<div class="row"><button class="btn primary" id="step-next">${run.step === steps.length - 1 ? "Finish session" : "Next"}</button>${run.step ? `<button class="btn" id="step-back">Back</button>` : ""}<button class="btn" id="step-quit">Leave for later</button></div></section>`;
-  $("#step-next").onclick = () => { run.step++; render(); };
+  $("#step-next").onclick = () => {
+    if (st.type === "vocab") addWords(st.words, S.progress?.current_index ?? null).catch(() => {}); // saved now, so leaving early keeps them
+    run.step++; render();
+  };
+  if (st.type === "wordcheck") wireWordCheck();
   if ($("#step-back")) $("#step-back").onclick = () => { run.step--; render(); };
   $("#step-quit").onclick = () => { run.mode = null; setTab("today"); toast("Session paused. Start it again to continue."); };
   if (st.type === "exercise") wireExercise(st);
@@ -952,6 +1209,8 @@ document.getElementById("view").addEventListener("click", (e) => {
   const b = e.target.closest("[data-act]"); if (!b) return;
   const act = b.dataset.act;
   if (act === "start-refresher") startRefresher();
+  if (act === "start-cards") startRefresher({ cards: true, questions: false });
+  if (act === "start-questions") startRefresher({ cards: false, questions: true });
   if (act === "start-session") startSession(b.dataset.id);
   if (act === "waive") put(`sessions/${b.dataset.id}`, { id: b.dataset.id, date: b.dataset.id.slice(0, 10), status: "missed", waived: true }).then(() => toast("Waived."));
   if (act === "load-report") { const r = S.reports.find((x) => x.id === b.dataset.id); if (r) { $("#report-text").value = r.text; previewReport(r.text, r.id); } }
@@ -966,7 +1225,7 @@ setInterval(() => { if (!run.mode) render(); else $("#when").textContent = fmtDa
   const [d, smp] = await Promise.all([claude.use("db"), claude.use("sample")]);
   db = d; sample = smp;
   if (!db) { clearTimeout(timer); S.loaded = true; $("#view").innerHTML = `<section class="panel"><h2>Sign in to see your course</h2><p class="muted">Your plan and progress are stored with your Claude account. Open this page in Claude while signed in.</p></section>`; return; }
-  let pending = new Set(["config", "meta", "progress", "sessions", "refreshers", "srs", "mistakes", "lessons", "reports"]);
+  let pending = new Set(["config", "meta", "progress", "sessions", "refreshers", "srs", "mistakes", "lessons", "reports", "daily"]);
   const ready = (name, snap) => { if (!snap.metadata.fromCache) pending.delete(name); if (pending.size === 0 || !snap.metadata.fromCache) { clearTimeout(timer); S.loaded = true; } if (!run.mode || tab !== "practice") render(); };
   const onErr = () => {};
   db.collection("config").onSnapshot((q) => { S.cfg = {}; q.docs.forEach((x) => (S.cfg[x.id] = x.data())); ready("config", q); }, onErr);
@@ -978,5 +1237,6 @@ setInterval(() => { if (!run.mode) render(); else $("#when").textContent = fmtDa
   db.collection("mistakes").onSnapshot((q) => { S.mistakes = q.docs.map((x) => x.data()); ready("mistakes", q); }, onErr);
   db.collection("lessons").onSnapshot((q) => { S.lessons = {}; q.docs.forEach((x) => (S.lessons[x.id] = x.data())); ready("lessons", q); }, onErr);
   db.collection("reports").onSnapshot((q) => { S.reports = q.docs.map((x) => x.data()); ready("reports", q); }, onErr);
+  db.collection("daily").where("date", ">=", addDays(berlinNow().iso, -14)).onSnapshot((q) => { q.docs.forEach((x) => (S.daily[x.id] = x.data())); ready("daily", q); }, onErr);
 })();
 </script>

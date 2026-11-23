@@ -55,6 +55,8 @@ def main(areas):
         json.dumps(syllabus, ensure_ascii=False, indent=1))
     write("meta", "syllabus", {"items": syllabus})
     write("meta", "sayings", {"items": json.loads((ROOT / "curriculum" / "sayings.json").read_text())})
+    goethe = json.loads((ROOT / "curriculum" / "goethe_words.json").read_text())
+    write("meta", "goethe", {"words": [[w["key"], w["level"]] for w in goethe]})
     write("progress", "main", {"current_index": 0, "current_part": 1, "done": [], "started": None})
     print(f"wrote {len(list(OUT.glob('*.json')))} documents to {OUT}")
 

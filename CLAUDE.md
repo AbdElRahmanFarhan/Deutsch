@@ -29,8 +29,10 @@ builds the calendar and sends the daily email.
 | `meta/rebuild` | `{requested_at, done_at}`: the learner pressed Rebuild |
 | `progress/main` | `{current_index, current_part, done: [indexes], started}` |
 | `sessions/<YYYY-MM-DD-slot>` | A focus session: `status` done/missed/extra, `minutes`, `kind`, `lektion_index`, `phase` |
-| `refreshers/<id>` | A finished refresher: `date`, `minutes`, `total`, `correct` |
-| `srs/<id>` | Review item (`w-…` word, `m-…` mistake): `de`, `en`, `ef`, `reps`, `interval`, `due`, `lektion` |
+| `refreshers/<id>` | A finished refresher: `date`, `minutes`, typed questions `total`/`correct`, their difficulty `level` (1-3), and `cards`/`cards_correct` |
+| `srs/<id>` | Review item. Words (`w-…`): `de` (with article), `en`, `plural`, `example`, `gender`, `lektion`, `hook`, `leech`, and two schedules `rec` (German→English) and `prod` (English→German, opens after 2 correct recognitions), each `{ef, reps, interval, due, lapses, correct, last}`. Mistakes (`m-…`): `de`, `front`, `category` and the schedule fields at top level |
+| `daily/<YYYY-MM-DD>` | Flashcard counts for the day: `reviews`, `new`, `cards_correct`, `cards_total` (daily limits) |
+| `meta/goethe` | Goethe A1/A2 headwords as `[key, level]` pairs, for coverage. Full list: `curriculum/goethe_words.json` (private, from the official PDFs in `Cirriculum/goethe/`) |
 | `mistakes/<id>` | `date`, `wrong`, `right`, `reason`, `category`, `source` |
 | `lessons/<key>` | Prepared lesson. Key: `L<index>-p1`/`L<index>-p2` (split sessions), `L<index>-full`, or a session id for practice/weekly sessions |
 | `reports/<id>` | Reports pasted from Claude app voice sessions |

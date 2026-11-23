@@ -1,0 +1,20 @@
+# How the tutor talks to you. Everything is in English.
+
+explain_in = "english"
+
+# When you're stuck on a word or sentence, the tutor gives the English meaning,
+# then re-explains in simpler English with another example.
+help_after_wrong_tries = 2       # offer help after this many wrong tries on one item
+help_keyword = "?"               # type this alone to get the English meaning right away
+
+# Corrections: show the mistake, the correct form and a one-line reason.
+correction_style = "short"       # "short" or "detailed"
+correct_during_speaking = false  # false = list the biggest mistakes at the end
+speaking_mistakes_listed = 3
+
+tone = "calm"                    # "calm", "encouraging", "strict"
+emojis = false
+one_question_at_a_time = true
+
+# Example sentences use these everyday situations.
+situations = ["work", "flat", "doctor", "Behörden", "shopping", "public transport"]

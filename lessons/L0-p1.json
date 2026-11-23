@@ -1,0 +1,41 @@
+{
+ "title": "A1.1 Lektion 1 · Hallo! Ich bin Nicole … · part 1",
+ "lektion_index": 0, "part": 1, "kind": "split", "minutes": 60,
+ "steps": [
+  {"type": "explain", "title": "Saying who you are and where you're from",
+   "body": "German verbs change their ending to match the person. Today you need three verbs: **heißen** (to be called), **kommen** (to come) and **sein** (to be).\n\n- ich heiß**e** · du heiß**t** · Sie heiß**en** · er/sie heiß**t**\n- ich komm**e** · du komm**st** · Sie komm**en** · er/sie komm**t**\n- ich **bin** · du **bist** · Sie **sind** · er/sie **ist** (irregular: learn by heart)\n\n**du or Sie?** Use *du* with friends, family, children and most colleagues your age who offer it. Use *Sie* with strangers, at the Bürgeramt, the doctor, your landlord. *Sie* (formal) is always written with a capital S and takes the same form as *they*: Sie komm**en**.\n\n**W-questions** start with the question word, then the verb, then the person:\n\n- **Wie** heißt du? · **Wer** bist du? · **Woher** kommen Sie?\n\nAnswers put the verb in second place too: *Ich komme aus Ägypten.* · *Aus Ägypten.* (short answer is fine)\n\n**aus + country:** most countries have no article: *aus Deutschland, aus Ägypten, aus Österreich*. A few have one and change it after *aus*: *die Schweiz → aus **der** Schweiz*, *die Türkei → aus **der** Türkei*, *der Iran → aus **dem** Iran*."},
+  {"type": "vocab", "title": "Words for part 1",
+   "words": [
+    {"de": "der Name", "plural": "die Namen", "en": "the name", "example": "Mein Name ist Abdelrahman.", "example_en": "My name is Abdelrahman."},
+    {"de": "heißen", "plural": "", "en": "to be called", "example": "Wie heißen Sie?", "example_en": "What's your name? (formal)"},
+    {"de": "sein", "plural": "", "en": "to be", "example": "Ich bin neu im Team.", "example_en": "I'm new in the team."},
+    {"de": "kommen", "plural": "", "en": "to come", "example": "Ich komme aus Ägypten.", "example_en": "I come from Egypt."},
+    {"de": "woher", "plural": "", "en": "where from", "example": "Woher kommst du?", "example_en": "Where are you from?"},
+    {"de": "wer", "plural": "", "en": "who", "example": "Wer ist das?", "example_en": "Who is that?"},
+    {"de": "wie", "plural": "", "en": "how / what (name)", "example": "Wie heißt du?", "example_en": "What's your name?"},
+    {"de": "das Land", "plural": "die Länder", "en": "the country", "example": "Das Land ist schön.", "example_en": "The country is beautiful."},
+    {"de": "Deutschland", "plural": "", "en": "Germany", "example": "Ich wohne in Deutschland.", "example_en": "I live in Germany."},
+    {"de": "Österreich", "plural": "", "en": "Austria", "example": "Sie kommt aus Österreich.", "example_en": "She comes from Austria."},
+    {"de": "die Schweiz", "plural": "", "en": "Switzerland", "example": "Er kommt aus der Schweiz.", "example_en": "He comes from Switzerland."},
+    {"de": "die Türkei", "plural": "", "en": "Turkey", "example": "Mein Kollege kommt aus der Türkei.", "example_en": "My colleague comes from Turkey."},
+    {"de": "Ägypten", "plural": "", "en": "Egypt", "example": "Kommen Sie aus Ägypten?", "example_en": "Are you from Egypt?"},
+    {"de": "der Herr", "plural": "die Herren", "en": "Mr / the gentleman", "example": "Guten Tag, Herr Schmidt!", "example_en": "Good day, Mr Schmidt!"},
+    {"de": "die Frau", "plural": "die Frauen", "en": "Ms / Mrs / the woman", "example": "Das ist Frau Wachter.", "example_en": "That is Ms Wachter."}
+   ]},
+  {"type": "book", "title": "Work from your Kursbuch (pages 9–11)",
+   "body": "Open **Menschen A1.1 Kursbuch, Lektion 1** and play the audio files named *Lektion 1, …* in your audio folder.\n\n- **p. 9, exercises 1–2:** listen (audio *Lektion 1, 1* and *1, 3*), then say your own name out loud: *Hallo! Ich bin …*\n- **p. 10, exercise 3a–b:** listen (*Lektion 1, 4*), match who says what, then fill in the verb endings in 3b.\n- **p. 10, exercise 5:** listen (*Lektion 1, 5*) and match the music to the countries.\n- **p. 11, exercise 6:** fill in what Frau Wachter says, then check with the grammar box on the right (kommen / heißen / sein).\n\nCheck: in 3b the endings are *-st* for du and *-e* for ich."},
+  {"type": "exercise", "title": "Practice",
+   "items": [
+    {"q": "Fill in heißen: Wie ___ du?", "answer": "heißt", "accept": ["heisst"]},
+    {"q": "Fill in kommen: Woher ___ Sie?", "answer": "kommen", "accept": []},
+    {"q": "Fill in sein: Ich ___ Abdelrahman.", "answer": "bin", "accept": []},
+    {"q": "Fill in sein: Wer ___ du?", "answer": "bist", "accept": []},
+    {"q": "Fill in kommen: Er ___ aus Österreich.", "answer": "kommt", "accept": []},
+    {"q": "Complete: Sie kommt aus ___ Schweiz.", "answer": "der", "accept": []},
+    {"q": "Make it formal (Sie): Woher kommst du?", "answer": "Woher kommen Sie?", "accept": []},
+    {"q": "Ask a new colleague, informally, what her name is.", "answer": "Wie heißt du?", "accept": ["Wer bist du?"]},
+    {"q": "In German: I come from Egypt.", "answer": "Ich komme aus Ägypten.", "accept": ["Ich bin aus Ägypten."]},
+    {"q": "Put in order: kommen / aus / Sie / der Türkei / ?", "answer": "Kommen Sie aus der Türkei?", "accept": []}
+   ]}
+ ]
+}

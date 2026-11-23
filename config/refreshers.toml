@@ -1,0 +1,33 @@
+# Short refresher exercises spread through the day, separate from the focus sessions.
+# You can always start one yourself (on the bus, in a queue), whatever these settings say.
+
+enabled = true
+
+# How long one refresher takes and how many questions it has.
+minutes = 10
+questions = 8
+
+# Scheduled refreshers per day. Their times are picked at random inside the window,
+# at least min_gap_minutes apart, and never inside a focus session.
+per_day = 3
+window_start = "08:00"
+window_end = "21:00"
+min_gap_minutes = 90
+
+# Days refreshers run on: any of mon tue wed thu fri sat sun.
+days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+
+# What a refresher draws from, as relative weights.
+[mix]
+due_reviews = 5        # words and grammar due in spaced repetition
+recent_mistakes = 3    # entries from the mistakes log
+current_lektion = 2    # material from the Lektion you're on now
+older_material = 0     # random items from earlier Lektionen, even if not due
+
+# Question styles a refresher may use.
+[styles]
+translate_to_german = true
+translate_to_english = true
+fill_the_gap = true
+article_and_plural = true
+build_a_sentence = true

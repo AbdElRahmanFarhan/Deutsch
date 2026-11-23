@@ -1,0 +1,16 @@
+# Spaced repetition (SM-2) settings for words, grammar and mistakes.
+
+max_reviews_per_day = 60
+max_new_items_per_day = 30
+
+# SM-2 parameters
+starting_ease = 2.5
+minimum_ease = 1.3
+first_interval_days = 1
+second_interval_days = 6
+
+# Items you already know (e.g. from A1 placement) start with a longer interval.
+known_item_first_interval_days = 10
+
+# An item failed this many times is flagged as a "leech" and gets extra practice.
+leech_after_failures = 4

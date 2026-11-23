@@ -1,0 +1,4 @@
+# What the dashboard and the daily email show to keep you going.
+
+progress_facts = true   # e.g. "412 words known, 58% of the way to A2"
+sayings = true          # a German saying with its English meaning

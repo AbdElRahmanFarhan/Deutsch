@@ -1,0 +1,20 @@
+# How and when you get nudged. Session times come from schedule.toml,
+# refresher times from refreshers.toml.
+
+# "calendar" = calendar file you import into Google Calendar (phone notifications)
+# "email"    = daily plan email from your Gmail to yourself
+# "both" or "off"
+channel = "both"
+email_to = "abdofarhan75@gmail.com"
+daily_email_time = "12:00"   # the email runs from the Claude app on your laptop
+
+# Calendar notifications
+session_lead_minutes = 10
+refresher_events = true      # put the random refresher slots in the calendar too
+
+# The daily email mentions yesterday's missed sessions and where they were moved.
+mention_missed = true
+
+# No refresher slots between these times.
+quiet_start = "22:30"
+quiet_end = "07:30"

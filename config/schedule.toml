@@ -1,0 +1,64 @@
+# Weekly focus sessions. This is the only place the timetable lives.
+# Times are German time (Europe/Berlin), 24-hour "HH:MM".
+# Leave start = "" until you pick a time; reminders skip sessions with no start time.
+
+timezone = "Europe/Berlin"
+start_date = "2026-11-24"
+
+# kind:
+#   "split"    - one half of a Lektion (first day: grammar + vocab, second day: exercises + writing)
+#   "full"     - one whole Lektion in one sitting
+#   "practice" - mixed practice, exam-style task, speaking
+#   "weekly"   - Modul review, long speaking session, mini-test, weekly check-in
+
+[[session]]
+day = "mon"
+start = ""
+minutes = 60
+kind = "split"
+
+[[session]]
+day = "tue"
+start = ""
+minutes = 60
+kind = "split"
+
+[[session]]
+day = "wed"
+start = ""
+minutes = 60
+kind = "split"
+
+[[session]]
+day = "thu"
+start = ""
+minutes = 60
+kind = "split"
+
+[[session]]
+day = "fri"
+start = ""
+minutes = 180
+kind = "full"
+
+[[session]]
+day = "sat"
+start = ""
+minutes = 120
+kind = "full"
+
+[[session]]
+day = "sat"
+start = ""
+minutes = 120
+kind = "practice"
+
+[[session]]
+day = "sun"
+start = ""
+minutes = 180
+kind = "weekly"
+
+# Days with no focus session (holidays, travel). Refreshers still run unless
+# refreshers.toml says otherwise. Format: "YYYY-MM-DD" or "YYYY-MM-DD..YYYY-MM-DD".
+days_off = []

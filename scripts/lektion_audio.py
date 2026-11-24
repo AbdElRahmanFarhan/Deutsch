@@ -11,6 +11,7 @@ import json
 import re
 import subprocess
 import sys
+import unicodedata
 from pathlib import Path
 
 RATE = 22050
@@ -23,13 +24,14 @@ def lektion_tracks(audio_dir):
     out = {}
     for f in sorted(Path(audio_dir).rglob("*.mp3")):
         vol, book = f.relative_to(audio_dir).parts[0].split("-")
-        m = re.search(r"Lektion[ _](\d+)[ _,]+(.+)\.mp3$", f.name)
+        name = unicodedata.normalize("NFC", f.name)  # some zips store umlauts decomposed
+        m = re.search(r"Lektion[ _](\d+)[ _,]+(.+)\.mp3$", name)
         if not m:
             continue  # intros, module tracks
         first, base = FIRST_INDEX[vol]
         index = int(m.group(1)) - first + base
         label = re.sub(r"[_ ]+", " ", m.group(2)).replace(" ,", ",").strip()
-        lead = re.match(r"(\d+)", f.name)
+        lead = re.match(r"(\d+)", name)
         order = int(lead.group(1)) if lead else 0
         kind = "KB" if book == "Kursbuch" else "AB"
         out.setdefault((index, kind), []).append((order, natural(label), f"Lektion {m.group(1)}, {label}", f))

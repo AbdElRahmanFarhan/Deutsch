@@ -18,14 +18,36 @@ Use Europe/Berlin time. "Today" is the Berlin date.
 
 ## Notion
 
-All data is in Notion under the page "Deutsch A2". Data source ids are in `notion/ids.json`
-(the Claude app Project instructions repeat them). Read with `query-data-sources` (SQL is easiest),
-write with `create-pages` / `update-page`. Fetch a data source once per conversation to get its
-exact column names. Batch writes: collect results during the activity and write them at the end
-(and also after every ~10 answers in long sessions, so nothing is lost if the chat stops).
+All data is in Notion under the page "Deutsch A2". Ids are in `notion/ids.json` (the Claude app
+Project instructions repeat them). Write with `create-pages` / `update-page`. Batch writes: collect
+results during the activity and write them at the end (and also after every ~10 answers in long
+sessions, so nothing is lost if the chat stops).
 
-**Read Settings first**, every time: `SELECT "Setting", "Value" FROM settings`. Use the values;
-never assume defaults when a setting exists.
+**Read through the saved views**, with `query-data-sources` in **view mode**
+(`{"mode": "view", "view_url": <url>, "page_size": 100}`). The free Notion plan allows only a small
+number of SQL/rows-mode queries per hour across the whole workspace, but view mode isn't limited.
+Use SQL only for something no view covers, and expect it to fail sometimes ("usage limit"); then
+fall back to a view and filter the rows yourself. The views (`notion/ids.json` → `views`):
+
+| View | Rows |
+|---|---|
+| `settings_all` | every setting |
+| `words_due` | words due today (recognise or produce), hard words first |
+| `words_new` | words with Box 0 |
+| `words_practice` | all started words, weakest first (most lapses, lowest box) |
+| `mistakes_due` | mistakes due today |
+| `mistakes_last_month` | mistakes of the last month, newest first (weak spots) |
+| `sessions_around_today` | sessions from a week ago to a week ahead |
+| `sessions_missed` | missed sessions of the last month |
+| `activity_last_week` | activity of the last 7 days (limits, no-repeat, streak) |
+| `lessons_by_key` | all lesson pages with Key, Part, Status (fetch a page by its url) |
+| `lektionen_course_order` | the 48 Lektionen in order, with Status and Book pages |
+
+To check whether a word already exists, use `notion-search` with the Words data source url and the
+word as the query.
+
+**Read Settings first**, every time (`settings_all`). Use the values; never assume defaults when a
+setting exists.
 
 ## Flashcards: Leitner boxes
 

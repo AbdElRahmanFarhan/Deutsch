@@ -10,7 +10,8 @@ Works any time: if nothing is due, practice cards fill the run.
    - new words (Box 0, oldest Added first) up to the new-word limit left today, unless more than
      "Pause new words when due over" cards are due; mix them through the reviews;
    - practice cards to fill the rest, if Settings → Practice cards is on.
-   Fetch only the rows you need (SQL with ORDER BY and LIMIT).
+   Read them from the views `words_due`, `words_new` and `words_practice` (already in the right
+   order), with a page_size just above what you need.
 3. One card at a time:
    - Recognise: show `Word` (with article) and, after the answer, the English and the example.
    - Produce: show `English` (say "with article and plural" for nouns); after the answer show the

@@ -71,5 +71,18 @@
   "45": "422d1f31-9aab-81af-88d7-e74180bf72e7",
   "46": "422d1f31-9aab-81d6-b3a5-e5a2ec38e966",
   "47": "422d1f31-9aab-8175-999a-ca017434d86f"
+ },
+ "views": {
+  "settings_all": "https://www.notion.so/422d1f319aab815bb7cffd8c5caf152f?v=422d1f319aab816ba00e000c3e40f443",
+  "words_due": "https://www.notion.so/422d1f319aab81e49660d96c565d5e1a?v=422d1f319aab817cb54f000cc5d2cef9",
+  "words_new": "https://www.notion.so/422d1f319aab81e49660d96c565d5e1a?v=422d1f319aab8158ab28000cfacbf509",
+  "words_practice": "https://www.notion.so/422d1f319aab81e49660d96c565d5e1a?v=422d1f319aab81a3b1cb000c00c2d501",
+  "mistakes_due": "https://www.notion.so/422d1f319aab81de95dbc852b6673359?v=422d1f319aab811fb714000cbffb6240",
+  "mistakes_last_month": "https://www.notion.so/422d1f319aab81de95dbc852b6673359?v=422d1f319aab816cbb05000ce8d6ccd6",
+  "sessions_around_today": "https://www.notion.so/422d1f319aab81c0a116d2e36aeb2dfe?v=422d1f319aab81a6843a000c7bd5cf9f",
+  "sessions_missed": "https://www.notion.so/422d1f319aab81c0a116d2e36aeb2dfe?v=422d1f319aab811d98d6000ce346ca59",
+  "activity_last_week": "https://www.notion.so/422d1f319aab8148b12ad3a22f7f9ec9?v=422d1f319aab815e84e7000c20e4bb11",
+  "lessons_by_key": "https://www.notion.so/422d1f319aab81c6b8ccd3650a882278?v=422d1f319aab8108a43f000c101119d1",
+  "lektionen_course_order": "https://www.notion.so/422d1f319aab819aa404dd3b4c8372ef?v=422d1f319aab8146a239000cf96c3802"
  }
 }

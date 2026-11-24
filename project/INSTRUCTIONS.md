@@ -27,7 +27,21 @@ exactly what to do; read `workflows/common.md` and the workflow for what I ask:
 - "speak" → `workflows/speak.md` (conversation, voice mode)
 - "progress" → `workflows/progress.md`
 
-Notion data sources (use with query-data-sources / create-pages / update-page):
+Read Notion through these saved views with query-data-sources in view mode
+({"mode":"view","view_url":"<url>","page_size":100}); the free plan limits SQL queries, views are fine:
+
+- Settings: https://www.notion.so/422d1f319aab815bb7cffd8c5caf152f?v=422d1f319aab816ba00e000c3e40f443
+- Words due: https://www.notion.so/422d1f319aab81e49660d96c565d5e1a?v=422d1f319aab817cb54f000cc5d2cef9
+- Words new (box 0): https://www.notion.so/422d1f319aab81e49660d96c565d5e1a?v=422d1f319aab8158ab28000cfacbf509
+- Words practice (weakest first): https://www.notion.so/422d1f319aab81e49660d96c565d5e1a?v=422d1f319aab81a3b1cb000c00c2d501
+- Mistakes due: https://www.notion.so/422d1f319aab81de95dbc852b6673359?v=422d1f319aab811fb714000cbffb6240
+- Mistakes last month: https://www.notion.so/422d1f319aab81de95dbc852b6673359?v=422d1f319aab816cbb05000ce8d6ccd6
+- Sessions around today: https://www.notion.so/422d1f319aab81c0a116d2e36aeb2dfe?v=422d1f319aab81a6843a000c7bd5cf9f
+- Activity last week: https://www.notion.so/422d1f319aab8148b12ad3a22f7f9ec9?v=422d1f319aab815e84e7000c20e4bb11
+- Lessons by key: https://www.notion.so/422d1f319aab81c6b8ccd3650a882278?v=422d1f319aab8108a43f000c101119d1
+- Lektionen in order: https://www.notion.so/422d1f319aab819aa404dd3b4c8372ef?v=422d1f319aab8146a239000cf96c3802
+
+Notion data sources (parents for create-pages):
 
 - Settings: collection://422d1f31-9aab-810e-95bf-000b4a1dfa87 (read first, every chat)
 - Lektionen: collection://422d1f31-9aab-8113-a67a-000b413fd33f

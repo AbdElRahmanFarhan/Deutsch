@@ -1,7 +1,9 @@
 # Prepare or refine lessons (laptop)
 
-The book PDFs are on the laptop in `Cirriculum/` (not in git). All 48 Lektionen were prepared
-once; use this to rewrite or improve one.
+The book PDFs are on the laptop in `Cirriculum/` (not in this public repo). Anywhere else, clone
+the private repo github.com/AbdElRahmanFarhan/deutsch-books into `Cirriculum/` first (needs
+access to that repo; `pdftotext` from poppler-utils for `scripts/book_text.py`). All 48 Lektionen
+were prepared once; use this to rewrite or improve one.
 
 1. Read `lesson-format.md`.
 2. Read the book pages: `python3 scripts/book_text.py <index>` (OCR text). Alternatively open the

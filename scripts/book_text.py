@@ -70,15 +70,10 @@ def main():
     if "--kb" in sys.argv:
         return
     ab = BOOKS / AB[vol]
-    start = find_title_page(ab, it["title"], 5)
-    nxt = syllabus[index + 1] if index + 1 < len(syllabus) and syllabus[index + 1]["volume"] == vol else None
-    end = find_title_page(ab, nxt["title"], (start or 5) + 1) if nxt else None
-    if not start:
-        print("## Arbeitsbuch: Lektion not found in the PDF text")
-        return
-    end = end or start + 8
-    print(f"## Arbeitsbuch, PDF pages {start}-{end - 1}\n")
-    for p in range(start, end):
+    # Page ranges found from each Lektion's Lernwortschatz (last) page; see notion/book_pages.json.
+    start, last = json.loads((ROOT / "notion" / "book_pages.json").read_text())[str(index)]["ab"]
+    print(f"## Arbeitsbuch, PDF pages {start}-{last}\n")
+    for p in range(start, last + 1):
         print(f"--- Arbeitsbuch PDF page {p} ---")
         print(page_text(ab, p))
 

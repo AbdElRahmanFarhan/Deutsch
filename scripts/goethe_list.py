@@ -17,6 +17,13 @@ LISTS = [  # (level, file, alphabetical section starts on this PDF page, column 
     ("A2", "Goethe-Zertifikat_A2_Wortliste.pdf", None, [(0, 300), (300, 296)]),
 ]
 ARTICLES = ("der ", "die ", "das ")
+# Headings and page furniture on the word-group pages.
+GROUP_STOP = {"inhalt", "vorwort", "seite", "wortgruppen", "wortliste", "themen", "themenbereiche",
+              "farben", "himmelsrichtungen", "zahlen", "abkürzungen", "anglizismen", "buchstaben",
+              "familienmitglieder", "berufe", "länder", "nationalitäten", "sprachen", "uhrzeit",
+              "jahreszeiten", "tageszeiten", "wochentage", "monatsnamen", "datum", "maße", "gewichte",
+              "geld", "schule", "alphabetische", "alphabetischer", "wortschatz", "goethe", "zertifikat",
+              "deutsch", "teil", "und", "oder", "pl", "sg"}
 
 
 def crop_text(pdf, page, x, w):
@@ -76,6 +83,8 @@ def entries(segments):
             continue  # letter headings, page numbers
         if cur and cur.rstrip().endswith(","):
             cur += " " + seg
+        elif cur and re.match(r"(der|die|das) \S+-$", cur) and seg[:1].islower():
+            cur = cur[:-1] + seg  # a noun hyphenated across two lines: "das Kranken-" + "haus, ¨-er"
         else:
             if cur:
                 items.append(cur)
@@ -113,12 +122,22 @@ def main():
         for p in range(2, start):
             text = crop_text(pdf, p, 0, 596)
             # Only list entries (start of a line or a column), not nouns inside running text.
+            listed = re.findall(r"(?:^|\s{2,})(?:(?:der|die|das) [A-ZÄÖÜ][\wäöüß]+(?=\s{2,}|\s*$)|[A-ZÄÖÜ][\wäöüß]+,\s*[-¨])", text, re.M)
             for art, head, plural in re.findall(r"(?:^|\s{2,})(der|die|das) ([A-ZÄÖÜ][\wäöüß]+(?:/[A-ZÄÖÜ][\wäöüß]+)?)(?:,\s*([-¨][\wäöüß-]*))?(?=\s{2,}|\s*$)", text, re.M):
                 key = head.split("/")[0].lower()
                 if key not in words:
                     words[key] = {"key": key, "de": f"{art} {head.split('/')[0]}", "article": art,
                                   "plural": plural or "", "level": level}
                     n += 1
+            # Group entries listed without an article: "Onkel, -", "Tante, -n", "blau", "Monat/Monatsnamen".
+            # Only on real word-group pages (several "Noun, -plural" entries), not credits or the foreword.
+            for head, plural in [] if len(listed) < 3 else re.findall(r"(?:^|\s{2,})([A-Za-zÄÖÜäöüß]+(?:/[A-Za-zÄÖÜäöüß]+)?)(?:,\s*([-¨][\wäöüß-]*|-))?(?:\s*\([^)]*\))?(?=\s{2,}|\s*$)", text, re.M):
+                key = head.split("/")[0].lower()
+                if len(key) < 3 or key in words or key in GROUP_STOP:
+                    continue
+                words[key] = {"key": key, "de": head.split("/")[0], "article": "",
+                              "plural": plural if plural not in (None, "", "-") else "", "level": level}
+                n += 1
         for p in range(start, pages(pdf) + 1):
             for x, w in cols:
                 for ent in entries(headword_segments(crop_text(pdf, p, x, w))):

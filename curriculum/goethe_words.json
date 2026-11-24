@@ -63,6 +63,13 @@
 "level": "A1"
 },
 {
+"key": "abitur",
+"de": "Abitur",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "abschließen",
 "de": "abschließen",
 "article": "",
@@ -287,6 +294,13 @@
 "level": "A1"
 },
 {
+"key": "anrufbeantworter",
+"de": "der Anrufbeantworter",
+"article": "der",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "anrufen",
 "de": "anrufen",
 "article": "",
@@ -322,11 +336,25 @@
 "level": "A1"
 },
 {
+"key": "antwortbogen",
+"de": "Antwortbogen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "antworten",
 "de": "antworten",
 "article": "",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "anweisungssprache",
+"de": "Anweisungssprache",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "anzeige",
@@ -757,9 +785,9 @@
 },
 {
 "key": "babysitter",
-"de": "der Babysitter",
-"article": "der",
-"plural": "-",
+"de": "Babysitter",
+"article": "",
+"plural": "",
 "level": "A2"
 },
 {
@@ -908,13 +936,6 @@
 "article": "",
 "plural": "",
 "level": "A2"
-},
-{
-"key": "beantworter",
-"de": "beantworter",
-"article": "",
-"plural": "",
-"level": "A1"
 },
 {
 "key": "bedanken",
@@ -1225,6 +1246,13 @@
 "level": "A1"
 },
 {
+"key": "biologie",
+"de": "Biologie",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "birne",
 "de": "die Birne",
 "article": "die",
@@ -1272,6 +1300,13 @@
 "article": "das",
 "plural": "¨-er",
 "level": "A2"
+},
+{
+"key": "blau",
+"de": "blau",
+"article": "",
+"plural": "",
+"level": "A1"
 },
 {
 "key": "bleiben",
@@ -1346,6 +1381,13 @@
 {
 "key": "brauchen",
 "de": "brauchen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "braun",
+"de": "braun",
 "article": "",
 "plural": "",
 "level": "A1"
@@ -1526,6 +1568,13 @@
 "level": "A2"
 },
 {
+"key": "chemie",
+"de": "Chemie",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "club",
 "de": "der Club",
 "article": "der",
@@ -1538,6 +1587,20 @@
 "article": "der",
 "plural": "–",
 "level": "A1"
+},
+{
+"key": "cousin",
+"de": "Cousin",
+"article": "",
+"plural": "-s",
+"level": "A2"
+},
+{
+"key": "cousine",
+"de": "Cousine",
+"article": "",
+"plural": "-n",
+"level": "A2"
 },
 {
 "key": "creme",
@@ -1729,6 +1792,20 @@
 "level": "A2"
 },
 {
+"key": "deutsche",
+"de": "Deutsche",
+"article": "",
+"plural": "-n",
+"level": "A2"
+},
+{
+"key": "deutschland",
+"de": "Deutschland",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "dezember",
 "de": "der Dezember",
 "article": "der",
@@ -1785,6 +1862,13 @@
 "level": "A2"
 },
 {
+"key": "direktor",
+"de": "Direktor",
+"article": "",
+"plural": "-en",
+"level": "A2"
+},
+{
 "key": "disco",
 "de": "die Disco",
 "article": "die",
@@ -1801,13 +1885,6 @@
 {
 "key": "diskutieren",
 "de": "diskutieren",
-"article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "dium",
-"de": "dium",
 "article": "",
 "plural": "",
 "level": "A2"
@@ -2093,10 +2170,10 @@
 "level": "A1"
 },
 {
-"key": "einkaufs",
-"de": "das Einkaufs-",
+"key": "einkaufszentrum",
+"de": "das Einkaufszentrum",
 "article": "das",
-"plural": "",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -2233,10 +2310,24 @@
 "level": "A2"
 },
 {
-"key": "entschuldi",
-"de": "die Entschuldi-",
-"article": "die",
+"key": "englisch",
+"de": "Englisch",
+"article": "",
 "plural": "",
+"level": "A2"
+},
+{
+"key": "enkel",
+"de": "Enkel",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "enkelin",
+"de": "Enkelin",
+"article": "",
+"plural": "-nen",
 "level": "A2"
 },
 {
@@ -2380,6 +2471,27 @@
 "level": "A1"
 },
 {
+"key": "europa",
+"de": "Europa",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "europäer",
+"de": "Europäer",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "europäisch",
+"de": "europäisch",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "fach",
 "de": "das Fach",
 "article": "das",
@@ -2441,13 +2553,6 @@
 "article": "die",
 "plural": "-n",
 "level": "A1"
-},
-{
-"key": "familien",
-"de": "der Familien-",
-"article": "der",
-"plural": "",
-"level": "A2"
 },
 {
 "key": "familienname",
@@ -2539,6 +2644,13 @@
 "article": "",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "feiertage",
+"de": "Feiertage",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "fenster",
@@ -2758,6 +2870,13 @@
 "level": "A1"
 },
 {
+"key": "französisch",
+"de": "Französisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "frau",
 "de": "die Frau",
 "article": "die",
@@ -2905,10 +3024,10 @@
 "level": "A2"
 },
 {
-"key": "führer",
-"de": "der Führer-",
+"key": "führerschein",
+"de": "der Führerschein",
 "article": "der",
-"plural": "",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -2930,13 +3049,6 @@
 "de": "die Gabel",
 "article": "die",
 "plural": "-n",
-"level": "A2"
-},
-{
-"key": "gang",
-"de": "gang",
-"article": "",
-"plural": "",
 "level": "A2"
 },
 {
@@ -3087,6 +3199,13 @@
 "level": "A1"
 },
 {
+"key": "gelb",
+"de": "gelb",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "geld",
 "de": "das Geld",
 "article": "das",
@@ -3117,6 +3236,13 @@
 {
 "key": "genug",
 "de": "genug",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "geografie",
+"de": "Geografie",
 "article": "",
 "plural": "",
 "level": "A2"
@@ -3172,9 +3298,9 @@
 },
 {
 "key": "geschichte",
-"de": "die Geschichte",
-"article": "die",
-"plural": "-n",
+"de": "Geschichte",
+"article": "",
+"plural": "",
 "level": "A2"
 },
 {
@@ -3367,6 +3493,13 @@
 "level": "A1"
 },
 {
+"key": "grau",
+"de": "grau",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "grillen",
 "de": "grillen",
 "article": "",
@@ -3430,11 +3563,11 @@
 "level": "A1"
 },
 {
-"key": "gung",
-"de": "gung",
+"key": "grün",
+"de": "grün",
 "article": "",
 "plural": "",
-"level": "A2"
+"level": "A1"
 },
 {
 "key": "gut",
@@ -3675,13 +3808,6 @@
 "level": "A2"
 },
 {
-"key": "herberge",
-"de": "herberge",
-"article": "",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "herbst",
 "de": "der Herbst",
 "article": "der",
@@ -3892,6 +4018,13 @@
 "level": "A1"
 },
 {
+"key": "ice",
+"de": "ICE",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "ich",
 "de": "ich",
 "article": "",
@@ -4011,6 +4144,13 @@
 "level": "A2"
 },
 {
+"key": "inventare",
+"de": "Inventare",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "ja",
 "de": "ja",
 "article": "",
@@ -4088,10 +4228,10 @@
 "level": "A2"
 },
 {
-"key": "jugend",
-"de": "die Jugend-",
+"key": "jugendherberge",
+"de": "die Jugendherberge",
 "article": "die",
-"plural": "",
+"plural": "-n",
 "level": "A2"
 },
 {
@@ -4163,6 +4303,13 @@
 "article": "",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "karneval",
+"de": "Karneval",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "karte",
@@ -4303,6 +4450,13 @@
 "article": "die",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "klassenfahrt",
+"de": "Klassenfahrt",
+"article": "",
+"plural": "-en",
+"level": "A2"
 },
 {
 "key": "klavier",
@@ -4452,10 +4606,17 @@
 "level": "A1"
 },
 {
-"key": "kranken",
-"de": "das Kranken-",
+"key": "krankenhaus",
+"de": "das Krankenhaus",
 "article": "das",
-"plural": "",
+"plural": "¨-er",
+"level": "A2"
+},
+{
+"key": "krankenkasse",
+"de": "die Krankenkasse",
+"article": "die",
+"plural": "-n",
 "level": "A2"
 },
 {
@@ -4537,9 +4698,9 @@
 },
 {
 "key": "kunst",
-"de": "die Kunst",
-"article": "die",
-"plural": "¨-e",
+"de": "Kunst",
+"article": "",
+"plural": "",
 "level": "A2"
 },
 {
@@ -4683,6 +4844,13 @@
 "level": "A2"
 },
 {
+"key": "latein",
+"de": "Latein",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "laufen",
 "de": "laufen",
 "article": "",
@@ -4704,8 +4872,8 @@
 "level": "A1"
 },
 {
-"key": "lebens",
-"de": "die Lebens-",
+"key": "lebensmittel",
+"de": "die Lebensmittel",
 "article": "die",
 "plural": "",
 "level": "A1"
@@ -4858,6 +5026,13 @@
 "level": "A1"
 },
 {
+"key": "lila",
+"de": "lila",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "link",
 "de": "der Link",
 "article": "der",
@@ -4905,6 +5080,20 @@
 "article": "",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "luxemburg",
+"de": "Luxemburg",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "luxemburgisch",
+"de": "luxemburgisch",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "löffel",
@@ -5026,6 +5215,13 @@
 "level": "A2"
 },
 {
+"key": "markieren",
+"de": "markieren",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "markt",
 "de": "der Markt",
 "article": "der",
@@ -5038,6 +5234,13 @@
 "article": "die",
 "plural": "-n",
 "level": "A1"
+},
+{
+"key": "mathematik",
+"de": "Mathematik",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "medikament",
@@ -5159,8 +5362,8 @@
 "level": "A2"
 },
 {
-"key": "mineral",
-"de": "das Mineral-",
+"key": "mineralwasser",
+"de": "das Mineralwasser",
 "article": "das",
 "plural": "",
 "level": "A2"
@@ -5237,10 +5440,17 @@
 },
 {
 "key": "mittel",
-"de": "mittel",
+"de": "das Mittel",
+"article": "das",
+"plural": "-",
+"level": "A2"
+},
+{
+"key": "mitternacht",
+"de": "Mitternacht",
 "article": "",
 "plural": "",
-"level": "A1"
+"level": "A2"
 },
 {
 "key": "mittwoch",
@@ -5250,10 +5460,10 @@
 "level": "A1"
 },
 {
-"key": "mobil",
-"de": "das Mobil-",
+"key": "mobiltelefon",
+"de": "das Mobiltelefon",
 "article": "das",
-"plural": "",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -5276,6 +5486,20 @@
 "article": "der",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "monat",
+"de": "Monat",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "monate",
+"de": "Monate",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "montag",
@@ -5321,8 +5545,8 @@
 },
 {
 "key": "musik",
-"de": "die Musik",
-"article": "die",
+"de": "Musik",
+"article": "",
 "plural": "",
 "level": "A2"
 },
@@ -5516,6 +5740,13 @@
 "level": "A1"
 },
 {
+"key": "nen",
+"de": "nen",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "nennen",
 "de": "nennen",
 "article": "",
@@ -5542,6 +5773,13 @@
 "article": "",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "neujahr",
+"de": "Neujahr",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "nicht",
@@ -5747,6 +5985,13 @@
 "level": "A1"
 },
 {
+"key": "onkel",
+"de": "Onkel",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "online",
 "de": "online",
 "article": "",
@@ -5762,9 +6007,9 @@
 },
 {
 "key": "orange",
-"de": "die Orange",
-"article": "die",
-"plural": "-n",
+"de": "orange",
+"article": "",
+"plural": "",
 "level": "A2"
 },
 {
@@ -5794,6 +6039,13 @@
 "article": "der",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "ostern",
+"de": "Ostern",
+"article": "",
+"plural": "",
+"level": "A2"
 },
 {
 "key": "paar",
@@ -5929,6 +6181,13 @@
 "level": "A2"
 },
 {
+"key": "physik",
+"de": "Physik",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "pizza",
 "de": "die Pizza",
 "article": "die",
@@ -6010,13 +6269,6 @@
 "de": "die Postkarte",
 "article": "die",
 "plural": "-n",
-"level": "A2"
-},
-{
-"key": "postleit",
-"de": "die Postleit-",
-"article": "die",
-"plural": "",
 "level": "A2"
 },
 {
@@ -6136,6 +6388,13 @@
 "de": "der Pullover",
 "article": "der",
 "plural": "-",
+"level": "A2"
+},
+{
+"key": "punkt",
+"de": "Punkt",
+"article": "",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -6335,6 +6594,13 @@
 "level": "A2"
 },
 {
+"key": "religion",
+"de": "Religion",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "renovieren",
 "de": "renovieren",
 "article": "",
@@ -6447,11 +6713,25 @@
 "level": "A2"
 },
 {
+"key": "rosa",
+"de": "rosa",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "rose",
 "de": "die Rose",
 "article": "die",
 "plural": "-n",
 "level": "A2"
+},
+{
+"key": "rot",
+"de": "rot",
+"article": "",
+"plural": "",
+"level": "A1"
 },
 {
 "key": "rucksack",
@@ -6610,13 +6890,6 @@
 {
 "key": "scharf",
 "de": "scharf",
-"article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "schein",
-"de": "schein",
 "article": "",
 "plural": "",
 "level": "A2"
@@ -6860,6 +7133,13 @@
 "level": "A2"
 },
 {
+"key": "schwarz",
+"de": "schwarz",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "schwein",
 "de": "das Schwein",
 "article": "das",
@@ -6870,6 +7150,13 @@
 "key": "schweiz",
 "de": "die Schweiz",
 "article": "die",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "schweizerisch",
+"de": "schweizerisch",
+"article": "",
 "plural": "",
 "level": "A2"
 },
@@ -6891,13 +7178,6 @@
 "key": "schwierig",
 "de": "schwierig",
 "article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "schwimm",
-"de": "das Schwimm-",
-"article": "das",
 "plural": "",
 "level": "A2"
 },
@@ -6958,13 +7238,6 @@
 "level": "A1"
 },
 {
-"key": "sehens",
-"de": "die Sehens-",
-"article": "die",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "sehenswürdigkeit",
 "de": "die Sehenswürdigkeit",
 "article": "die",
@@ -7004,6 +7277,13 @@
 "de": "die Seite",
 "article": "die",
 "plural": "-n",
+"level": "A2"
+},
+{
+"key": "sekretariat",
+"de": "Sekretariat",
+"article": "",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -7051,13 +7331,6 @@
 {
 "key": "setzen",
 "de": "setzen",
-"article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "setzung",
-"de": "setzung",
 "article": "",
 "plural": "",
 "level": "A2"
@@ -7123,6 +7396,13 @@
 "de": "der Ski",
 "article": "der",
 "plural": "-",
+"level": "A2"
+},
+{
+"key": "sms",
+"de": "SMS",
+"article": "",
+"plural": "",
 "level": "A2"
 },
 {
@@ -7203,6 +7483,13 @@
 "level": "A2"
 },
 {
+"key": "sozialkunde",
+"de": "Sozialkunde",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "spannend",
 "de": "spannend",
 "article": "",
@@ -7217,17 +7504,17 @@
 "level": "A2"
 },
 {
-"key": "spazier",
-"de": "der Spazier-",
-"article": "der",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "spazieren gehen",
 "de": "spazieren gehen",
 "article": "",
 "plural": "",
+"level": "A2"
+},
+{
+"key": "spaziergang",
+"de": "der Spaziergang",
+"article": "der",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -7294,18 +7581,18 @@
 "level": "A1"
 },
 {
-"key": "sprech",
-"de": "die Sprech-",
-"article": "die",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "sprechen",
 "de": "sprechen",
 "article": "",
 "plural": "",
 "level": "A1"
+},
+{
+"key": "sprechstunde",
+"de": "die Sprechstunde",
+"article": "die",
+"plural": "-n",
+"level": "A2"
 },
 {
 "key": "spät",
@@ -7399,10 +7686,10 @@
 "level": "A2"
 },
 {
-"key": "stipen",
-"de": "das Stipen-",
+"key": "stipendium",
+"de": "das Stipendium",
 "article": "das",
-"plural": "",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -7432,13 +7719,6 @@
 "article": "die",
 "plural": "-n",
 "level": "A1"
-},
-{
-"key": "straßen",
-"de": "die Straßen-",
-"article": "die",
-"plural": "",
-"level": "A2"
 },
 {
 "key": "straßenbahn",
@@ -7509,6 +7789,13 @@
 "article": "die",
 "plural": "-n",
 "level": "A1"
+},
+{
+"key": "stundenplan",
+"de": "Stundenplan",
+"article": "",
+"plural": "¨-e",
+"level": "A2"
 },
 {
 "key": "stören",
@@ -7623,6 +7910,13 @@
 "level": "A1"
 },
 {
+"key": "tante",
+"de": "Tante",
+"article": "",
+"plural": "-n",
+"level": "A2"
+},
+{
 "key": "tanzen",
 "de": "tanzen",
 "article": "",
@@ -7725,6 +8019,13 @@
 "de": "das Tennis",
 "article": "das",
 "plural": "",
+"level": "A2"
+},
+{
+"key": "ter",
+"de": "ter",
+"article": "",
+"plural": "-n",
 "level": "A2"
 },
 {
@@ -7980,13 +8281,6 @@
 "level": "A1"
 },
 {
-"key": "tung",
-"de": "tung",
-"article": "",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "tur",
 "de": "tur",
 "article": "",
@@ -8190,10 +8484,10 @@
 "level": "A2"
 },
 {
-"key": "veranstal",
-"de": "die Veranstal-",
+"key": "veranstaltung",
+"de": "die Veranstaltung",
 "article": "die",
-"plural": "",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -8274,10 +8568,10 @@
 "level": "A2"
 },
 {
-"key": "verkehrs",
-"de": "das Verkehrs-",
+"key": "verkehrsmittel",
+"de": "das Verkehrsmittel",
 "article": "das",
-"plural": "",
+"plural": "-",
 "level": "A2"
 },
 {
@@ -8715,6 +9009,13 @@
 "level": "A2"
 },
 {
+"key": "weihnachten",
+"de": "Weihnachten",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "weil",
 "de": "weil",
 "article": "",
@@ -8745,6 +9046,13 @@
 {
 "key": "weiter",
 "de": "weiter",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
+"key": "weiß",
+"de": "weiß",
 "article": "",
 "plural": "",
 "level": "A1"
@@ -9052,9 +9360,9 @@
 },
 {
 "key": "wunsch",
-"de": "wunsch",
-"article": "",
-"plural": "",
+"de": "der Wunsch",
+"article": "der",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -9072,10 +9380,24 @@
 "level": "A2"
 },
 {
+"key": "währungen",
+"de": "Währungen",
+"article": "",
+"plural": "",
+"level": "A1"
+},
+{
 "key": "wäsche",
 "de": "die Wäsche",
 "article": "die",
 "plural": "-n",
+"level": "A2"
+},
+{
+"key": "wörterbuch",
+"de": "Wörterbuch",
+"article": "",
+"plural": "¨-er",
 "level": "A2"
 },
 {
@@ -9086,17 +9408,10 @@
 "level": "A2"
 },
 {
-"key": "würdigkeit",
-"de": "würdigkeit",
-"article": "",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "zahl",
-"de": "zahl",
-"article": "",
-"plural": "",
+"de": "die Zahl",
+"article": "die",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -9135,6 +9450,13 @@
 "level": "A1"
 },
 {
+"key": "zeitangaben",
+"de": "Zeitangaben",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "zeitschrift",
 "de": "die Zeitschrift",
 "article": "die",
@@ -9157,9 +9479,9 @@
 },
 {
 "key": "zentrum",
-"de": "zentrum",
-"article": "",
-"plural": "",
+"de": "das Zentrum",
+"article": "das",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -9352,6 +9674,20 @@
 "level": "A1"
 },
 {
+"key": "österreich",
+"de": "Österreich",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
+"key": "österreichisch",
+"de": "österreichisch",
+"article": "",
+"plural": "",
+"level": "A2"
+},
+{
 "key": "üben",
 "de": "üben",
 "article": "",
@@ -9391,6 +9727,13 @@
 "de": "übersetzen",
 "article": "",
 "plural": "",
+"level": "A2"
+},
+{
+"key": "übersetzung",
+"de": "die Übersetzung",
+"article": "die",
+"plural": "-en",
 "level": "A2"
 },
 {

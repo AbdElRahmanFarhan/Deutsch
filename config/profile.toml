@@ -1,9 +1,0 @@
-# About you. Used to pick examples and topics.
-
-name = "Abdelrahman"
-native_language = "Arabic (Egyptian)"
-tutor_language = "English"       # all explanations and translations
-job = "engineering / tech"
-german_at_work = "sometimes"     # "mostly", "sometimes", "rarely"
-level_now = "A1, mostly forgotten"
-why_a2 = ["daily life in Germany", "residence / citizenship", "personal goal"]

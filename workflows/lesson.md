@@ -41,6 +41,9 @@ Fetch the lesson page and go section by section, one step at a time:
 - **Book work**: tell the learner exactly which pages/exercises/audio to do now in their book
   (the Lektion's "Book pages" PDF in Notion has the pages). Wait until they say they're done; ask
   how it went and which items were wrong; explain those.
+- **Listening**: tell the learner which track to play and its start time in the Lektion's Audio
+  file (Notion, Lektion page → Audio). After they listen, ask the questions one at a time and
+  grade them like exercises; if they struggle, suggest listening again before giving hints.
 - **Exercises**: one at a time from the page (answers are in the toggle; don't reveal them).
   Grade each answer: accept correct variants; for wrong answers give the correction and a one-line
   reason; offer hints per `common.md`.

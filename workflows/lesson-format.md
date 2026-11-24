@@ -76,6 +76,30 @@ an email, a message, a short form).
 A role-play topic for the voice session, with 3-4 questions the partner should ask.
 ```
 
+Both parts also have a **Listening** section, placed right before `## Exercises`. Part 1 covers
+the Kursbuch audio (`L<index>-KB.mp3` on the Lektion page, field "Audio"); Part 2 covers the
+Arbeitsbuch audio (`L<index>-AB.mp3`), or more Kursbuch tracks if the Lektion has no AB audio:
+
+```
+## Listening
+Audio: Lektion page → Audio → L0-KB.mp3 (tracks start at these times)
+- 0:00 Lektion 1, 1: <what it is, in a few English words>
+- 0:42 Lektion 1, 3: ...
+
+Listen to "Lektion 1, 4" (1:35), then answer:
+1. <comprehension question in English about what is said>
+2. ...
+(4-6 questions per part, about the 1-3 most useful dialogues; pronunciation-only tracks get
+"listen and repeat" instead of questions)
+
+<toggle> Answers
+1. <short answer>
+</toggle>
+```
+
+Write the questions from the transcript in your own words; never paste the transcript or long
+quotes into the page (a few words of German in an answer are fine).
+
 Use the toggle syntax `<toggle>` exactly as in the Notion markdown spec: the summary line right
 after the tag, children after a blank line, then `</toggle>`.
 

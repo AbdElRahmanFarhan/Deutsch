@@ -26,6 +26,7 @@ activity, weekly reviews, book PDFs. Nothing personal or stateful is stored here
 | `curriculum/sayings.json` | German sayings for motivation |
 | `scripts/book_text.py` | Laptop only: OCR text of a Lektion's book pages from `Cirriculum/` |
 | `scripts/goethe_list.py` | Laptop only: rebuilds `goethe_words.json` from the official PDFs |
+| `scripts/lektion_audio.py` | Laptop only: joins each Lektion's audio tracks into `L<index>-KB.mp3` / `-AB.mp3` (needs ffmpeg) |
 
 ## Sources
 

@@ -6,7 +6,11 @@ activity, weekly reviews, book PDFs. Nothing personal or stateful is stored here
 
 - **The learner:** Abdelrahman, adult engineer living and working in Germany, Egyptian, studies in
   English. Everything the tutor writes is in English; German only as the thing being learned.
-- **Where he practises:** the Claude app Project "Deutsch" (phone/laptop, text or voice), set up
+- **Control panel:** `dashboard/index.html`, published as a claude.ai artifact
+  (https://claude.ai/artifact/NFccKogXmU69aP5ZNtkPhL). It reads and writes Notion through the
+  viewer's Notion connector and runs lessons, refreshers, quick lessons, flashcards, weekly revision
+  and speaking in the page. Each lesson has its own link: `…#L<index>-p1` / `-p2`.
+- **Where he practises:** the control panel, and the Claude app Project "Deutsch" (phone/laptop, text or voice), set up
   from `project/INSTRUCTIONS.md`. Claude Code sessions on this repo (cloud or laptop) can run the
   same workflows.
 - **Automation:** cloud routines run `workflows/morning-plan.md` daily and
@@ -18,6 +22,7 @@ activity, weekly reviews, book PDFs. Nothing personal or stateful is stored here
 |---|---|
 | `workflows/` | The instructions for every activity. Start with `workflows/README.md` and `common.md`. |
 | `.claude/skills/` | Thin wrappers so `/lesson`, `/refresher`, ... run the matching workflow |
+| `dashboard/index.html` | The control panel page (code only; publish it with the Artifact tool, see `dashboard/README.md`) |
 | `project/INSTRUCTIONS.md` | Setup and custom instructions for the Claude app Project |
 | `notion/ids.json` | Notion page and data source ids; Lektion page id per course index |
 | `notion/book_pages.json` | Kursbuch/Arbeitsbuch PDF page ranges per Lektion |

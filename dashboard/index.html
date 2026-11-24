@@ -1,0 +1,1592 @@
+<title>Deutsch A2 Control Panel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a control desk. Top bar, then the view. Home = today strip, launchers, progress board.
+   Lesson = step rail on the left (chips on phones) + one step at a time. */
+:root {
+  --bg: #eef0ec; --surface: #fbfcfa; --sunk: #e4e7e1; --ink: #17212b; --muted: #59646f; --line: #d3d8d0;
+  --accent: #1f4e8c; --accent-ink: #ffffff; --signal: #f2c230; --signal-ink: #17212b;
+  --good: #2c7a4b; --warn: #a86a12; --bad: #b3412e; --good-bg: #dcefe2; --bad-bg: #f6e0db; --warn-bg: #f6ead2;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1319; --surface: #161e27; --sunk: #1d2732; --ink: #e6ebf0; --muted: #94a1ae; --line: #2a3542;
+  --accent: #8db4f0; --accent-ink: #0e1319; --signal: #f2c230; --signal-ink: #17212b;
+  --good: #63c38f; --warn: #e2ab52; --bad: #ea8571; --good-bg: #183327; --bad-bg: #3a1f1a; --warn-bg: #3a2d15;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0e1319; --surface: #161e27; --sunk: #1d2732; --ink: #e6ebf0; --muted: #94a1ae; --line: #2a3542;
+  --accent: #8db4f0; --accent-ink: #0e1319; --signal: #f2c230; --signal-ink: #17212b;
+  --good: #63c38f; --warn: #e2ab52; --bad: #ea8571; --good-bg: #183327; --bad-bg: #3a1f1a; --warn-bg: #3a2d15;
+  color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 48px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: 1.9rem; font-weight: 700; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+a { color: var(--accent); }
+button, input, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: .86rem; }
+.label { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+
+/* top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand b { font-family: var(--display); font-size: 1.2rem; }
+.plate { display: inline-block; background: var(--signal); color: var(--signal-ink); font-family: var(--mono); font-weight: 500; font-size: .78rem; padding: 2px 7px; border-radius: 4px; border: 1px solid #00000022; }
+.nav { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+.nav a { text-decoration: none; color: var(--muted); padding: 6px 10px; border-radius: 6px; font-weight: 600; font-size: .92rem; }
+.nav a[aria-current="page"] { color: var(--ink); background: var(--sunk); }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--surface); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; text-decoration: none; color: var(--ink); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.go { background: var(--signal); color: var(--signal-ink); border-color: #0000001f; }
+.btn.ghost { background: transparent; }
+.btn.sm { padding: 4px 10px; font-size: .86rem; }
+.btn[disabled] { opacity: .5; cursor: default; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.stack { display: grid; gap: 14px; }
+
+/* banners */
+.banner { border: 1px solid var(--line); border-left: 4px solid var(--warn); background: var(--warn-bg); padding: 10px 14px; border-radius: 8px; }
+.banner.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.banner.good { border-left-color: var(--good); background: var(--good-bg); }
+
+/* home */
+.today { margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; min-width: 0; }
+.hero-lesson h1 { margin: 6px 0 4px; }
+.hero-lesson .meta { color: var(--muted); }
+.sessions { display: grid; gap: 8px; margin-top: 10px; }
+.sess { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 8px; background: var(--sunk); }
+.chip { display: inline-block; font-size: .74rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--sunk); color: var(--muted); white-space: nowrap; }
+.chip.Done, .chip.done { background: var(--good-bg); color: var(--good); }
+.chip.Missed, .chip.bad { background: var(--bad-bg); color: var(--bad); }
+.chip.Planned, .chip.warn { background: var(--warn-bg); color: var(--warn); }
+.launch { margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tile { text-align: left; display: grid; gap: 4px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; cursor: pointer; min-height: 108px; }
+.tile:hover { border-color: var(--accent); }
+.tile .k { font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
+.tile .d { color: var(--muted); font-size: .9rem; }
+.tile .n { font-family: var(--mono); font-size: .8rem; color: var(--accent); margin-top: auto; }
+.board { margin-top: 26px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.stat .v { font-family: var(--display); font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat .s { color: var(--muted); font-size: .88rem; }
+.wide { grid-column: span 2; }
+.full { grid-column: 1 / -1; }
+.strip { display: grid; gap: 10px; }
+.vol { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 10px; align-items: center; }
+.cells { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.cell { aspect-ratio: 1.4; max-width: 100%; border-radius: 4px; border: 1px solid var(--line); background: var(--sunk); cursor: pointer; padding: 0; font-family: var(--mono); font-size: .66rem; color: var(--muted); }
+.cell.half { background: linear-gradient(135deg, var(--accent) 50%, var(--sunk) 50%); color: var(--accent-ink); }
+.cell.done { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.cell.cur { outline: 2px solid var(--signal); outline-offset: 1px; }
+.bars { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; align-items: end; height: 120px; }
+.bar { display: grid; align-content: end; gap: 4px; height: 100%; text-align: center; }
+.bar i { display: block; background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px; }
+.bar.today i { background: var(--signal); }
+.bar span { font-size: .7rem; color: var(--muted); font-family: var(--mono); }
+.hbar { display: grid; grid-template-columns: 110px minmax(0, 1fr) 28px; gap: 8px; align-items: center; font-size: .9rem; }
+.hbar .t { height: 8px; background: var(--sunk); border-radius: 4px; overflow: hidden; }
+.hbar .t i { display: block; height: 100%; background: var(--bad); }
+table.sc { width: 100%; border-collapse: collapse; font-size: .9rem; }
+table.sc th, table.sc td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+table.sc td.num, table.sc th.num { text-align: right; font-family: var(--mono); }
+.sbox { display: inline-grid; place-items: center; width: 24px; height: 22px; border-radius: 4px; font-family: var(--mono); font-size: .8rem; background: var(--sunk); }
+.sbox.s1, .sbox.s2 { background: var(--bad-bg); color: var(--bad); }
+.sbox.s3 { background: var(--warn-bg); color: var(--warn); }
+.sbox.s4, .sbox.s5 { background: var(--good-bg); color: var(--good); }
+.scroll-x { overflow-x: auto; }
+
+/* lessons index */
+.lx { display: grid; gap: 6px; margin-top: 16px; }
+.lx-row { display: grid; grid-template-columns: 70px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.lx-row .parts { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* lesson player */
+.lesson-head { margin-top: 20px; display: grid; gap: 6px; }
+.player { margin-top: 18px; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; }
+.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 64px); display: grid; gap: 2px; }
+.rail button { text-align: left; border: 0; background: transparent; padding: 8px 10px; border-radius: 8px; cursor: pointer; display: flex; gap: 8px; align-items: center; color: var(--muted); font-weight: 600; }
+.rail button[aria-current="step"] { background: var(--surface); color: var(--ink); box-shadow: inset 3px 0 0 var(--signal); }
+.rail .tick { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--line); display: inline-grid; place-items: center; font-size: .7rem; flex: none; }
+.rail .tick.on { background: var(--good); border-color: var(--good); color: var(--surface); }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; min-width: 0; display: grid; gap: 16px; }
+.prose { font-family: var(--read); font-size: 1.04rem; line-height: 1.6; max-width: 68ch; }
+.prose h3 { font-family: var(--display); margin-top: 8px; }
+.prose table { border-collapse: collapse; font-family: var(--body); font-size: .95rem; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 5px 10px; text-align: left; }
+.prose code { font-family: var(--mono); font-size: .88em; background: var(--sunk); padding: 1px 5px; border-radius: 4px; }
+.prose details { background: var(--sunk); border-radius: 8px; padding: 8px 12px; }
+.prose summary { cursor: pointer; font-family: var(--body); font-weight: 600; }
+.tablewrap { overflow-x: auto; max-width: 100%; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.word { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; background: var(--bg); }
+.word .de { font-family: var(--display); font-weight: 700; font-size: 1.08rem; }
+.word .de .art-der { color: #2f6fd0; } .word .de .art-die { color: #c0392b; } .word .de .art-das { color: #2c8a4b; }
+.word .ex { font-family: var(--read); font-size: .93rem; }
+.hide-en .word .en, .hide-en .word .exen { filter: blur(5px); }
+.speak-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; width: 30px; height: 28px; cursor: pointer; display: inline-grid; place-items: center; flex: none; }
+.q { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.q .qt { font-family: var(--read); }
+.q input, .q textarea, textarea.big, input.big { width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 8px 10px; }
+textarea.big { min-height: 160px; font-family: var(--read); font-size: 1.02rem; line-height: 1.55; }
+.q.right { border-color: var(--good); background: var(--good-bg); }
+.q.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.fb { font-size: .92rem; }
+.audio { display: grid; gap: 10px; padding: 14px; border-radius: 8px; background: var(--sunk); }
+.audio audio { width: 100%; }
+.tracks { display: grid; gap: 4px; }
+.track { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; text-align: left; border: 0; background: transparent; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
+.track:hover, .track.on { background: var(--surface); }
+.track .tm { font-family: var(--mono); color: var(--accent); }
+.chat { display: grid; gap: 10px; max-height: 460px; overflow-y: auto; padding: 4px; }
+.msg { max-width: 82%; padding: 9px 12px; border-radius: 10px; font-family: var(--read); }
+.msg.p { background: var(--sunk); justify-self: start; }
+.msg.me { background: var(--accent); color: var(--accent-ink); justify-self: end; }
+.msg.sys { background: transparent; color: var(--muted); font-family: var(--body); font-size: .88rem; justify-self: center; }
+.compose { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: end; }
+.compose textarea { min-height: 52px; resize: vertical; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 10px; width: 100%; }
+.mic.on { background: var(--bad); color: #fff; border-color: var(--bad); }
+.card { display: grid; place-items: center; text-align: center; gap: 10px; min-height: 230px; padding: 24px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); }
+.card .front { font-family: var(--display); font-size: 2rem; font-weight: 700; }
+.card .back { font-family: var(--read); font-size: 1.1rem; }
+.progress { height: 6px; border-radius: 3px; background: var(--sunk); overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--accent); }
+.scores { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.scores div { text-align: center; padding: 10px; border-radius: 8px; background: var(--sunk); }
+.scores b { display: block; font-family: var(--display); font-size: 1.6rem; }
+.empty { padding: 26px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--r); }
+.spin { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: sp 0.8s linear infinite; vertical-align: -2px; }
+@keyframes sp { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+select { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 7px 10px; }
+
+@media (max-width: 860px) {
+  .today { grid-template-columns: minmax(0, 1fr); }
+  .launch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .player { grid-template-columns: minmax(0, 1fr); }
+  .rail { position: static; display: flex; overflow-x: auto; gap: 4px; padding-bottom: 4px; }
+  .rail button { white-space: nowrap; }
+  .rail button[aria-current="step"] { box-shadow: inset 0 -3px 0 var(--signal); }
+}
+@media (max-width: 480px) {
+  .launch { grid-template-columns: minmax(0, 1fr); }
+  .board { grid-template-columns: minmax(0, 1fr); }
+  .wide { grid-column: auto; }
+  .cells { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .scores { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lx-row { grid-template-columns: minmax(0, 1fr); }
+  .step { padding: 16px; }
+  .compose { grid-template-columns: minmax(0, 1fr) auto; }
+}
+</style>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="#home" data-go="home"><b>Deutsch</b><span class="plate">A1 → A2</span></a>
+  <nav class="nav" id="nav">
+    <a href="#home" data-go="home">Today</a>
+    <a href="#lessons" data-go="lessons">Lessons</a>
+    <a href="#flashcards" data-go="flashcards">Cards</a>
+    <a href="#speak" data-go="speak">Speak</a>
+  </nav>
+</div></header>
+<main class="wrap" id="view"></main>
+
+<script>
+"use strict";
+/* ---------- constants (ids from notion/ids.json) ---------- */
+const DS = {
+  lektionen: "422d1f31-9aab-8113-a67a-000b413fd33f", lessons: "422d1f31-9aab-81fa-9e97-000b91899773",
+  words: "422d1f31-9aab-8191-8f9d-000bad178fe5", mistakes: "422d1f31-9aab-81e0-a7d4-000befba85e3",
+  sessions: "422d1f31-9aab-81fb-84e2-000b2559828e", activity: "422d1f31-9aab-8198-be16-000b8862e4cc",
+  handoffs: "422d1f31-9aab-815c-be5d-000b9acff457",
+};
+const NV = (db, v) => `https://www.notion.so/${db}?v=${v}`;
+const V = {
+  settings: NV("422d1f319aab815bb7cffd8c5caf152f", "422d1f319aab816ba00e000c3e40f443"),
+  wordsDue: NV("422d1f319aab81e49660d96c565d5e1a", "422d1f319aab817cb54f000cc5d2cef9"),
+  wordsNew: NV("422d1f319aab81e49660d96c565d5e1a", "422d1f319aab8158ab28000cfacbf509"),
+  wordsPractice: NV("422d1f319aab81e49660d96c565d5e1a", "422d1f319aab81a3b1cb000c00c2d501"),
+  mistakesDue: NV("422d1f319aab81de95dbc852b6673359", "422d1f319aab811fb714000cbffb6240"),
+  mistakesMonth: NV("422d1f319aab81de95dbc852b6673359", "422d1f319aab816cbb05000ce8d6ccd6"),
+  sessions: NV("422d1f319aab81c0a116d2e36aeb2dfe", "422d1f319aab81a6843a000c7bd5cf9f"),
+  activity: NV("422d1f319aab8148b12ad3a22f7f9ec9", "422d1f319aab815e84e7000c20e4bb11"),
+  lessons: NV("422d1f319aab81c6b8ccd3650a882278", "422d1f319aab8108a43f000c101119d1"),
+  lektionen: NV("422d1f319aab819aa404dd3b4c8372ef", "422d1f319aab8146a239000cf96c3802"),
+  speaking: NV("422d1f319aab81c9a005deeedf9634a9", "422d1f319aab81ed96c0000c7df18e62"),
+};
+const T = { query: "notion-query-data-sources", fetch: "notion-fetch", create: "notion-create-pages", update: "notion-update-page" };
+const MODES = ["role-play", "free talk", "Sprechen Teil 1", "Sprechen Teil 2", "Sprechen Teil 3"];
+
+/* ---------- small helpers ---------- */
+// optional children are written as `cond ? el : null`; let append & co. skip them
+for (const m of ["append", "prepend", "replaceChildren"]) {
+  const orig = Element.prototype[m];
+  Element.prototype[m] = function (...kids) { return orig.apply(this, kids.flat(9).filter(k => k != null && k !== false)); };
+}
+const $ = (s, r = document) => r.querySelector(s);
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null || v === false) continue;
+    if (k === "class") el.className = v;
+    else if (k === "html") el.innerHTML = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v === true ? "" : v);
+  }
+  for (const kid of kids.flat(9)) {
+    if (kid == null || kid === false) continue;
+    el.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+  }
+  return el;
+}
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const ls = {
+  get(k, d) { try { const v = localStorage.getItem("de:" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("de:" + k, JSON.stringify(v)); } catch {} },
+};
+const spinner = text => h("span", { class: "muted" }, h("span", { class: "spin" }), " ", text || "Loading…");
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pageId = url => String(url || "").split("/p/").pop().split("?")[0];
+const rel = v => { if (Array.isArray(v)) return v; try { return JSON.parse(v || "[]"); } catch { return []; } };
+const unesc = s => String(s ?? "").replace(/\\(.)/g, "$1");
+
+/* ---------- dates (Europe/Berlin) ---------- */
+const berlin = d => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d || new Date());
+const today = () => berlin();
+const addDays = (iso, n) => { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+const dayName = iso => new Date(iso + "T12:00:00Z").toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" });
+const prettyDate = iso => new Date(iso + "T12:00:00Z").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+const daysBetween = (a, b) => Math.round((new Date(b + "T12:00:00Z") - new Date(a + "T12:00:00Z")) / 864e5);
+const dateProp = (name, iso) => ({ [`date:${name}:start`]: iso, [`date:${name}:is_datetime`]: 0 });
+
+/* ---------- capabilities ---------- */
+const use = name => (window.claude && window.claude.use ? window.claude.use(name) : Promise.resolve(null)).catch(() => null);
+const capMcp = use("mcp"), capSample = use("sample"), capTts = use("tts"), capDict = use("dictation");
+
+/* ---------- Notion ---------- */
+async function nt(tool, input) {
+  const m = await capMcp;
+  if (!m) throw { code: "no_mcp" };
+  const r = await m.callTool("Notion", tool, input, { cache: false });
+  let p = r.payload;
+  if (typeof p === "string") { try { p = JSON.parse(p); } catch {} }
+  if (p && p.error) throw { code: "tool_error", message: typeof p.error === "string" ? p.error : JSON.stringify(p.error) };
+  return p;
+}
+async function viewAll(url, max = 300) {
+  const rows = []; let cursor = null;
+  do {
+    const data = { mode: "view", view_url: url, page_size: 100 };
+    if (cursor) data.start_cursor = cursor;
+    const p = await nt(T.query, { data });
+    rows.push(...(p.results || []));
+    cursor = p.has_more ? p.next_cursor : null;
+  } while (cursor && rows.length < max);
+  return rows;
+}
+async function fetchPage(idOrUrl) {
+  const p = await nt(T.fetch, { id: pageId(idOrUrl) || idOrUrl });
+  const text = typeof p === "string" ? p : (p.text || "");
+  let props = {};
+  const pm = text.match(/<properties>\s*([\s\S]*?)\s*<\/properties>/);
+  if (pm) { try { props = JSON.parse(pm[1]); } catch {} }
+  const cm = text.match(/<content>\n?([\s\S]*?)\n?<\/content>/);
+  return { props, content: cm ? cm[1] : "", title: p.title || props.Lesson || "" };
+}
+async function createRows(ds, pages) {
+  if (!pages.length) return [];
+  const out = [];
+  for (let i = 0; i < pages.length; i += 20) out.push(await nt(T.create, { parent: { data_source_id: ds }, pages: pages.slice(i, i + 20) }));
+  return out;
+}
+const updateRow = (url, properties) => nt(T.update, { page_id: pageId(url), command: "update_properties", properties });
+
+function errText(e) {
+  const code = e && e.code;
+  return ({
+    no_mcp: "This view can't reach Notion. Open the dashboard on claude.ai or in the Claude app.",
+    needs_reauth: "Notion needs to be reconnected: claude.ai → Settings → Connectors → Notion.",
+    server_not_connected: "Add the Notion connector in claude.ai → Settings → Connectors.",
+    selection_required: "You have more than one Notion connector. Choose one when claude.ai asks, then reload.",
+    not_in_manifest: "Notion isn't allowed for this page. Allow it from the artifact's Permissions menu, then reload.",
+    approval_required: "Notion access needs your approval. Press Retry and allow it.",
+    blocked_by_policy: "Your organization's policy blocks this Notion tool.",
+    server_unavailable: "Notion didn't answer. Try again in a moment.",
+    not_granted: "This page wasn't given access to your connectors. Reload and allow Notion.",
+    capability_disabled: "Connectors aren't available in this view. Open the dashboard on claude.ai.",
+  })[code] || (e && e.message ? String(e.message).slice(0, 300) : "Something went wrong talking to Notion.");
+}
+function sampleErr(e) {
+  const code = e && e.code;
+  if (code === "not_granted") return "Claude isn't allowed on this page. Allow it from the artifact's Permissions menu.";
+  if (code === "rate_limited") return "Claude is busy. Wait a minute and try again.";
+  if (code === "no_sample") return "Claude can't be reached from this view. Open the dashboard on claude.ai.";
+  return (e && e.message) ? String(e.message).slice(0, 300) : "Claude couldn't answer. Try again.";
+}
+function errBox(e, retry) {
+  return h("div", { class: "banner bad" }, h("div", null, errText(e)), retry ? h("div", { style: "margin-top:8px" }, h("button", { class: "btn sm", onclick: retry }, "Retry")) : null);
+}
+
+/* ---------- Claude (sample) ---------- */
+async function ask(prompt, tier) {
+  const s = await capSample;
+  if (!s) throw { code: "no_sample" };
+  return s.json(prompt, { modelTier: tier || "default", cache: false });
+}
+async function askText(input, opts) {
+  const s = await capSample;
+  if (!s) throw { code: "no_sample" };
+  return s(input, Object.assign({ cache: false }, opts || {}));
+}
+const LEARNER = "The learner is Abdelrahman, an adult engineer from Egypt who lives and works in Germany and studies German in English. Goal: Goethe-Zertifikat A2. Examples come from adult everyday life in Germany (work, flat, doctor, Behörden, shopping, public transport). Write everything in English except the German being practised. No emojis.";
+
+/* ---------- speech ---------- */
+let ttsNs = null; capTts.then(t => { ttsNs = t; });
+async function say(text) {
+  const clean = String(text).replace(/<[^>]+>/g, "").slice(0, 1900);
+  if (ttsNs) { try { await ttsNs.speak(clean, { language: "de" }); return; } catch (e) { if (e && e.code === "busy") return; } }
+  try {
+    const u = new SpeechSynthesisUtterance(clean); u.lang = "de-DE"; u.rate = 0.92;
+    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith("de")); if (v) u.voice = v;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } catch {}
+}
+const speakBtn = text => h("button", { class: "speak-btn", title: "Listen", "aria-label": "Listen", onclick: e => { e.stopPropagation(); say(text); } }, "♪");
+
+/* ---------- Goethe word list (published next to the page) ---------- */
+let GOETHE = null;
+async function goethe() {
+  if (GOETHE) return GOETHE;
+  try { const r = await fetch("goethe.json"); GOETHE = await r.json(); } catch { GOETHE = []; }
+  GOETHE.byKey = new Map(GOETHE.map(w => [w.key, w]));
+  return GOETHE;
+}
+const wordKey = de => String(de || "").replace(/^(der|die|das)\s+/i, "").replace(/[?!.,]/g, "").trim().toLowerCase();
+
+/* ---------- settings ---------- */
+const S = { settings: {}, lektionen: [], lessons: [], errors: {} };
+const setv = name => unesc(S.settings[name] ?? "");
+const setn = (name, d) => { const n = parseFloat(setv(name)); return isNaN(n) ? d : n; };
+const setlist = name => setv(name).split(",").map(s => s.trim()).filter(Boolean);
+const intervals = () => { const l = setlist("Leitner intervals").map(Number).filter(n => !isNaN(n)); return l.length === 5 ? l : [1, 2, 4, 8, 16]; };
+
+/* ---------- core data ---------- */
+let coreP = null;
+function loadCore(force) {
+  if (coreP && !force) return coreP;
+  coreP = (async () => {
+    const [settings, lektionen, lessons] = await Promise.all([viewAll(V.settings, 200), viewAll(V.lektionen, 100), viewAll(V.lessons, 200)]);
+    S.settings = Object.fromEntries(settings.map(r => [r.Setting, r.Value]));
+    S.lektionen = lektionen.slice().sort((a, b) => a.Index - b.Index);
+    S.lessons = lessons;
+    S.lessonByKey = new Map(lessons.map(r => [r.Key, r]));
+    S.lektionByUrl = new Map(S.lektionen.map(r => [pageId(r.url), r]));
+    ls.set("core", { settings: S.settings, lektionen: S.lektionen, lessons: S.lessons, at: Date.now() });
+    return S;
+  })();
+  coreP.catch(() => { coreP = null; });
+  return coreP;
+}
+(function bootCache() {
+  const c = ls.get("core");
+  if (c) {
+    S.settings = c.settings; S.lektionen = c.lektionen; S.lessons = c.lessons;
+    S.lessonByKey = new Map(c.lessons.map(r => [r.Key, r]));
+    S.lektionByUrl = new Map(c.lektionen.map(r => [pageId(r.url), r]));
+  }
+})();
+function position() {
+  const cur = S.lektionen.find(r => r.Status !== "Done");
+  if (!cur) return null;
+  const part = cur.Status === "Part 1 done" ? 2 : 1;
+  return { lektion: cur, part, key: `L${cur.Index}-p${part}` };
+}
+const lektionOfKey = key => S.lektionen.find(r => r.Index === +key.match(/^L(\d+)/)[1]);
+const levelOf = idx => idx < 24 ? "A1" : "A2";
+
+/* ---------- router ---------- */
+const view = $("#view");
+let cleanup = []; let current = null;
+function go(t) {
+  try { if (location.hash !== "#" + t) history.pushState(null, "", "#" + t); } catch {}
+  route(t);
+}
+function route(t) {
+  t = t || hashTarget(); current = t;
+  cleanup.forEach(f => { try { f(); } catch {} }); cleanup = [];
+  try { speechSynthesis.cancel(); } catch {}
+  document.querySelectorAll("#nav a").forEach(a => a.setAttribute("aria-current", a.dataset.go === t || (t.startsWith("L") && a.dataset.go === "lessons") ? "page" : "false"));
+  view.replaceChildren();
+  window.scrollTo(0, 0);
+  if (/^L\d+-p[12]$/.test(t)) return showLesson(t);
+  const views = { home: showHome, lessons: showLessons, flashcards: showCards, refresher: () => showReview("refresher"), weekly: () => showReview("weekly"), quick: showQuick, speak: showSpeak };
+  (views[t] || showHome)();
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-go]");
+  if (a) { e.preventDefault(); go(a.dataset.go); }
+});
+const hashTarget = () => (location.hash || "#home").slice(1) || "home";
+window.addEventListener("popstate", () => { if (hashTarget() !== current) route(); });
+window.addEventListener("hashchange", () => { if (hashTarget() !== current) route(); });
+
+/* =====================================================================
+   HOME: control panel
+   ===================================================================== */
+function showHome() {
+  const root = h("div");
+  view.append(root);
+  const cached = ls.get("home");
+  if (cached && S.lektionen.length) renderHome(root, cached, true);
+  else root.append(h("div", { class: "today" }, h("div", { class: "panel" }, spinner("Reading your course from Notion…"))));
+  loadHome().then(d => { if (root.isConnected) { root.replaceChildren(); renderHome(root, d, false); } })
+    .catch(e => { if (root.isConnected) root.prepend(errBox(e, () => go("home"))); });
+}
+async function loadHome() {
+  await loadCore(true);
+  const get = async (name, url, max) => { try { return await viewAll(url, max); } catch (e) { S.errors[name] = e; return null; } };
+  const [due, mDue, mMonth, sessions, activity, speaking, started] = await Promise.all([
+    get("due", V.wordsDue, 400), get("mDue", V.mistakesDue, 200), get("mMonth", V.mistakesMonth, 300),
+    get("sessions", V.sessions, 100), get("activity", V.activity, 200), get("speaking", V.speaking, 50), get("started", V.wordsPractice, 1500),
+  ]);
+  const d = { due, mDue, mMonth, sessions, activity, speaking, started, at: Date.now() };
+  ls.set("home", d);
+  return d;
+}
+function streak(d) {
+  const days = new Set();
+  (d.activity || []).forEach(r => r["date:Date:start"] && days.add(r["date:Date:start"].slice(0, 10)));
+  (d.sessions || []).filter(r => r.Status === "Done").forEach(r => r["date:When:start"] && days.add(r["date:When:start"].slice(0, 10)));
+  let day = today(); if (!days.has(day)) day = addDays(day, -1);
+  let n = 0; while (days.has(day)) { n++; day = addDays(day, -1); }
+  return n;
+}
+function minutesByDay(d) {
+  const m = {};
+  (d.activity || []).forEach(r => { const k = (r["date:Date:start"] || "").slice(0, 10); m[k] = (m[k] || 0) + (r.Minutes || 0); });
+  (d.sessions || []).filter(r => r.Status === "Done").forEach(r => { const k = (r["date:When:start"] || "").slice(0, 10); m[k] = (m[k] || 0) + (r.Minutes || r["Planned minutes"] || 0); });
+  return m;
+}
+function projection() {
+  let hours = 0;
+  for (const r of S.lektionen) if (r.Status !== "Done") hours += (r.Hours || 0) * (r.Status === "Part 1 done" ? 0.5 : 1);
+  hours += setn("Exam prep hours", 28);
+  let weekly = 0;
+  for (const [k, v] of Object.entries(S.settings)) if (/session/i.test(k) && /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)/.test(k)) { const m = unesc(v).match(/(\d+)\s*min/); if (m) weekly += +m[1] / 60; }
+  if (!weekly) return null;
+  const finish = addDays(today(), Math.ceil(hours / weekly * 7));
+  const target = setv("Target date");
+  return { hours, weekly, finish, target, late: /^\d{4}-\d\d-\d\d$/.test(target) ? daysBetween(target, finish) : null };
+}
+function renderHome(root, d, stale) {
+  const t = today();
+  const pos = position();
+  const lessonRow = pos && S.lessonByKey && S.lessonByKey.get(pos.key);
+  const todaySessions = (d.sessions || []).filter(r => (r["date:When:start"] || "").slice(0, 10) === t);
+  const weekly = todaySessions.find(r => r.Kind === "weekly");
+  const dueWords = (d.due || []).length, dueMist = (d.mDue || []).length;
+  const started = d.started || [];
+  const known = started.filter(r => r.Status === "Known").length, learning = started.filter(r => r.Status === "Learning").length;
+  const done = S.lektionen.filter(r => r.Status === "Done").length;
+
+  if (stale) root.append(h("p", { class: "small muted", style: "margin:12px 0 0" }, spinner("Showing your last data while Notion refreshes…")));
+  for (const [k, e] of Object.entries(S.errors)) { root.append(h("div", { class: "banner bad", style: "margin-top:12px" }, `Couldn't load ${k}: ${errText(e)}`)); delete S.errors[k]; }
+
+  /* today */
+  const hero = h("div", { class: "panel hero-lesson" },
+    h("div", { class: "label" }, prettyDate(t), " · planned lesson"),
+    pos ? [
+      h("h1", null, lessonRow ? lessonRow.Lesson.replace(/^.*?·\s*Part \d\s*·\s*/, "") : pos.lektion.Lektion),
+      h("div", { class: "meta" }, `${pos.lektion.Volume} Lektion ${pos.lektion.Number} · Part ${pos.part} · ${pos.lektion.Topic || ""}`),
+      h("div", { class: "meta small" }, "Grammar: ", pos.lektion.Grammar || "–"),
+      h("div", { class: "row", style: "margin-top:14px" },
+        h("button", { class: "btn go", onclick: () => go(pos.key) }, weekly ? "Open the lesson" : "Start today's lesson"),
+        weekly ? h("button", { class: "btn primary", onclick: () => go("weekly") }, "Start weekly revision") : null,
+        h("a", { class: "btn ghost", href: "#lessons", "data-go": "lessons" }, "All lessons")),
+    ] : h("h1", null, "All 48 Lektionen done. Exam prep time."),
+  );
+  const sess = h("div", { class: "panel" },
+    h("div", { class: "label" }, "Today's sessions"),
+    todaySessions.length ? h("div", { class: "sessions" }, todaySessions.map(r => h("div", { class: "sess" },
+      h("div", null, h("div", { style: "font-weight:600" }, r.Session), h("div", { class: "small muted" }, `${r.Kind || ""} · ${(r["Planned minutes"] || 0) + (r["Make-up minutes"] || 0)} min${r["Make-up minutes"] ? ` (incl. ${r["Make-up minutes"]} make-up)` : ""}`)),
+      h("span", { class: "chip " + (r.Status || "") }, r.Status || "")))) :
+      h("p", { class: "muted" }, "No focus session planned today. A refresher or a quick lesson still counts for the streak."),
+    h("div", { class: "row", style: "margin-top:12px" },
+      h("span", { class: "chip warn" }, `${dueWords} cards due`), h("span", { class: "chip bad" }, `${dueMist} mistakes due`), h("span", { class: "chip done" }, `streak ${streak(d)} day${streak(d) === 1 ? "" : "s"}`)),
+  );
+  root.append(h("section", { class: "today" }, hero, sess));
+
+  /* launchers */
+  const L = (k, d2, n, target) => h("button", { class: "tile", onclick: () => go(target) }, h("span", { class: "k" }, k), h("span", { class: "d" }, d2), h("span", { class: "n" }, n));
+  root.append(h("section", { class: "launch", "aria-label": "Start an activity" },
+    pos ? L("Planned lesson", "Reading, listening, exercises, writing, speaking, in one place.", `${pos.key} · ${lessonRow ? lessonRow.Minutes : 60} min`, pos.key) : null,
+    L("Refresher", "10 minutes of review: due cards, your past mistakes, finished lessons.", `${setn("Refresher length", 10)} min · level-adjusted`, "refresher"),
+    L("Quick lesson", "Something new for the bus: words, phrases, a short text or a grammar point.", `${setn("Quick lesson length", 12)} min`, "quick"),
+    L("Flashcards", "Leitner boxes, any time. Due cards first, then practice cards.", `${dueWords} due now`, "flashcards"),
+    L("Speaking", "A role-play or Goethe Sprechen task, here by voice or in the Claude app.", setv("Default speak mode") || "role-play", "speak"),
+    L("Weekly revision", "The week's Lektionen, mistakes and cards, plus a writing task.", weekly ? "planned today" : "any time", "weekly"),
+  ));
+
+  /* progress board */
+  const proj = projection();
+  const mins = minutesByDay(d);
+  const last7 = Array.from({ length: 7 }, (_, i) => addDays(t, i - 6));
+  const maxMin = Math.max(30, ...last7.map(k => mins[k] || 0));
+  const total7 = last7.reduce((a, k) => a + (mins[k] || 0), 0);
+  const cutoff = addDays(t, -21);
+  const cats = {};
+  (d.mMonth || []).filter(r => (r["date:Date:start"] || "") >= cutoff).forEach(r => { if (r.Category) cats[r.Category] = (cats[r.Category] || 0) + 1; });
+  const topCats = Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 4);
+  const maxCat = Math.max(1, ...topCats.map(c => c[1]));
+  const speak = (d.speaking || []).filter(r => r.Task || r.Range || r.Accuracy || r.Fluency).slice(0, 6);
+
+  const strip = h("div", { class: "strip" }, ["A1.1", "A1.2", "A2.1", "A2.2"].map(vol => h("div", { class: "vol" },
+    h("span", { class: "mono small" }, vol),
+    h("div", { class: "cells" }, S.lektionen.filter(r => r.Volume === vol).map(r => h("button", {
+      class: "cell" + (r.Status === "Done" ? " done" : r.Status === "Part 1 done" ? " half" : "") + (pos && pos.lektion.Index === r.Index ? " cur" : ""),
+      title: `${r.Lektion} · ${r.Status}`, "aria-label": `${r.Lektion}, ${r.Status}`, onclick: () => go(`L${r.Index}-p${r.Status === "Part 1 done" ? 2 : 1}`),
+    }, r.Number))))));
+
+  root.append(h("section", { class: "board", "aria-label": "Progress" },
+    h("div", { class: "panel stat" }, h("div", { class: "label" }, "Lektionen"), h("div", { class: "v" }, `${done}`, h("span", { class: "muted", style: "font-size:1rem" }, " / 48")), h("div", { class: "s" }, pos ? `Now: ${pos.lektion.Volume} L${pos.lektion.Number}, Part ${pos.part}` : "Course done")),
+    h("div", { class: "panel stat" }, h("div", { class: "label" }, "Words"), h("div", { class: "v" }, `${known + learning}`), h("div", { class: "s" }, `${known} known · ${learning} learning · target ${setn("Target words", 1300)}`)),
+    h("div", { class: "panel stat" }, h("div", { class: "label" }, "Last 7 days"), h("div", { class: "v" }, `${Math.round(total7)}`, h("span", { class: "muted", style: "font-size:1rem" }, " min")), h("div", { class: "s" }, proj ? `Plan: ${Math.round(proj.weekly * 60)} min a week` : "")),
+    h("div", { class: "panel stat" }, h("div", { class: "label" }, "Projected finish"), h("div", { class: "v", style: "font-size:1.45rem" }, proj ? prettyDate(proj.finish) : "–"),
+      h("div", { class: "s" }, proj && proj.late != null ? (proj.late <= 0 ? `On track for ${prettyDate(proj.target)}` : `${Math.ceil(proj.late / 7)} wk after the target (${prettyDate(proj.target)})`) : `${proj ? Math.round(proj.hours) : "–"} h left`)),
+    h("div", { class: "panel full" }, h("div", { class: "row", style: "justify-content:space-between;margin-bottom:10px" }, h("h3", null, "Course map"), h("span", { class: "small muted" }, "Click a Lektion to open it. Yellow outline = where you are.")), strip),
+    h("div", { class: "panel wide" }, h("h3", { style: "margin-bottom:10px" }, "Minutes per day"),
+      h("div", { class: "bars" }, last7.map(k => h("div", { class: "bar" + (k === t ? " today" : ""), title: `${prettyDate(k)}: ${Math.round(mins[k] || 0)} min` },
+        h("span", null, mins[k] ? Math.round(mins[k]) : ""), h("i", { style: `height:${Math.round((mins[k] || 0) / maxMin * 90)}px` }), h("span", null, dayName(k)))))),
+    h("div", { class: "panel wide" }, h("h3", { style: "margin-bottom:10px" }, "Weak spots (last 3 weeks)"),
+      topCats.length ? h("div", { class: "stack", style: "gap:8px" }, topCats.map(([c, n]) => h("div", { class: "hbar" }, h("span", null, c), h("div", { class: "t" }, h("i", { style: `width:${n / maxCat * 100}%` })), h("span", { class: "mono small" }, n)))) :
+        h("p", { class: "muted" }, "No mistakes logged yet. They appear here as you practise."),
+      dueMist ? h("button", { class: "btn sm", style: "margin-top:12px", onclick: () => go("refresher") }, `Review ${dueMist} due mistakes`) : null),
+    h("div", { class: "panel full" }, h("div", { class: "row", style: "justify-content:space-between;margin-bottom:8px" }, h("h3", null, "Speaking scores"), h("span", { class: "small muted" }, "Goethe A2 Sprechen style, 1–5")),
+      speak.length ? h("div", { class: "scroll-x" }, h("table", { class: "sc" },
+        h("thead", null, h("tr", null, h("th", null, "Date"), h("th", null, "Mode"), h("th", null, "Task"), h("th", null, "Range"), h("th", null, "Accuracy"), h("th", null, "Fluency"), h("th", { class: "num" }, "Words/answer"), h("th", null, "Summary"))),
+        h("tbody", null, speak.map(r => h("tr", null, h("td", { class: "mono" }, (r["date:Created:start"] || "").slice(5)), h("td", null, r.Mode || ""),
+          ["Task", "Range", "Accuracy", "Fluency"].map(k => h("td", null, h("span", { class: "sbox s" + (r[k] || 0) }, r[k] || "–"))),
+          h("td", { class: "num" }, r["Words per answer"] || "–"), h("td", { class: "small" }, r.Summary || "")))))) :
+        h("p", { class: "muted" }, "No speaking sessions yet."),
+    ),
+  ));
+}
+
+/* =====================================================================
+   LESSONS INDEX
+   ===================================================================== */
+function showLessons() {
+  const root = h("div"); view.append(root);
+  const draw = () => {
+    root.replaceChildren(h("div", { class: "lesson-head" }, h("h1", null, "Lessons"), h("p", { class: "muted" }, "Each part opens as its own lesson page. Its link ends in #L<number>-p1 or -p2.")));
+    if (!S.lektionen.length) { root.append(spinner()); return; }
+    const pos = position();
+    root.append(h("div", { class: "lx" }, S.lektionen.map(r => h("div", { class: "lx-row" },
+      h("span", { class: "mono small" }, `${r.Volume} L${r.Number}`),
+      h("div", { style: "min-width:0" }, h("div", { style: "font-weight:600" }, r.Lektion.replace(/^.*?·\s*/, "")), h("div", { class: "small muted" }, r.Topic || "")),
+      h("div", { class: "parts" }, [1, 2].map(p => { const key = `L${r.Index}-p${p}`; const row = S.lessonByKey.get(key);
+        const isDone = row && row.Status === "Done"; const isCur = pos && pos.key === key;
+        return h("button", { class: "btn sm" + (isCur ? " go" : ""), onclick: () => go(key) }, `Part ${p}`, isDone ? h("span", { class: "chip done" }, "done") : null); }))))));
+  };
+  draw();
+  loadCore().then(() => root.isConnected && draw()).catch(e => root.isConnected && root.prepend(errBox(e, () => go("lessons"))));
+}
+
+/* =====================================================================
+   Markdown (Notion-flavoured subset) → HTML
+   ===================================================================== */
+function inline(s) {
+  let t = esc(s);
+  t = t.replace(/&lt;(\/?)(b|i|u|s|em|strong|code)&gt;/g, "<$1$2>").replace(/&lt;br\s*\/?&gt;/g, "<br>");
+  t = t.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`([^`]+)`/g, "<code>$1</code>");
+  t = t.replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  return t.replace(/\\([_*\[\]()#>~`|-])/g, "$1");
+}
+function md(src) {
+  const lines = String(src || "").split("\n"); let out = ""; let i = 0;
+  while (i < lines.length) {
+    const l = lines[i];
+    if (!l.trim()) { i++; continue; }
+    if (/^<toggle>/.test(l.trim())) {
+      const sum = lines[i + 1] || ""; let j = i + 2; const inner = [];
+      while (j < lines.length && !/^<\/toggle>/.test(lines[j].trim())) inner.push(lines[j++]);
+      out += `<details><summary>${inline(sum)}</summary>${md(inner.join("\n"))}</details>`; i = j + 1; continue;
+    }
+    const hm = l.match(/^(#{1,4})\s+(.*)/);
+    if (hm) { out += `<h3>${inline(hm[2])}</h3>`; i++; continue; }
+    if (/^\|/.test(l.trim())) {
+      const rows = []; while (i < lines.length && /^\|/.test(lines[i].trim())) rows.push(lines[i++]);
+      const cells = r => r.trim().replace(/^\||\|$/g, "").split("|").map(c => c.trim());
+      const body = rows.filter(r => !/^\|\s*-{2,}/.test(r.trim()));
+      out += `<div class="tablewrap"><table>${body.map((r, k) => `<tr>${cells(r).map(c => k === 0 ? `<th>${inline(c)}</th>` : `<td>${inline(c)}</td>`).join("")}</tr>`).join("")}</table></div>`;
+      continue;
+    }
+    if (/^\s*[-*]\s+/.test(l)) {
+      const items = []; while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) items.push(lines[i++].replace(/^\s*[-*]\s+/, ""));
+      out += `<ul>${items.map(x => `<li>${inline(x)}</li>`).join("")}</ul>`; continue;
+    }
+    if (/^\s*\d+\.\s+/.test(l)) {
+      const items = []; while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) items.push(lines[i++].replace(/^\s*\d+\.\s+/, ""));
+      out += `<ol>${items.map(x => `<li>${inline(x)}</li>`).join("")}</ol>`; continue;
+    }
+    const para = []; while (i < lines.length && lines[i].trim() && !/^(\||#|\s*[-*]\s|\s*\d+\.\s|<toggle>)/.test(lines[i])) para.push(lines[i++]);
+    if (!para.length) { i++; continue; }
+    out += `<p>${inline(para.join(" "))}</p>`;
+  }
+  return out;
+}
+const plain = s => unesc(String(s || "").replace(/<[^>]+>/g, "")).trim();
+
+/* ---------- lesson parsing ---------- */
+function sections(content) {
+  const out = []; let cur = { title: "", body: [] };
+  for (const line of content.split("\n")) {
+    const m = line.match(/^## (.+)/);
+    if (m) { out.push(cur); cur = { title: m[1].trim(), body: [] }; } else cur.body.push(line);
+  }
+  out.push(cur);
+  return out.filter(s => s.title).map(s => ({ title: s.title, body: s.body.join("\n").trim() }));
+}
+function toggles(body) {
+  const list = [];
+  const main = body.replace(/<toggle>[ \t]*\n([^\n]*)\n([\s\S]*?)<\/toggle>/g, (_, sum, inner) => { list.push({ summary: sum.trim(), body: inner.trim() }); return ""; });
+  return { main: main.trim(), list };
+}
+const numbered = text => text.split("\n").map(l => l.match(/^\s*(\d+)\.\s+(.*)$/)).filter(Boolean).map(m => ({ n: +m[1], text: m[2] }));
+function parseAnswer(a) {
+  const m = a.match(/^(.*?)\s*\(also accepted:\s*(.*)\)\s*$/i);
+  const main = plain(m ? m[1] : a);
+  const alts = m ? m[2].split(/;|\s\/\s/).map(plain).filter(Boolean) : [];
+  return { main, all: [main, ...alts] };
+}
+function qaBlock(body) {
+  const { main, list } = toggles(body);
+  const ansT = list.find(t => /answer/i.test(t.summary));
+  const answers = ansT ? numbered(ansT.body) : [];
+  const qs = numbered(main);
+  const intro = main.split("\n").filter(l => !/^\s*\d+\.\s/.test(l)).join("\n").trim();
+  return { intro, items: qs.map(q => ({ n: q.n, q: q.text, a: (answers.find(a => a.n === q.n) || {}).text || "" })) };
+}
+function parseWords(body) {
+  const rows = body.split("\n").filter(l => /^\|/.test(l.trim()) && !/^\|\s*-{2,}/.test(l.trim()));
+  const cells = r => r.trim().replace(/^\||\|$/g, "").split("|").map(c => plain(c));
+  return rows.slice(1).map(cells).map(([de, plural, en, ex]) => {
+    let exen = ""; let exde = ex || "";
+    const m = exde.match(/^(.*?)\s*\(([^()]*)\)\s*$/); if (m) { exde = m[1]; exen = m[2]; }
+    const art = (de.match(/^(der|die|das)\s/) || [])[1] || "";
+    return { de, plural: plural === "–" || plural === "-" ? "" : plural, en, ex: exde, exen, art };
+  }).filter(w => w.de);
+}
+function parseListening(body) {
+  const { main, list } = toggles(body);
+  const file = (main.match(/L(\d+)-(KB|AB)\.mp3/) || []);
+  const tracks = [];
+  for (const l of main.split("\n")) { const m = l.match(/^\s*[-*]\s+(\d+):(\d\d)\s+(.*)$/); if (m) { const [label, ...rest] = m[3].split(/:\s/); tracks.push({ t: +m[1] * 60 + +m[2], label: plain(label), desc: plain(rest.join(": ")) }); } }
+  const qa = qaBlock(main.split("\n").filter(l => !/^\s*[-*]\s+\d+:\d\d/.test(l) && !/^Audio:/.test(l)).join("\n") + (list.length ? "\n<toggle>\n" + list[0].summary + "\n" + list[0].body + "\n</toggle>" : ""));
+  return { idx: file[1] != null ? +file[1] : null, kind: file[2] || "KB", tracks, ...qa };
+}
+function parseSpeaking(body, words) {
+  const { main, list } = toggles(body);
+  const model = (list.find(t => /model/i.test(t.summary)) || {}).body || "";
+  const grab = name => { const m = main.match(new RegExp(`<b>${name}:</b>\\s*([^\\n]*)`, "i")); return m ? plain(m[1]) : ""; };
+  let task = grab("Task"), prompts = grab("Partner prompts").split("·").map(s => s.trim()).filter(Boolean), must = grab("Must use").split(",").map(s => s.trim()).filter(Boolean);
+  if (!task) {
+    task = plain(main.split("\n").filter(l => !/^\s*[-*]\s/.test(l) && !/should ask/i.test(l)).join(" "));
+    prompts = main.split("\n").filter(l => /^\s*[-*]\s/.test(l)).map(l => plain(l.replace(/^\s*[-*]\s+/, "")));
+    must = words.slice(0, 8).map(w => w.de);
+  }
+  return { task, prompts, must, model: plain(model) };
+}
+function parseLesson(content) {
+  const sec = sections(content); const get = re => sec.find(s => re.test(s.title));
+  const words = get(/^Words/) ? parseWords(get(/^Words/).body) : [];
+  return {
+    goal: get(/^Goal/)?.body || "", grammar: get(/^Grammar/)?.body || "", recap: get(/^Recap/)?.body || "",
+    words, book: get(/^Book work/)?.body || "",
+    listening: get(/^Listening/) ? parseListening(get(/^Listening/).body) : null,
+    exercises: get(/^Exercises/) ? qaBlock(get(/^Exercises/).body) : { intro: "", items: [] },
+    writing: get(/^Writing/)?.body || "",
+    speaking: get(/^Speaking/) ? parseSpeaking(get(/^Speaking/).body, words) : null,
+  };
+}
+
+/* ---------- answer checking ---------- */
+const norm = s => plain(s).toLowerCase().replace(/ß/g, "ss").replace(/[.,!?;:"'„“”‚‘’()]/g, "").replace(/\s+/g, " ").trim();
+async function grade(items, context) {
+  // items: [{id, q, expected:[...], answer}] → {id: {correct, feedback, correct_form, category, reason}}
+  const res = {}; const unsure = [];
+  for (const it of items) {
+    if (!it.answer || !it.answer.trim()) { res[it.id] = { correct: false, empty: true, feedback: "No answer.", correct_form: it.expected[0] || "" }; continue; }
+    if (it.expected.some(e => e && norm(e) === norm(it.answer))) res[it.id] = { correct: true, feedback: "" };
+    else unsure.push(it);
+  }
+  if (unsure.length) {
+    const prompt = `${LEARNER}
+You are checking answers ${context || "to German exercises"}. For each item decide if the learner's answer is correct. Accept answers that are grammatically correct German and fit the task even if they differ from the expected answer. Ignore capitalisation and punctuation. For comprehension questions answered in English, accept any answer with the same meaning.
+For wrong answers give: the correct form, a one-line reason in English, and a category from: article, case, word order, verb form, grammar, vocabulary, spelling, pronunciation.
+Reply with only JSON: {"results":[{"id":"...","correct":true|false,"correct_form":"...","reason":"...","category":"...","feedback":"one short line, English"}]}
+
+Items:
+${JSON.stringify(unsure.map(u => ({ id: u.id, task: u.q, expected: u.expected, learner_answer: u.answer })), null, 1)}`;
+    const out = await ask(prompt, "quick");
+    for (const r of (out && out.results) || []) res[r.id] = r;
+  }
+  return res;
+}
+
+/* ---------- mistakes queue (written to Notion at the end of an activity) ---------- */
+function mistakeRow(m, source, lektionUrl) {
+  return { properties: Object.assign({
+    Correct: (m.correct_form || "").slice(0, 300) || "(see question)", Wrong: (m.wrong || "").slice(0, 300), Reason: (m.reason || "").slice(0, 300),
+    Category: ["article", "case", "word order", "verb form", "grammar", "vocabulary", "spelling", "pronunciation"].includes(m.category) ? m.category : "grammar",
+    Question: plain(m.question || "").slice(0, 300), Source: source, Box: 1, Lapses: 0,
+  }, dateProp("Date", today()), dateProp("Next review", addDays(today(), 1)), lektionUrl ? { Lektion: [lektionUrl] } : {}) };
+}
+
+/* ---------- reusable: a set of questions with inputs + check ---------- */
+function questionSet({ items, store, ctx, onGraded, multiline }) {
+  // items: [{id, q, expected:[..]}]; store: object persisted by caller
+  store.answers = store.answers || {}; store.results = store.results || {};
+  const wrap = h("div", { class: "stack" });
+  const els = {};
+  for (const it of items) {
+    const input = multiline ? h("textarea", { id: "a-" + it.id, rows: 2 }) : h("input", { id: "a-" + it.id, type: "text", autocomplete: "off", spellcheck: "false", lang: "de" });
+    input.value = store.answers[it.id] || "";
+    input.addEventListener("input", () => { store.answers[it.id] = input.value; store.save && store.save(); });
+    const fb = h("div", { class: "fb" });
+    const box = h("div", { class: "q" }, h("div", { class: "qt", html: `<b>${esc(String(it.n ?? ""))}.</b> ${inline(it.q)}` }), input, fb);
+    els[it.id] = { box, fb, input };
+    wrap.append(box);
+  }
+  const paint = () => {
+    for (const it of items) {
+      const r = store.results[it.id]; const e = els[it.id];
+      e.box.classList.toggle("right", !!(r && r.correct)); e.box.classList.toggle("wrong", !!(r && !r.correct));
+      e.fb.replaceChildren(); if (!r) continue;
+      if (r.correct) e.fb.append(h("span", { style: "color:var(--good);font-weight:600" }, "Right. "), r.feedback || "");
+      else e.fb.append(h("span", { style: "color:var(--bad);font-weight:600" }, "Not quite. "), r.correct_form ? h("span", null, "Better: ", h("b", { lang: "de" }, r.correct_form), ". ") : null, r.reason || r.feedback || "");
+    }
+  };
+  paint();
+  const status = h("span", { class: "small muted" });
+  const btn = h("button", { class: "btn primary", onclick: async () => {
+    btn.disabled = true; status.replaceChildren(spinner("Checking…"));
+    try {
+      const res = await grade(items.map(it => ({ id: it.id, q: it.q, expected: it.expected, answer: store.answers[it.id] || "" })), ctx);
+      store.results = res; store.save && store.save(); paint();
+      const right = items.filter(it => res[it.id] && res[it.id].correct).length;
+      status.textContent = `${right} of ${items.length} right.`;
+      onGraded && onGraded(items.map(it => ({ it, r: res[it.id], answer: store.answers[it.id] || "" })), right);
+    } catch (e) { status.textContent = sampleErr(e); }
+    btn.disabled = false;
+  } }, "Check my answers");
+  const score = () => items.filter(it => store.results[it.id] && store.results[it.id].correct).length;
+  if (Object.keys(store.results).length) status.textContent = `${score()} of ${items.length} right.`;
+  return { el: h("div", { class: "stack" }, wrap, h("div", { class: "row" }, btn, status)), score };
+}
+
+/* =====================================================================
+   LESSON PLAYER
+   ===================================================================== */
+function showLesson(key) {
+  const root = h("div"); view.append(root);
+  root.append(h("div", { class: "lesson-head" }, spinner("Opening the lesson from Notion…")));
+  (async () => {
+    await (S.lessonByKey && S.lessonByKey.get(key) ? Promise.resolve() : loadCore());
+    const row = S.lessonByKey.get(key);
+    if (!row) throw { message: `There's no lesson ${key} in Notion.` };
+    const cacheKey = "page:" + key;
+    let page = ls.get(cacheKey);
+    const fresh = fetchPage(row.url).then(p => { ls.set(cacheKey, p); return p; });
+    if (!page) page = await fresh; else fresh.catch(() => {});
+    if (!root.isConnected) return;
+    renderLesson(root, key, row, page);
+  })().catch(e => { if (root.isConnected) root.replaceChildren(h("div", { class: "lesson-head" }, h("h1", null, key)), errBox(e, () => go(key))); });
+}
+
+function renderLesson(root, key, row, page) {
+  const L = parseLesson(page.content);
+  const lek = lektionOfKey(key) || {};
+  const part = +key.slice(-1);
+  const lektionUrl = lek.url || rel(row.Lektion)[0];
+  const st = ls.get("prog:" + key, { done: {}, ex: {}, li: {}, rd: {}, wr: {}, started: Date.now() });
+  st.save = () => { const { save, ...rest } = st; ls.set("prog:" + key, rest); };
+  st.ex.save = st.li.save = st.rd.save = st.save;
+  st.mistakes = st.mistakes || [];
+  const level = levelOf(lek.Index || 0);
+
+  const steps = [];
+  if (part === 1) steps.push({ id: "learn", name: "Goal & grammar" }); else steps.push({ id: "learn", name: "Recap" });
+  if (L.words.length) steps.push({ id: "words", name: "Words" });
+  steps.push({ id: "reading", name: "Reading" });
+  if (L.listening) steps.push({ id: "listening", name: "Listening" });
+  if (L.book) steps.push({ id: "book", name: "Book work" });
+  if (L.exercises.items.length) steps.push({ id: "exercises", name: "Exercises" });
+  steps.push({ id: "writing", name: "Writing" });
+  if (L.speaking) steps.push({ id: "speaking", name: "Speaking" });
+  steps.push({ id: "finish", name: "Finish" });
+  let cur = ls.get("step:" + key, steps[0].id); if (!steps.find(s => s.id === cur)) cur = steps[0].id;
+
+  const rail = h("nav", { class: "rail", "aria-label": "Lesson steps" });
+  const stage = h("section", { class: "step" });
+  const paintRail = () => {
+    rail.replaceChildren(...steps.map(s => h("button", { "aria-current": s.id === cur ? "step" : "false", onclick: () => show(s.id) },
+      h("span", { class: "tick" + (st.done[s.id] ? " on" : "") }, st.done[s.id] ? "✓" : ""), s.name)));
+    requestAnimationFrame(() => { const on = rail.querySelector('[aria-current="step"]'); if (on && rail.scrollWidth > rail.clientWidth) rail.scrollLeft = on.offsetLeft - rail.offsetLeft - 16; });
+  };
+  const markDone = id => { st.done[id] = true; st.save(); paintRail(); };
+  const next = id => { markDone(id); const i = steps.findIndex(s => s.id === id); if (steps[i + 1]) show(steps[i + 1].id); };
+  const nextBtn = (id, label) => h("div", { class: "row" }, h("button", { class: "btn go", onclick: () => next(id) }, label || "Done, next step"));
+  const isDone = row.Status === "Done";
+
+  root.replaceChildren(
+    h("div", { class: "lesson-head" },
+      h("div", { class: "row" }, h("a", { href: "#home", "data-go": "home", class: "small" }, "← Today"), h("span", { class: "plate" }, key), isDone ? h("span", { class: "chip done" }, "done") : null, h("span", { class: "chip" }, `${row.Minutes || 60} min`)),
+      h("h1", null, row.Lesson.replace(/^.*?·\s*Part \d\s*·\s*/, "")),
+      h("div", { class: "muted" }, `${lek.Volume || ""} Lektion ${lek.Number || ""} · Part ${part} · ${lek.Grammar || ""}`)),
+    h("div", { class: "player" }, rail, stage));
+
+  function show(id) {
+    cur = id; ls.set("step:" + key, id); paintRail(); stage.replaceChildren();
+    const k = id;
+    if (k === "learn") {
+      if (part === 1) {
+        stage.append(h("h2", null, "Goal"), h("div", { class: "prose", html: md(L.goal) }), h("h2", null, "Grammar"), h("div", { class: "prose", html: md(L.grammar) }));
+      } else stage.append(h("h2", null, "Recap"), h("div", { class: "prose", html: md(L.recap) }));
+      stage.append(nextBtn(k, "Got it, next"));
+    }
+    if (k === "words") {
+      const grid = h("div", { class: "words" }, L.words.map(w => h("div", { class: "word" },
+        h("div", { class: "row", style: "justify-content:space-between;flex-wrap:nowrap" }, h("span", { class: "de", lang: "de", html: w.art ? `<span class="art-${w.art}">${w.art}</span> ${esc(w.de.slice(w.art.length + 1))}` : esc(w.de) }), speakBtn(w.de + (w.ex ? ". " + w.ex : ""))),
+        w.plural ? h("span", { class: "small muted", lang: "de" }, "Plural: ", w.plural) : null,
+        h("span", { class: "en" }, w.en),
+        w.ex ? h("span", { class: "ex", lang: "de" }, w.ex) : null,
+        w.exen ? h("span", { class: "exen small muted" }, w.exen) : null)));
+      const toggle = h("button", { class: "btn sm", onclick: () => { grid.classList.toggle("hide-en"); toggle.textContent = grid.classList.contains("hide-en") ? "Show English" : "Hide English (test yourself)"; } }, "Hide English (test yourself)");
+      stage.append(h("div", { class: "row", style: "justify-content:space-between" }, h("h2", null, `Words (${L.words.length})`), toggle),
+        h("p", { class: "small muted" }, "Colours: der blue, die red, das green. These words go into your flashcards when you finish the lesson."), grid, nextBtn(k));
+    }
+    if (k === "reading") stage.append(...readingStep());
+    if (k === "listening") stage.append(...listeningStep());
+    if (k === "book") {
+      stage.append(h("h2", null, "Book work"), h("p", { class: "muted small" }, "Menschen book pages for this Lektion are on the Lektion page in Notion (Book pages). The answer keys are in the Books database."),
+        h("div", { class: "row" }, lektionUrl ? h("a", { class: "btn sm", href: lektionUrl, target: "_blank", rel: "noopener" }, "Open the book pages in Notion") : null),
+        h("div", { class: "prose", html: md(L.book) }), nextBtn(k));
+    }
+    if (k === "exercises") {
+      const items = L.exercises.items.map(x => ({ id: "e" + x.n, n: x.n, q: unesc(x.q), expected: parseAnswer(x.a).all }));
+      const qs = questionSet({ items, store: st.ex, ctx: `for ${key} (${lek.Grammar || ""})`, onGraded: (res) => collectMistakes(res, "lesson") });
+      stage.append(h("h2", null, "Exercises"), L.exercises.intro ? h("div", { class: "prose", html: md(L.exercises.intro) }) : null,
+        h("p", { class: "small muted" }, "Type your answers, then check. Close answers in other good German count as right."), qs.el,
+        h("details", { class: "prose" }, h("summary", null, "Show the answer key"), h("ol", null, L.exercises.items.map(x => h("li", { html: inline(x.a) })))), nextBtn(k));
+    }
+    if (k === "writing") stage.append(...writingStep());
+    if (k === "speaking") stage.append(...speakingStep());
+    if (k === "finish") stage.append(...finishStep());
+  }
+
+  function collectMistakes(res, source) {
+    for (const { it, r, answer } of res) {
+      if (r && !r.correct && !r.empty) {
+        st.mistakes = st.mistakes.filter(m => m.qid !== it.id);
+        st.mistakes.push({ qid: it.id, source, question: it.q, wrong: answer, correct_form: r.correct_form || it.expected[0], reason: r.reason || r.feedback || "", category: r.category });
+      } else st.mistakes = st.mistakes.filter(m => m.qid !== it.id);
+    }
+    st.save();
+  }
+
+  function readingStep() {
+    const out = [h("h2", null, "Reading"), h("p", { class: "small muted" }, "A short text written for this lesson, using its words and grammar. Read it, listen to it, answer the questions.")];
+    const box = h("div", { class: "stack" });
+    const draw = () => {
+      box.replaceChildren();
+      const r = st.rd.text;
+      if (!r) { box.append(h("div", { class: "empty" }, h("p", null, "No reading text yet for this lesson."), genBtn)); return; }
+      box.append(h("div", { class: "row", style: "justify-content:space-between" }, h("h3", null, r.title || "Text"), h("div", { class: "row" }, speakBtn(r.text), h("button", { class: "btn sm ghost", onclick: () => { st.rd = { save: st.save }; st.save(); gen(); } }, "New text"))),
+        h("div", { class: "prose", lang: "de", style: "background:var(--bg);padding:16px;border-radius:8px" }, r.text.split(/\n+/).map(p => h("p", null, p))),
+        r.glossary && r.glossary.length ? h("details", { class: "prose" }, h("summary", null, "Words you may not know"), h("ul", null, r.glossary.map(g => h("li", null, h("b", { lang: "de" }, g.de), " – ", g.en)))) : null);
+      const items = (r.questions || []).map((q, i) => ({ id: "r" + (i + 1), n: i + 1, q: q.q, expected: [q.answer] }));
+      if (items.length) { st.rd.save = st.save; box.append(h("h3", null, "Questions"), questionSet({ items, store: st.rd, ctx: "about a short reading text (comprehension; answers may be English or German)", onGraded: () => {} }).el); }
+      box.append(nextBtn("reading"));
+    };
+    const gen = async () => {
+      box.replaceChildren(spinner("Claude is writing a text for this lesson…"));
+      try {
+        const out = await ask(`${LEARNER}
+Write a short German reading text for lesson "${row.Lesson}" (level ${level}, Menschen ${lek.Volume} Lektion ${lek.Number}). Grammar of this Lektion: ${lek.Grammar}. Topic: ${lek.Topic}.
+Use as many of these words as fit naturally: ${L.words.map(w => w.de).join(", ")}.
+Rules: ${level === "A1" ? "7-9 short sentences, present tense, only A1 grammar met so far" : "9-12 sentences, A2 level"}; an everyday adult situation in Germany (an email, a chat between colleagues, a notice, a short story about someone's day); German names; original text (never copy the textbook).
+Then 4 comprehension questions in English with short answers, and a glossary of up to 6 harder words.
+Reply with only JSON: {"title":"German title","text":"paragraphs separated by \\n","questions":[{"q":"...","answer":"..."}],"glossary":[{"de":"...","en":"..."}]}`);
+        st.rd.text = out; st.rd.answers = {}; st.rd.results = {}; st.save(); draw();
+      } catch (e) { box.replaceChildren(h("div", { class: "banner bad" }, sampleErr(e)), genBtn); }
+    };
+    const genBtn = h("button", { class: "btn primary", onclick: gen }, "Write today's reading text");
+    draw(); out.push(box); return out;
+  }
+
+  function listeningStep() {
+    const Li = L.listening;
+    const idx = Li.idx != null ? Li.idx : lek.Index;
+    const src = `audio/L${String(idx).padStart(2, "0")}-${Li.kind}.mp3`;
+    const audio = h("audio", { controls: true, preload: "metadata", src });
+    cleanup.push(() => audio.pause());
+    const trackEls = Li.tracks.map(tr => h("button", { class: "track", onclick: () => { audio.currentTime = tr.t; audio.play().catch(() => {}); } },
+      h("span", { class: "tm" }, `${Math.floor(tr.t / 60)}:${String(tr.t % 60).padStart(2, "0")}`), h("span", null, h("b", null, tr.label), tr.desc ? h("span", { class: "muted" }, " · " + tr.desc) : null)));
+    audio.addEventListener("timeupdate", () => { let on = -1; Li.tracks.forEach((tr, i) => { if (audio.currentTime >= tr.t) on = i; }); trackEls.forEach((el, i) => el.classList.toggle("on", i === on)); });
+    audio.addEventListener("error", () => audioBox.append(h("div", { class: "banner bad" }, "The audio file didn't load. It may not be uploaded yet; it's also on the Lektion page in Notion (Audio).")), { once: true });
+    const rate = h("select", { id: "rate-" + key, "aria-label": "Speed", onchange: e => { audio.playbackRate = +e.target.value; } }, [["1", "Normal speed"], ["0.85", "Slower (0.85×)"], ["0.75", "Slow (0.75×)"]].map(([v, t]) => h("option", { value: v }, t)));
+    const audioBox = h("div", { class: "audio" }, h("div", { class: "row", style: "justify-content:space-between" }, h("b", { class: "mono" }, src.split("/")[1]), rate), audio, h("div", { class: "tracks" }, trackEls));
+    const items = Li.items.map(x => ({ id: "l" + x.n, n: x.n, q: unesc(x.q), expected: parseAnswer(x.a).all }));
+    const out = [h("h2", null, "Listening"), h("p", { class: "small muted" }, "Click a track to jump to it. Slow it down if you need to."), audioBox];
+    if (Li.intro) out.push(h("div", { class: "prose", html: md(Li.intro) }));
+    if (items.length) out.push(questionSet({ items, store: st.li, ctx: "about listening tracks (comprehension questions; English answers are fine)", onGraded: () => {} }).el);
+    out.push(nextBtn("listening"));
+    return out;
+  }
+
+  function writingStep() {
+    const task = L.writing ? plain(L.writing) :
+      `Write 4-5 sentences in German about yourself that use this lesson's grammar (${lek.Grammar}). Use at least four of: ${(L.speaking ? L.speaking.must : L.words.map(w => w.de)).slice(0, 8).join(", ")}.`;
+    const ta = h("textarea", { class: "big", id: "wr-" + key, lang: "de", spellcheck: "false", placeholder: "Schreib hier…" });
+    ta.value = st.wr.text || "";
+    const count = h("span", { class: "small muted" });
+    const upd = () => { count.textContent = `${(ta.value.trim().match(/\S+/g) || []).length} words`; st.wr.text = ta.value; st.save(); };
+    ta.addEventListener("input", upd); upd();
+    const fb = h("div", { class: "stack" });
+    const drawFb = () => {
+      fb.replaceChildren(); const r = st.wr.result; if (!r) return;
+      fb.append(h("div", { class: "banner good" }, h("b", null, `Task ${r.task_score || "–"}/5. `), r.comment || ""));
+      if (r.mistakes && r.mistakes.length) fb.append(h("div", { class: "q wrong" }, h("b", null, "Corrections"), h("ul", null, r.mistakes.map(m => h("li", null, h("s", { lang: "de" }, m.wrong), " → ", h("b", { lang: "de" }, m.correct), h("span", { class: "muted" }, " · " + m.reason))))));
+      if (r.better_version) fb.append(h("details", { class: "prose" }, h("summary", null, "A better version"), h("p", { lang: "de" }, r.better_version)));
+    };
+    drawFb();
+    const status = h("span", { class: "small muted" });
+    const btn = h("button", { class: "btn primary", onclick: async () => {
+      if ((ta.value.trim().match(/\S+/g) || []).length < 4) { status.textContent = "Write a few sentences first."; return; }
+      btn.disabled = true; status.replaceChildren(spinner("Claude is reading your text…"));
+      try {
+        const r = await ask(`${LEARNER}
+Correct this short German text written for the task below (level ${level}). List every real error (not style), with the correct form, a one-line reason in English and a category from: article, case, word order, verb form, grammar, vocabulary, spelling. Score how well the task was done, 1-5 (Goethe A2 Schreiben style). Write one encouraging but honest comment in English, and an improved version at the learner's level.
+Task: ${task}
+Text: """${ta.value}"""
+Reply with only JSON: {"task_score":n,"comment":"...","mistakes":[{"wrong":"...","correct":"...","reason":"...","category":"..."}],"better_version":"..."}`);
+        st.wr.result = r;
+        st.mistakes = st.mistakes.filter(m => m.source !== "writing").concat((r.mistakes || []).map((m, i) => ({ qid: "w" + i, source: "writing", question: "Writing: " + task.slice(0, 120), wrong: m.wrong, correct_form: m.correct, reason: m.reason, category: m.category })));
+        st.save(); drawFb(); status.textContent = "";
+      } catch (e) { status.textContent = sampleErr(e); }
+      btn.disabled = false;
+    } }, "Correct my text");
+    return [h("h2", null, "Writing"), h("div", { class: "prose" }, h("p", null, task)), ta, h("div", { class: "row" }, btn, count, status), fb, nextBtn("writing")];
+  }
+
+  function speakingStep() {
+    const sp = L.speaking;
+    const brief = { title: `Speaking · ${lek.Volume} L${lek.Number} · ${row.Lesson.split("·").pop().trim()}`, mode: "role-play", situation: sp.task, prompts: sp.prompts, must_use: sp.must, grammar: lek.Grammar, level, lektionUrl, lessonUrl: row.url, minutes: part === 1 ? 5 : 10 };
+    const out = [h("h2", null, part === 1 ? "Speaking (5 minutes)" : "Speaking"),
+      h("div", { class: "prose" }, h("p", null, h("b", null, "Task: "), sp.task),
+        sp.prompts.length ? h("p", null, h("b", null, "Partner prompts: "), h("span", { lang: "de" }, sp.prompts.join(" · "))) : null,
+        sp.must.length ? h("p", null, h("b", null, "Must use: "), h("span", { lang: "de" }, sp.must.join(", "))) : null,
+        sp.model ? h("details", null, h("summary", null, "Model answer (open after trying)"), h("p", { lang: "de" }, sp.model), h("div", null, speakBtn(sp.model))) : null)];
+    out.push(speakingPanel(brief, { onSaved: () => markDone("speaking") }));
+    out.push(nextBtn("speaking"));
+    return out;
+  }
+
+  function finishStep() {
+    const mins = Math.max(5, Math.min(240, Math.round((Date.now() - (st.started || Date.now())) / 60000)));
+    const exScore = L.exercises.items.length ? L.exercises.items.filter(x => st.ex.results && st.ex.results["e" + x.n] && st.ex.results["e" + x.n].correct).length : 0;
+    const minutesIn = h("input", { type: "number", id: "min-" + key, min: 5, max: 300, value: mins, style: "width:90px", class: "big" });
+    const log = h("div", { class: "stack small" });
+    const btn = h("button", { class: "btn go", onclick: finish }, isDone ? "Save again" : "Finish lesson and save to Notion");
+    const missing = steps.filter(s => s.id !== "finish" && !st.done[s.id]).map(s => s.name);
+    async function finish() {
+      btn.disabled = true; log.replaceChildren();
+      const step = async (label, fn) => { const line = h("div", null, spinner(label)); log.append(line); try { const r = await fn(); line.replaceChildren(h("span", { style: "color:var(--good)" }, "✓ "), label, r ? h("span", { class: "muted" }, " · " + r) : null); return true; } catch (e) { line.replaceChildren(h("span", { style: "color:var(--bad)" }, "✗ "), label, h("span", { class: "muted" }, " · " + errText(e))); return false; } };
+      let ok = true;
+      ok = await step("Words into your flashcards", () => saveLessonWords(L.words, lektionUrl)) && ok;
+      ok = await step("Mistakes", async () => { await createRows(DS.mistakes, st.mistakes.map(m => mistakeRow(m, m.source === "writing" ? "writing" : "lesson", lektionUrl))); const n = st.mistakes.length; st.mistakes = []; st.save(); return `${n} saved`; }) && ok;
+      ok = await step("Lesson marked done", () => updateRow(row.url, Object.assign({ Status: "Done" }, dateProp("Done on", today())))) && ok;
+      ok = await step("Lektion status", () => {
+        const status = part === 2 ? "Done" : (lek.Status === "Done" ? "Done" : "Part 1 done");
+        return updateRow(lektionUrl, Object.assign({ Status: status }, status === "Done" ? dateProp("Done on", today()) : {})).then(() => status);
+      }) && ok;
+      ok = await step("Today's session", async () => {
+        const rows = await viewAll(V.sessions, 100);
+        const s = rows.find(r => (r["date:When:start"] || "").slice(0, 10) === today() && r.Status === "Planned" && r.Kind !== "weekly");
+        if (!s) return "no planned session today, nothing to mark";
+        await updateRow(s.url, { Status: "Done", Minutes: +minutesIn.value || mins, Score: `exercises ${exScore}/${L.exercises.items.length}`, Lesson: [row.url], Lektion: [lektionUrl] });
+        return s.Session;
+      }) && ok;
+      row.Status = "Done";
+      loadCore(true).catch(() => {});
+      log.append(ok ? h("div", { class: "banner good" }, "Saved. ", h("a", { href: "#home", "data-go": "home" }, "Back to today")) : h("div", { class: "banner bad" }, "Some steps didn't save. Press the button again to retry; finished steps are safe to repeat."));
+      btn.disabled = false;
+    }
+    return [h("h2", null, "Finish"),
+      missing.length ? h("div", { class: "banner" }, "Not ticked yet: ", missing.join(", "), ". You can still finish.") : h("div", { class: "banner good" }, "Every step done."),
+      h("div", { class: "prose" }, h("ul", null,
+        h("li", null, `${L.words.length} words start in your flashcards (box 1, first review tomorrow).`),
+        h("li", null, `${st.mistakes.length} mistakes go to Notion, to come back in refreshers.`),
+        h("li", null, `Exercises: ${exScore} of ${L.exercises.items.length} right.`),
+        h("li", null, part === 1 ? "The Lektion moves to “Part 1 done”." : "The Lektion is marked done."),
+        h("li", null, "Today's planned session is marked done with your minutes."))),
+      h("label", { class: "row" }, "Minutes studied", minutesIn), h("div", { class: "row" }, btn), log];
+  }
+
+  show(cur);
+}
+
+/* ---------- words: map of the Words table (key → row), cached for the day ---------- */
+let wmapP = null;
+function wordMap(force) {
+  const c = ls.get("wmap");
+  if (!force && c && c.day === today()) return Promise.resolve(new Map(c.rows));
+  if (wmapP && !force) return wmapP;
+  wmapP = (async () => {
+    const [nw, started] = await Promise.all([viewAll(V.wordsNew, 2500), viewAll(V.wordsPractice, 2500)]);
+    const m = new Map();
+    for (const r of nw.concat(started)) if (r.Key) m.set(r.Key, { url: r.url, box: r.Box || 0 });
+    ls.set("wmap", { day: today(), rows: [...m] });
+    return m;
+  })();
+  wmapP.catch(() => { wmapP = null; }).finally(() => { wmapP = null; });
+  return wmapP;
+}
+async function saveWords(words, lektionUrl, source) {
+  const [map, G] = await Promise.all([wordMap(), goethe()]);
+  const t = today(), tm = addDays(t, 1); let started = 0, created = 0, skipped = 0;
+  const creates = [];
+  for (const w of words) {
+    const k = wordKey(w.de); if (!k) continue;
+    const ex = map.get(k);
+    if (ex && ex.box > 0) { skipped++; continue; }
+    const base = Object.assign({ Box: 1, Status: "Learning" }, dateProp("Next review", tm), dateProp("Added", t), lektionUrl ? { Lektion: [lektionUrl] } : {});
+    if (ex) { await updateRow(ex.url, base); ex.box = 1; started++; }
+    else {
+      const g = G.byKey.get(k);
+      creates.push({ properties: Object.assign({}, base, { Word: w.de, English: w.en || "", Plural: w.plural || "", Gender: w.art || "-", Example: w.ex || "", "Example EN": w.exen || "", Key: k, Goethe: g ? g.level : "Not on list", Source: source, Lapses: 0, "Produce box": 0 }) });
+      map.set(k, { url: "", box: 1 });
+    }
+  }
+  if (creates.length) { await createRows(DS.words, creates); created = creates.length; }
+  ls.set("wmap", { day: today(), rows: [...map] });
+  return { started, created, skipped };
+}
+async function saveLessonWords(words, lektionUrl) {
+  const r = await saveWords(words, lektionUrl, "Lesson");
+  return `${r.started + r.created} started, ${r.skipped} already known`;
+}
+
+/* =====================================================================
+   SPEAKING (in the dashboard by voice/typing, or handed to the Claude app)
+   ===================================================================== */
+function speakingPanel(brief, opts) {
+  const box = h("div", { class: "stack" });
+  const intro = h("div", { class: "row" },
+    h("button", { class: "btn primary", onclick: () => startTalk() }, "Talk here"),
+    h("button", { class: "btn", onclick: () => toApp() }, "Do it in the Claude app"),
+    h("span", { class: "small muted" }, "Here: the partner speaks, you answer by microphone or typing. Claude app: best for real voice mode."));
+  box.append(intro);
+  const area = h("div", { class: "stack" }); box.append(area);
+
+  async function toApp() {
+    area.replaceChildren(spinner("Creating the handoff in Notion…"));
+    try {
+      const content = `## Brief\nMode: ${brief.mode}\nMinutes: ${Math.max(10, brief.minutes || 10)}\nLevel: ${brief.level}, ${brief.grammar || ""}\nSituation: ${brief.situation}\nPartner's questions: ${brief.prompts.join(" · ")}\nMust use: ${brief.must_use.join(", ")}\nGrammar to use: ${brief.grammar || ""}\nWatch for: ${(brief.watch_for || []).join("; ") || "recent mistakes in Notion"}\nSuccess: completes the task in full sentences, uses most of the Must-use words.\n\n## Results\n`;
+      const props = Object.assign({ Handoff: brief.title, Type: "Speaking", Status: "Ready", For: "Claude app", Mode: brief.mode }, dateProp("Created", today()), brief.lektionUrl ? { Lektion: [brief.lektionUrl] } : {}, brief.lessonUrl ? { Lesson: [brief.lessonUrl] } : {});
+      const res = await nt(T.create, { parent: { data_source_id: DS.handoffs }, pages: [{ properties: props, content }] });
+      const first = res && (res.pages || res.results || [])[0];
+      const found = (first && first.url) || (JSON.stringify(res).match(/https:\/\/[^"\s]*notion[^"\s]*\/p\/[0-9a-f]{32}/) || [])[0];
+      const trigger = `Deutsch handoff: ${found || "(open Notion → Handoffs, newest row)"}`;
+      const code = h("code", { class: "mono", style: "user-select:all;display:block;padding:10px;background:var(--sunk);border-radius:6px;overflow-wrap:anywhere" }, trigger);
+      area.replaceChildren(h("div", { class: "banner good" }, "Handoff ready. Paste this line into a new chat in the Deutsch Project, then switch to voice:"), code,
+        h("div", { class: "row" }, h("button", { class: "btn sm", onclick: e => { navigator.clipboard.writeText(trigger).then(() => { e.target.textContent = "Copied"; }, () => { const r = document.createRange(); r.selectNodeContents(code); const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = "Selected, press Ctrl+C"; }); } }, "Copy")),
+        h("p", { class: "small muted" }, "The Claude app saves your scores and mistakes to Notion when you say “Ende”."));
+    } catch (e) { area.replaceChildren(errBox(e, toApp)); }
+  }
+
+  async function startTalk() {
+    const turns = []; let ended = false; let helps = 0; const t0 = Date.now();
+    const chat = h("div", { class: "chat", "aria-live": "polite" });
+    const ta = h("textarea", { id: "say-" + Math.random().toString(36).slice(2), lang: "de", placeholder: "Antworte auf Deutsch… (Hilfe = help, Ende = finish)" });
+    const mic = h("button", { class: "btn mic", title: "Speak", "aria-label": "Speak" }, "Mic");
+    const send = h("button", { class: "btn primary" }, "Send");
+    const endBtn = h("button", { class: "btn sm", onclick: () => finish() }, "End and get feedback");
+    area.replaceChildren(h("div", { class: "small muted" }, brief.situation), chat, h("div", { class: "compose" }, ta, mic, send), h("div", { class: "row" }, endBtn));
+    const add = (who, text) => { const m = h("div", { class: "msg " + who, lang: who === "sys" ? "en" : "de" }, text); if (who === "p") m.append(" ", speakBtn(text)); chat.append(m); chat.scrollTop = chat.scrollHeight; return m; };
+    const rules = `${LEARNER}
+You are a friendly German conversation partner for a ${brief.level} learner. Mode: ${brief.mode}.
+Situation and what the learner must do: ${brief.situation}
+Cover these questions or cues roughly in order, easy to hard, adapting naturally to the answers: ${brief.prompts.join(" | ")}
+The learner should use: ${brief.must_use.join(", ")}. Grammar point: ${brief.grammar || "-"}.
+Rules: speak only German, 1-2 short sentences per turn, one question per turn, at the learner's level. Do not correct mistakes during the conversation. If the learner writes "Hilfe", answer in English with a hint and then repeat your question in simpler German. If the learner writes "langsamer", rephrase more simply. After about ${Math.max(5, brief.prompts.length + 2)} learner turns, say a short goodbye and put [ENDE] at the very end.
+Start now with your first line.`;
+    const convo = [{ role: "user", content: rules }];
+    async function partner() {
+      const bubble = add("p", "…");
+      try {
+        const { text } = await askText(convo, { onText: ({ text }) => { bubble.firstChild.textContent = text.replace("[ENDE]", "").trim() || "…"; } });
+        const clean = text.replace("[ENDE]", "").trim();
+        bubble.replaceChildren(clean, " ", speakBtn(clean));
+        convo.push({ role: "assistant", content: text });
+        say(clean);
+        if (/\[ENDE\]/.test(text)) { ended = true; add("sys", "The partner closed the conversation. Press “End and get feedback”."); }
+      } catch (e) { bubble.replaceChildren(sampleErr(e)); bubble.className = "msg sys"; }
+    }
+    async function submit() {
+      const v = ta.value.trim(); if (!v) return;
+      ta.value = ""; add("me", v);
+      if (/^ende\.?$/i.test(v)) return finish();
+      if (/^hilfe/i.test(v)) helps++;
+      turns.push(v);
+      convo.push({ role: "user", content: v });
+      send.disabled = true; await partner(); send.disabled = false;
+    }
+    send.onclick = submit;
+    ta.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } });
+    // dictation
+    const d = await capDict;
+    if (!d) mic.hidden = true;
+    else {
+      let listening = false; let base = "";
+      d.onPartial(({ text }) => { if (listening) ta.value = (base + " " + text).trim(); });
+      d.onFinal(({ text }) => { base = (base + " " + text).trim(); ta.value = base; });
+      d.onState(({ state }) => { listening = state === "listening"; mic.classList.toggle("on", listening); mic.textContent = listening ? "Stop" : "Mic"; });
+      mic.onclick = () => {
+        if (listening) { d.stop().catch(() => {}); return; }
+        base = ta.value.trim();
+        try { speechSynthesis.cancel(); } catch {} if (ttsNs) { try { ttsNs.stop(); } catch {} }
+        d.start().catch(e => { if (e && e.code === "not_granted") mic.hidden = true; });
+      };
+      cleanup.push(() => { try { d.stop(); } catch {} });
+    }
+    await partner();
+
+    async function finish() {
+      if (!turns.length) { add("sys", "Say at least one thing first."); return; }
+      send.disabled = true; endBtn.disabled = true; ta.disabled = true;
+      const fbBox = h("div", { class: "stack" }, spinner("Claude is scoring your conversation…"));
+      area.append(fbBox);
+      const transcript = convo.slice(1).map(m => (m.role === "user" ? "LEARNER: " : "PARTNER: ") + m.content.replace("[ENDE]", "")).join("\n");
+      const wpa = Math.round(turns.reduce((a, t) => a + (t.match(/\S+/g) || []).length, 0) / turns.length * 10) / 10;
+      try {
+        const f = await ask(`${LEARNER}
+Give feedback on this ${brief.level} German speaking practice (mode ${brief.mode}). The learner's lines may come from speech transcription: ignore spelling, capitals and punctuation; if a word came out as a different word, call it "possibly pronunciation".
+Task: ${brief.situation}
+Must use: ${brief.must_use.join(", ")}. Grammar point: ${brief.grammar || "-"}.
+Transcript:
+${transcript}
+Score 1-5 Goethe A2 Sprechen style: task (task done), range (words and structures), accuracy (grammar), fluency (length and flow of answers).
+Reply with only JSON: {"well_done":["..."],"mistakes":[{"said":"...","better":"...","reason":"...","category":"article|case|word order|verb form|grammar|vocabulary|spelling|pronunciation"}],"used":["must-use words used"],"not_used":["..."],"grammar_ok":true,"scores":{"task":n,"range":n,"accuracy":n,"fluency":n},"focus":"one concrete focus for next time","summary":"one line"}`);
+        const sc = f.scores || {};
+        fbBox.replaceChildren(
+          h("div", { class: "scores" }, ["task", "range", "accuracy", "fluency"].map(k => h("div", null, h("b", null, sc[k] || "–"), h("span", { class: "small muted" }, k[0].toUpperCase() + k.slice(1))))),
+          f.well_done && f.well_done.length ? h("div", { class: "banner good" }, h("b", null, "Well done: "), f.well_done.join(" ")) : null,
+          f.mistakes && f.mistakes.length ? h("div", { class: "q wrong" }, h("b", null, "Biggest mistakes"), h("ul", null, f.mistakes.slice(0, 5).map(m => h("li", null, "You said ", h("s", { lang: "de" }, m.said), " → ", h("b", { lang: "de" }, m.better), h("span", { class: "muted" }, " · " + m.reason))))) : null,
+          h("div", { class: "small" }, `Must-use words: ${(f.used || []).length} of ${brief.must_use.length} used`, (f.not_used || []).length ? ` (not yet: ${f.not_used.join(", ")})` : "", `. Words per answer: ${wpa}. Help asked: ${helps}.`),
+          f.focus ? h("div", { class: "banner" }, h("b", null, "Next time: "), f.focus) : null);
+        const save = h("div", { class: "small" }, spinner("Saving to Notion…")); fbBox.append(save);
+        const minutes = Math.max(1, Math.round((Date.now() - t0) / 60000));
+        const results = `## Brief\nMode: ${brief.mode}\nSituation: ${brief.situation}\nPartner's questions: ${brief.prompts.join(" · ")}\nMust use: ${brief.must_use.join(", ")}\n\n## Results\nDone in the dashboard.\n\n${(f.well_done || []).map(x => "- Well done: " + x).join("\n")}\n${(f.mistakes || []).map(m => `- You said "${m.said}" → "${m.better}": ${m.reason}`).join("\n")}\n- Focus: ${f.focus || ""}\n\n### Transcript\n${transcript.split("\n").map(l => "- " + l).join("\n")}`;
+        try {
+          await nt(T.create, { parent: { data_source_id: DS.handoffs }, pages: [{ properties: Object.assign({ Handoff: brief.title, Type: "Speaking", Status: "Integrated", Mode: brief.mode, Minutes: minutes, Turns: turns.length, "Words per answer": wpa, "Help count": helps, Task: sc.task || null, Range: sc.range || null, Accuracy: sc.accuracy || null, Fluency: sc.fluency || null, Summary: (f.summary || "").slice(0, 300) }, dateProp("Created", today()), brief.lektionUrl ? { Lektion: [brief.lektionUrl] } : {}, brief.lessonUrl ? { Lesson: [brief.lessonUrl] } : {}), content: results }] });
+          await createRows(DS.mistakes, (f.mistakes || []).map(m => mistakeRow({ question: brief.situation, wrong: m.said, correct_form: m.better, reason: m.reason, category: m.category }, "speaking", brief.lektionUrl)));
+          await createRows(DS.activity, [{ properties: Object.assign({ Activity: brief.title, Type: "Speaking", Minutes: minutes, Notes: f.summary || "" }, dateProp("Date", today())) }]);
+          save.replaceChildren(h("span", { style: "color:var(--good)" }, "✓ Saved to Notion (speaking log, mistakes, activity)."));
+          opts && opts.onSaved && opts.onSaved();
+        } catch (e) { save.replaceChildren(errBox(e)); }
+      } catch (e) { fbBox.replaceChildren(h("div", { class: "banner bad" }, sampleErr(e))); }
+    }
+  }
+  return box;
+}
+
+function showSpeak() {
+  const root = h("div"); view.append(root);
+  const modeSel = h("select", { id: "speak-mode" }, MODES.map(m => h("option", { value: m }, m)));
+  const holder = h("div", { class: "stack", style: "margin-top:16px" });
+  root.append(h("div", { class: "lesson-head" }, h("h1", null, "Speaking"), h("p", { class: "muted" }, "Claude builds a task from where you are in the course, your due words and your recent mistakes.")),
+    h("div", { class: "step", style: "margin-top:16px" },
+      h("div", { class: "row" }, h("label", { class: "row" }, "Mode", modeSel), h("button", { class: "btn go", onclick: build }, "Prepare the task")),
+      h("p", { class: "small muted" }, "Sprechen Teil 1: questions with cue cards about yourself. Teil 2: talk about your life on a topic. Teil 3: plan something together (find a time)."), holder));
+  loadCore().then(() => { const d = setv("Default speak mode"); if (MODES.includes(d)) modeSel.value = d; }).catch(() => {});
+  async function build() {
+    holder.replaceChildren(spinner("Preparing…"));
+    try {
+      await loadCore();
+      const pos = position() || { lektion: S.lektionen[S.lektionen.length - 1], part: 2 };
+      const lek = pos.lektion;
+      const [due, mist] = await Promise.all([viewAll(V.wordsDue, 100).catch(() => []), viewAll(V.mistakesMonth, 100).catch(() => [])]);
+      const mode = modeSel.value;
+      const b = await ask(`${LEARNER}
+Prepare a German speaking task. Mode: ${mode}. Level: ${levelOf(lek.Index)}. Current Lektion: ${lek.Lektion} (${lek.Topic}); grammar: ${lek.Grammar}. Only use grammar up to this Lektion.
+For "Sprechen Teil 1/2/3" follow the Goethe A2 exam format (Teil 1: 4 cue-word cards, ask and answer about personal things; Teil 2: answer questions about your life on one topic with 4 cue points; Teil 3: plan an appointment or activity together and find a time).
+Words due for review (use some): ${due.slice(0, 20).map(w => w.Word).join(", ") || "none"}.
+Recent mistakes to watch: ${mist.slice(0, 5).map(m => `${m.Wrong} → ${m.Correct}`).join("; ") || "none"}.
+Reply with only JSON: {"title":"short English title","situation":"who the partner plays, where, what the learner must achieve (English)","prompts":["4-8 partner questions or cues in German, easy to hard"],"must_use":["up to 10 German words or phrases"],"watch_for":["wrong → right"]}`);
+      const brief = { title: `Speaking · ${lek.Volume} L${lek.Number} · ${b.title}`, mode, situation: b.situation, prompts: b.prompts || [], must_use: b.must_use || [], watch_for: b.watch_for || [], grammar: lek.Grammar, level: levelOf(lek.Index), lektionUrl: lek.url, minutes: 10 };
+      holder.replaceChildren(h("div", { class: "prose" }, h("h3", null, b.title), h("p", null, b.situation), h("p", null, h("b", null, "Partner prompts: "), h("span", { lang: "de" }, brief.prompts.join(" · "))), h("p", null, h("b", null, "Must use: "), h("span", { lang: "de" }, brief.must_use.join(", ")))), speakingPanel(brief));
+    } catch (e) { holder.replaceChildren(e && e.code && !/^(no_sample|not_granted|rate_limited)$/.test(e.code) ? errBox(e, build) : h("div", { class: "banner bad" }, sampleErr(e))); }
+  }
+}
+
+/* =====================================================================
+   FLASHCARDS (Leitner)
+   ===================================================================== */
+function leitner(w, stage, right) {
+  const iv = intervals(), t = today();
+  const openAt = setn("Open produce stage at box", 3), hardAfter = setn("Hard word after lapses", 4);
+  const p = {}; let box = stage === "produce" ? (w["Produce box"] || 1) : (w.Box || 1); let lapses = w.Lapses || 0;
+  if (right) { box = Math.min(5, box + 1); if (w.Hard === "__YES__" && stage === "recognise") box = Math.min(box, 2); }
+  else { box = 1; lapses++; p.Lapses = lapses; if (lapses >= hardAfter) p.Hard = "__YES__"; }
+  if (stage === "produce") { p["Produce box"] = box; Object.assign(p, dateProp("Produce next", addDays(t, right ? iv[box - 1] : 1))); }
+  else {
+    p.Box = box; Object.assign(p, dateProp("Next review", addDays(t, right ? iv[box - 1] : 1)));
+    if (box >= openAt && !(w["Produce box"] > 0)) { p["Produce box"] = 1; Object.assign(p, dateProp("Produce next", addDays(t, 1))); }
+  }
+  const rb = p.Box ?? w.Box ?? 0, pb = p["Produce box"] ?? w["Produce box"] ?? 0;
+  p.Status = rb >= 4 && pb >= 3 ? "Known" : "Learning";
+  return p;
+}
+function cardDeck(due, practice, n) {
+  const t = today();
+  const deck = [];
+  for (const w of due) {
+    const pDue = w["Produce box"] > 0 && (w["date:Produce next:start"] || "9") <= t;
+    const rDue = (w["date:Next review:start"] || "9") <= t;
+    if (rDue) deck.push({ w, stage: "recognise", practice: false });
+    else if (pDue) deck.push({ w, stage: "produce", practice: false });
+  }
+  deck.sort((a, b) => (b.w.Hard === "__YES__") - (a.w.Hard === "__YES__"));
+  const seen = new Set(deck.map(c => c.w.url));
+  if (setv("Practice cards") !== "off") for (const w of practice) { if (deck.length >= n) break; if (!seen.has(w.url) && (w.Box || 0) > 0) { deck.push({ w, stage: (w["Produce box"] || 0) > 0 && Math.random() < 0.5 ? "produce" : "recognise", practice: true }); seen.add(w.url); } }
+  return deck.slice(0, n);
+}
+/* runs cards inside `host`; resolves {cards, reviews, right, updates} when finished or stopped */
+function runCards(host, deck, title) {
+  return new Promise(resolve => {
+    let i = 0, right = 0, reviews = 0; const updates = [];
+    const done = () => resolve({ cards: i, reviews, right, updates });
+    if (!deck.length) { host.replaceChildren(h("div", { class: "empty" }, "No cards to review right now.")); return done(); }
+    const draw = () => {
+      if (i >= deck.length) return done();
+      const c = deck[i]; const w = c.w;
+      const front = c.stage === "recognise" ? w.Word : w.English;
+      const back = c.stage === "recognise" ? w.English : `${w.Word}${w.Plural ? " · Plural: " + w.Plural : ""}`;
+      const card = h("div", { class: "card" },
+        h("div", { class: "label" }, c.stage === "recognise" ? "What does it mean?" : "Say it in German, with article and plural", c.practice ? " · practice" : "", w.Hard === "__YES__" ? " · hard word" : ""),
+        h("div", { class: "front", lang: c.stage === "recognise" ? "de" : "en" }, front),
+        c.stage === "recognise" ? speakBtn(w.Word) : null);
+      const reveal = h("button", { class: "btn primary", onclick: () => {
+        card.append(h("div", { class: "back", lang: c.stage === "recognise" ? "en" : "de" }, back),
+          w.Example ? h("div", { class: "small", lang: "de" }, w.Example, " ", speakBtn(w.Example)) : null,
+          w.Hard === "__YES__" && w.Hook ? h("div", { class: "banner" }, w.Hook) : null);
+        if (c.stage === "produce") say(w.Word);
+        actions.replaceChildren(h("button", { class: "btn", onclick: () => rate(false) }, "Forgot"), h("button", { class: "btn go", onclick: () => rate(true) }, "Knew it"));
+      } }, "Show answer");
+      const actions = h("div", { class: "row", style: "justify-content:center" }, reveal);
+      host.replaceChildren(h("div", { class: "row", style: "justify-content:space-between" }, h("span", { class: "label" }, title || "Cards"), h("span", { class: "mono small" }, `${i + 1} / ${deck.length}`)),
+        h("div", { class: "progress" }, h("i", { style: `width:${i / deck.length * 100}%` })), card, actions,
+        h("div", { class: "row", style: "justify-content:center" }, h("button", { class: "btn sm ghost", onclick: () => { deck.length = i; done(); } }, "Stop here")));
+    };
+    function rate(ok) {
+      const c = deck[i];
+      if (!(c.practice && ok)) { const p = leitner(c.w, c.stage, ok); updates.push({ url: c.w.url, p, word: c.w }); Object.assign(c.w, p); }
+      if (!c.practice) reviews++;
+      if (ok) right++;
+      i++; draw();
+    }
+    draw();
+  });
+}
+async function saveCardUpdates(updates) {
+  let n = 0;
+  for (const u of updates) { await updateRow(u.url, u.p); n++; }
+  // hooks for words that just became hard
+  const newHard = updates.filter(u => u.p.Hard === "__YES__" && !u.word.Hook).map(u => u.word);
+  if (newHard.length) {
+    try {
+      const r = await ask(`${LEARNER}\nThese German words keep being forgotten. For each, write a short vivid memory hook in English and a fresh example sentence. Reply with only JSON: {"items":[{"word":"...","hook":"...","example":"German","example_en":"English"}]}\nWords: ${newHard.map(w => `${w.Word} (${w.English})`).join("; ")}`, "quick");
+      for (const it of r.items || []) { const w = newHard.find(x => x.Word === it.word); if (w) await updateRow(w.url, { Hook: it.hook, Example: it.example, "Example EN": it.example_en }); }
+    } catch {}
+  }
+  return n;
+}
+async function todayCounts() {
+  const act = await viewAll(V.activity, 200).catch(() => []);
+  const t = today(); const rows = act.filter(r => (r["date:Date:start"] || "").slice(0, 10) === t);
+  return { act, reviews: rows.reduce((a, r) => a + (r.Reviews || 0), 0), newCards: rows.reduce((a, r) => a + (r["New cards"] || 0), 0), todayRows: rows };
+}
+function showCards() {
+  const root = h("div"); view.append(root);
+  const host = h("div", { class: "step", style: "margin-top:16px" }, spinner("Loading your cards…"));
+  const nSel = h("select", { id: "cards-n" }, [10, 20, 30, 50].map(n => h("option", { value: n }, `${n} cards`)));
+  nSel.value = String(ls.get("cardsN", 20));
+  root.append(h("div", { class: "lesson-head" }, h("h1", null, "Flashcards"), h("p", { class: "muted" }, "Due cards first, then practice cards from words you know, weakest first. Any time.")), host);
+  const start = async () => {
+    host.replaceChildren(spinner("Loading your cards…"));
+    try {
+      await loadCore();
+      const [due, practice, counts] = await Promise.all([viewAll(V.wordsDue, 400), viewAll(V.wordsPractice, 300), todayCounts()]);
+      const left = Math.max(0, setn("Reviews per day", 150) - counts.reviews);
+      const n = +nSel.value; ls.set("cardsN", n);
+      const deck = cardDeck(due.slice(0, left), practice, n);
+      if (!deck.length) { host.replaceChildren(h("div", { class: "empty" }, h("p", null, "No cards yet. Words start here after a lesson or a quick lesson."), h("button", { class: "btn go", onclick: () => go("quick") }, "Start a quick lesson"))); return; }
+      const t0 = Date.now();
+      const r = await runCards(host, deck, "Flashcards");
+      host.replaceChildren(h("h2", null, `${r.right} of ${r.cards} remembered`), h("div", null, spinner("Saving to Notion…")));
+      try {
+        await saveCardUpdates(r.updates);
+        await createRows(DS.activity, [{ properties: Object.assign({ Activity: `Flashcards · ${r.cards} cards`, Type: "Flashcards", Cards: r.cards, Reviews: r.reviews, Correct: r.right, Total: r.cards, Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)) }, dateProp("Date", today())) }]);
+        host.lastChild.replaceChildren(h("div", { class: "banner good" }, "Saved. Boxes updated in Notion."), h("div", { class: "row", style: "margin-top:12px" }, h("button", { class: "btn go", onclick: start }, "More cards"), h("a", { class: "btn", href: "#home", "data-go": "home" }, "Back to today")));
+      } catch (e) { host.lastChild.replaceChildren(errBox(e)); }
+    } catch (e) { host.replaceChildren(errBox(e, start)); }
+  };
+  host.replaceChildren(h("div", { class: "row" }, nSel, h("button", { class: "btn go", onclick: start }, "Start")));
+}
+
+/* =====================================================================
+   REFRESHER and WEEKLY REVISION
+   ===================================================================== */
+function shapeHint(answer) { return plain(answer).split(/\s+/).map(w => w[0] + "·".repeat(Math.max(0, w.replace(/[.,!?]/g, "").length - 1)) + (/[.,!?]$/.test(w) ? w.slice(-1) : "")).join(" "); }
+function showReview(kind) {
+  const weekly = kind === "weekly";
+  const root = h("div"); view.append(root);
+  const host = h("div", { class: "step", style: "margin-top:16px" });
+  root.append(h("div", { class: "lesson-head" }, h("h1", null, weekly ? "Weekly revision" : "Refresher"),
+    h("p", { class: "muted" }, weekly ? "This week's Lektionen and mistakes: cards, mixed questions, then a short writing task." : "Review only: due cards, your past mistakes in new sentences, and exercises from finished lessons.")), host);
+  host.append(h("div", { class: "row" }, h("button", { class: "btn go", onclick: run }, weekly ? "Start weekly revision" : "Start refresher"), h("span", { class: "small muted" }, weekly ? "About 30-40 minutes." : `About ${setn("Refresher length", 10)} minutes.`)));
+
+  async function run() {
+    const t0 = Date.now();
+    host.replaceChildren(spinner("Reading your cards, mistakes and finished lessons…"));
+    let data;
+    try {
+      await loadCore();
+      const [due, practice, mDue, mMonth, counts] = await Promise.all([viewAll(V.wordsDue, 400), viewAll(V.wordsPractice, 400), viewAll(V.mistakesDue, 100), viewAll(V.mistakesMonth, 200), todayCounts()]);
+      const doneLessons = S.lessons.filter(r => r.Status === "Done");
+      const weekAgo = addDays(today(), -7);
+      const pool = weekly ? doneLessons.filter(r => (r["date:Done on:start"] || "") >= weekAgo) : doneLessons;
+      const pick = shuffle(pool.length ? pool : doneLessons).slice(0, weekly ? 4 : 2);
+      const pages = await Promise.all(pick.map(r => fetchPage(r.url).then(p => ({ key: r.Key, title: r.Lesson, ex: (sections(p.content).find(s => /^Exercises/.test(s.title)) || {}).body || "" })).catch(() => null)));
+      data = { due, practice, mDue, mMonth, counts, pages: pages.filter(Boolean), doneLessons };
+    } catch (e) { host.replaceChildren(errBox(e, run)); return; }
+    const { due, practice, mDue, mMonth, counts, pages } = data;
+    if (!due.length && !practice.length && !mDue.length && !pages.length) {
+      host.replaceChildren(h("div", { class: "empty" }, h("p", null, "Nothing to review yet: no finished lessons, mistakes or started words."), h("div", { class: "row", style: "justify-content:center" }, h("button", { class: "btn go", onclick: () => go("quick") }, "Do a quick lesson instead"), position() ? h("button", { class: "btn", onclick: () => go(position().key) }, "Open today's lesson") : null)));
+      return;
+    }
+    // level and weak spot
+    const prev = counts.act.filter(r => r.Type === "Refresher" && r.Level).sort((a, b) => (b["date:Date:start"] || "").localeCompare(a["date:Date:start"] || ""))[0];
+    let level = prev ? prev.Level : 2;
+    if (prev && prev.Total) { const acc = prev.Correct / prev.Total * 100; const target = setn("Target accuracy", 85); if (acc >= target + 5) level = Math.min(3, level + 1); else if (acc <= target - 15) level = Math.max(1, level - 1); }
+    const cut = addDays(today(), -21); const cats = {};
+    mMonth.filter(r => (r["date:Date:start"] || "") >= cut).forEach(r => { if (r.Category) cats[r.Category] = (cats[r.Category] || 0) + 1; });
+    const weak = Object.entries(cats).sort((a, b) => b[1] - a[1])[0];
+    const noRepeat = addDays(today(), -setn("No-repeat days", 3));
+    const recentQs = counts.act.filter(r => (r["date:Date:start"] || "") >= noRepeat).map(r => r["Questions asked"]).filter(Boolean).join("; ").slice(0, 2500);
+    const nCards = weekly ? 25 : setn("Refresher cards", 15), nQ = weekly ? 12 : setn("Refresher questions", 5);
+    const left = Math.max(0, setn("Reviews per day", 150) - counts.reviews);
+
+    // 1) cards
+    const deck = cardDeck(due.slice(0, left), practice, nCards);
+    const cardsRes = deck.length ? await runCards(host, deck, weekly ? "Weekly revision · cards" : "Refresher · cards") : { cards: 0, reviews: 0, right: 0, updates: [] };
+
+    // 2) questions
+    host.replaceChildren(spinner("Claude is writing your questions…"));
+    const pos = position();
+    const weekMist = weekly ? mMonth.filter(r => (r["date:Date:start"] || "") >= addDays(today(), -7)) : [];
+    const mistakesForQ = (weekly ? weekMist.concat(mDue) : mDue).slice(0, 10);
+    let qs;
+    try {
+      const out = await ask(`${LEARNER}
+Write ${nQ} review questions for a ${weekly ? "weekly revision" : "10-minute refresher"}. Review only, nothing new. Difficulty level ${level} (1 = single words, articles, short gaps; 2 = phrases and short sentences; 3 = full sentences, transformations, word order, cases). Current position: ${pos ? `${pos.lektion.Lektion}, grammar so far up to: ${pos.lektion.Grammar}` : "course finished"}; never test grammar beyond it.
+Draw from:
+- due mistakes: write a NEW question in a different sentence that tests the same point (never show the reason): ${JSON.stringify(mistakesForQ.map(m => ({ url: m.url, wrong: m.Wrong, correct: m.Correct, reason: m.Reason, category: m.Category, question: m.Question })))}
+- ${setn("Weak-spot questions", 2)} questions on the weak spot: ${weak ? weak[0] : "none yet"}
+- exercises from finished lessons, reworded with a new sentence: ${JSON.stringify(pages.map(p => ({ lesson: p.title, exercises: p.ex.slice(0, 1500) })))}
+- words in the produce stage, used in a sentence: ${practice.filter(w => (w["Produce box"] || 0) > 0).slice(0, 15).map(w => w.Word).join(", ") || "none"}
+Vary the styles: translate into German, fill the gap, article and plural, build a sentence from given words, transform (tense, person, du/Sie), answer in a full sentence, spot and fix the mistake, translate into English.
+Never repeat or closely copy these recent questions: ${recentQs || "none"}.
+Each question: an English instruction plus the German to work on; never put the answer inside the question. Give the expected answer, other accepted answers, a one-line rule reminder that does NOT contain the answer or any word of it, and the category (article, case, word order, verb form, grammar, vocabulary, spelling).
+If a question re-tests a due mistake, set "mistake_url" to that mistake's url, else null.
+Reply with only JSON: {"questions":[{"q":"...","answer":"...","accepted":["..."],"rule":"...","category":"...","mistake_url":null}]}`);
+      qs = (out.questions || []).slice(0, nQ);
+    } catch (e) { qs = []; host.replaceChildren(h("div", { class: "banner bad" }, sampleErr(e))); }
+    const qRes = await runQuestions(host, qs, weekly ? "Weekly revision" : "Refresher");
+
+    // 3) writing (weekly)
+    let writingMistakes = [];
+    if (weekly) writingMistakes = await runWritingTask(host, pages, pos);
+
+    // save
+    host.replaceChildren(h("h2", null, `Questions: ${qRes.right} of ${qs.length} right · cards: ${cardsRes.right} of ${cardsRes.cards}`), h("div", { class: "stack small" }, spinner("Saving to Notion…")));
+    const log = host.lastChild;
+    try {
+      await saveCardUpdates(cardsRes.updates);
+      const t = today(), iv = intervals();
+      for (const m of qRes.mistakeUpdates) { const src = mDue.concat(mMonth).find(r => r.url === m.url); if (!src) continue; m.box = src.Box || 1; m.lapses = src.Lapses || 0; await updateRow(m.url, m.right ? Object.assign({ Box: Math.min(5, (m.box || 1) + 1) }, dateProp("Next review", addDays(t, iv[Math.min(5, (m.box || 1) + 1) - 1]))) : Object.assign({ Box: 1, Lapses: (m.lapses || 0) + 1 }, dateProp("Next review", addDays(t, 1)), dateProp("Date", t))); }
+      await createRows(DS.mistakes, qRes.newMistakes.concat(writingMistakes).map(m => mistakeRow(m, m.source || "refresher", pos && pos.lektion.url)));
+      await createRows(DS.activity, [{ properties: Object.assign({ Activity: weekly ? `Weekly revision · week of ${addDays(t, -6)}` : `Refresher · ${weak ? weak[0] : "mixed"}`, Type: "Refresher", Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Correct: qRes.right, Total: qs.length, Level: level, Cards: cardsRes.cards, Reviews: cardsRes.reviews, "New cards": 0, "Questions asked": qs.map(q => plain(q.q)).join("; ").slice(0, 1900), Notes: weekly ? "weekly revision" : "" }, dateProp("Date", t)) }]);
+      if (weekly) {
+        const sess = await viewAll(V.sessions, 100).catch(() => []);
+        const s = sess.find(r => (r["date:When:start"] || "").slice(0, 10) === t && r.Status === "Planned" && r.Kind === "weekly");
+        if (s) await updateRow(s.url, { Status: "Done", Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Score: `questions ${qRes.right}/${qs.length}` });
+      }
+      log.replaceChildren(h("div", { class: "banner good" }, "Saved to Notion: cards, mistakes and the activity log."), h("div", { class: "row", style: "margin-top:12px" },
+        weekly ? h("button", { class: "btn go", onclick: () => go("speak") }, "Finish with speaking") : h("button", { class: "btn go", onclick: () => go("quick") }, "Quick lesson next"),
+        h("a", { class: "btn", href: "#home", "data-go": "home" }, "Back to today")));
+    } catch (e) { log.replaceChildren(errBox(e)); }
+  }
+}
+/* one question at a time with 3-step hints */
+function runQuestions(host, qs, title) {
+  return new Promise(resolve => {
+    let i = 0, right = 0; const newMistakes = [], mistakeUpdates = [];
+    if (!qs.length) return resolve({ right, newMistakes, mistakeUpdates });
+    const draw = () => {
+      if (i >= qs.length) return resolve({ right, newMistakes, mistakeUpdates });
+      const q = qs[i]; let hints = 0;
+      const input = h("input", { class: "big", id: "rq-" + i, type: "text", lang: "de", autocomplete: "off", spellcheck: "false" });
+      const fb = h("div", { class: "fb" }); const hintBox = h("div", { class: "small" });
+      const check = h("button", { class: "btn primary" }, "Check");
+      const hint = h("button", { class: "btn sm ghost", onclick: () => {
+        hints++;
+        if (hints === 1) hintBox.append(h("div", null, "Shape: ", h("span", { class: "mono", lang: "de" }, shapeHint(q.answer))));
+        if (hints === 2) hintBox.append(h("div", null, "Rule: ", q.rule || "–"));
+        if (hints === 3) { hintBox.append(h("div", null, "Answer: ", h("b", { lang: "de" }, q.answer))); hint.disabled = true; }
+      } }, "Hint");
+      const box = h("div", { class: "q" }, h("div", { class: "qt", html: inline(q.q) }), input, h("div", { class: "row" }, check, hint), hintBox, fb);
+      host.replaceChildren(h("div", { class: "row", style: "justify-content:space-between" }, h("span", { class: "label" }, title + " · questions"), h("span", { class: "mono small" }, `${i + 1} / ${qs.length}`)),
+        h("div", { class: "progress" }, h("i", { style: `width:${i / qs.length * 100}%` })), box);
+      input.focus();
+      const submit = async () => {
+        check.disabled = true; fb.replaceChildren(spinner("Checking…"));
+        let r;
+        try { r = (await grade([{ id: "x", q: q.q, expected: [q.answer, ...(q.accepted || [])], answer: input.value }], "in a review"))["x"] || { correct: false }; }
+        catch (e) { fb.replaceChildren(sampleErr(e)); check.disabled = false; return; }
+        const ok = r.correct && hints < 3;
+        box.classList.add(ok ? "right" : "wrong");
+        fb.replaceChildren(ok ? h("span", { style: "color:var(--good);font-weight:600" }, "Right. ") : h("span", null, h("b", { style: "color:var(--bad)" }, "Not quite. "), "Better: ", h("b", { lang: "de" }, r.correct_form || q.answer), ". ", r.reason || q.rule || ""));
+        if (ok) right++;
+        else if (!r.empty || hints) newMistakes.push({ question: q.q, wrong: input.value || "(no answer)", correct_form: r.correct_form || q.answer, reason: r.reason || q.rule || "", category: r.category || q.category, source: "refresher" });
+        if (q.mistake_url) mistakeUpdates.push({ url: q.mistake_url, right: ok, box: null });
+        const nx = h("button", { class: "btn go", onclick: () => { i++; draw(); } }, i + 1 < qs.length ? "Next" : "Finish");
+        check.replaceWith(nx); nx.focus();
+      };
+      check.onclick = submit;
+      input.addEventListener("keydown", e => { if (e.key === "Enter" && !check.disabled && check.isConnected) submit(); });
+    };
+    draw();
+  });
+}
+function runWritingTask(host, pages, pos) {
+  return new Promise(resolve => {
+    const task = `Write 6-8 sentences in German about your week: what you did at work and at home, and one plan for next week. Use grammar from this week's lessons${pages.length ? ` (${pages.map(p => p.title.split("·").pop().trim()).join(", ")})` : ""}.`;
+    const ta = h("textarea", { class: "big", id: "weekly-writing", lang: "de", spellcheck: "false" });
+    const fb = h("div", { class: "stack" });
+    const skip = h("button", { class: "btn ghost", onclick: () => resolve([]) }, "Skip writing");
+    const btn = h("button", { class: "btn primary", onclick: async () => {
+      btn.disabled = true; fb.replaceChildren(spinner("Claude is reading your text…"));
+      try {
+        const r = await ask(`${LEARNER}\nCorrect this German text (level ${pos ? levelOf(pos.lektion.Index) : "A2"}). List every real error with the correct form, a one-line reason and a category (article, case, word order, verb form, grammar, vocabulary, spelling). Score the task 1-5. Reply with only JSON: {"task_score":n,"comment":"...","mistakes":[{"wrong":"...","correct":"...","reason":"...","category":"..."}],"better_version":"..."}\nTask: ${task}\nText: """${ta.value}"""`);
+        const ms = (r.mistakes || []).map(m => ({ question: "Weekly writing", wrong: m.wrong, correct_form: m.correct, reason: m.reason, category: m.category, source: "writing" }));
+        fb.replaceChildren(h("div", { class: "banner good" }, h("b", null, `Task ${r.task_score || "–"}/5. `), r.comment || ""),
+          ms.length ? h("div", { class: "q wrong" }, h("ul", null, ms.map(m => h("li", null, h("s", { lang: "de" }, m.wrong), " → ", h("b", { lang: "de" }, m.correct_form), h("span", { class: "muted" }, " · " + m.reason))))) : null,
+          r.better_version ? h("details", { class: "prose" }, h("summary", null, "A better version"), h("p", { lang: "de" }, r.better_version)) : null,
+          h("div", { class: "row" }, h("button", { class: "btn go", onclick: () => resolve(ms) }, "Save and finish")));
+      } catch (e) { fb.replaceChildren(h("div", { class: "banner bad" }, sampleErr(e))); btn.disabled = false; }
+    } }, "Correct my text");
+    host.replaceChildren(h("span", { class: "label" }, "Weekly revision · writing"), h("div", { class: "prose" }, h("p", null, task)), ta, h("div", { class: "row" }, btn, skip), fb);
+  });
+}
+
+/* =====================================================================
+   QUICK LESSON
+   ===================================================================== */
+function showQuick() {
+  const root = h("div"); view.append(root);
+  const host = h("div", { class: "step", style: "margin-top:16px" });
+  const typeSel = h("select", { id: "quick-type" }, h("option", { value: "" }, "Next in rotation"), ["words", "phrases", "reading", "grammar"].map(t => h("option", { value: t }, t)));
+  root.append(h("div", { class: "lesson-head" }, h("h1", null, "Quick lesson"), h("p", { class: "muted" }, "10-15 minutes of something new for the bus. It doesn't move the book forward; new words become flashcards from tomorrow.")), host);
+  host.append(h("div", { class: "row" }, typeSel, h("button", { class: "btn go", onclick: run }, "Start")));
+
+  async function run() {
+    const t0 = Date.now();
+    host.replaceChildren(spinner("Choosing today's topic…"));
+    let lesson, type, cands;
+    try {
+      await loadCore();
+      const [counts, startedRows, G] = await Promise.all([todayCounts(), viewAll(V.wordsPractice, 2000), goethe()]);
+      const types = setlist("Quick lesson types").length ? setlist("Quick lesson types") : ["words", "phrases", "reading", "grammar"];
+      const doy = daysBetween(today().slice(0, 4) + "-01-01", today());
+      const doneToday = counts.todayRows.filter(r => r.Type === "Quick lesson").length;
+      type = typeSel.value || types[(doy + doneToday) % types.length];
+      const sits = setlist("Phrase situations");
+      const recent = counts.act.filter(r => r.Type === "Quick lesson").map(r => r.Activity);
+      const situation = sits.length ? sits[(doy + doneToday) % sits.length] : "everyday life";
+      const pos = position();
+      const idx = pos ? pos.lektion.Index : 47;
+      const startedKeys = new Set(startedRows.map(r => r.Key));
+      cands = shuffle(G.filter(w => !startedKeys.has(w.key) && (idx < 24 ? w.level === "A1" : true))).slice(0, 80);
+      const nW = setn("Quick lesson words", 6), nE = setn("Quick lesson exercises", 6);
+      const studied = S.lektionen.filter(r => r.Index <= idx).map(r => r.Grammar).slice(-6).join("; ");
+      lesson = await ask(`${LEARNER}
+Make a ${setn("Quick lesson length", 12)}-minute quick lesson of type "${type}" for a phone on the bus. Level ${levelOf(idx)}. Grammar met so far (most recent last): ${studied}. Stay within it.
+Types: words = a small themed set (work, home, health, shopping, travel, free time, weather, offices); phrases = ready-made phrases for the situation "${situation}"; reading = a 6-8 sentence everyday text then questions; grammar = one small point from the Lektionen already studied (recent first).
+Avoid these recent topics: ${recent.slice(0, 12).join("; ") || "none"}.
+Teach ${nW} new words or phrases. For words, choose ONLY from these Goethe-list words the learner hasn't started (German with article, plural): ${cands.map(w => `${w.de}${w.plural ? " (" + w.plural + ")" : ""}`).join(", ")}.
+Then ${nE} short exercises using them (instruction in English + the German to work on; never put the answer in the question).
+Reply with only JSON: {"title":"short English topic","intro":"2-4 sentences of explanation in English (markdown allowed)","text":"German text for type reading, else empty","words":[{"de":"German with article","plural":"","en":"","example":"German sentence","example_en":""}],"exercises":[{"q":"...","answer":"...","accepted":["..."],"rule":"one-line reminder without the answer","category":"..."}]}`);
+    } catch (e) { host.replaceChildren(e && e.code === "no_sample" || (e && /rate|grant/.test(e.code || "")) ? h("div", { class: "banner bad" }, sampleErr(e)) : errBox(e, run)); return; }
+
+    // teach
+    await new Promise(res => {
+      host.replaceChildren(h("span", { class: "label" }, `Quick lesson · ${type}`), h("h2", null, lesson.title || "Quick lesson"),
+        h("div", { class: "prose", html: md(lesson.intro || "") }),
+        lesson.text ? h("div", { class: "prose", lang: "de", style: "background:var(--bg);padding:14px;border-radius:8px" }, lesson.text.split(/\n+/).map(p => h("p", null, p)), speakBtn(lesson.text)) : null,
+        h("div", { class: "words" }, (lesson.words || []).map(w => h("div", { class: "word" },
+          h("div", { class: "row", style: "justify-content:space-between;flex-wrap:nowrap" }, h("span", { class: "de", lang: "de" }, w.de), speakBtn(w.de + ". " + (w.example || ""))),
+          w.plural ? h("span", { class: "small muted" }, "Plural: ", w.plural) : null, h("span", null, w.en), w.example ? h("span", { class: "ex", lang: "de" }, w.example) : null, w.example_en ? h("span", { class: "small muted" }, w.example_en) : null))),
+        h("div", { class: "row" }, h("button", { class: "btn go", onclick: res }, "Practise")));
+    });
+    const qRes = await runQuestions(host, lesson.exercises || [], "Quick lesson");
+    host.replaceChildren(h("h2", null, `${qRes.right} of ${(lesson.exercises || []).length} right`), h("div", { class: "stack small" }, spinner("Saving to Notion…")));
+    const log = host.lastChild;
+    try {
+      const words = (lesson.words || []).map(w => ({ de: w.de, en: w.en, plural: w.plural, ex: w.example, exen: w.example_en, art: (w.de.match(/^(der|die|das)\s/) || [])[1] || "" }));
+      const pos = position();
+      const r = await saveWords(words, null, "Quick lesson");
+      await createRows(DS.mistakes, qRes.newMistakes.map(m => mistakeRow(m, "quick lesson", pos && pos.lektion.url)));
+      await createRows(DS.activity, [{ properties: Object.assign({ Activity: lesson.title || "Quick lesson", Type: "Quick lesson", "Quick type": type, Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Correct: qRes.right, Total: (lesson.exercises || []).length, "New cards": r.started + r.created, "Questions asked": (lesson.exercises || []).map(q => plain(q.q)).join("; ").slice(0, 1900) }, dateProp("Date", today())) }]);
+      log.replaceChildren(h("div", { class: "banner good" }, `Learned: ${lesson.title}. ${r.started + r.created} words come back as flashcards tomorrow.`),
+        h("div", { class: "row", style: "margin-top:12px" }, h("button", { class: "btn go", onclick: run }, "Another one"), h("a", { class: "btn", href: "#home", "data-go": "home" }, "Back to today")));
+    } catch (e) { log.replaceChildren(errBox(e)); }
+  }
+}
+
+/* ---------- boot ---------- */
+route();
+capMcp.then(m => { if (!m) view.prepend(h("div", { class: "banner bad", style: "margin-top:14px" }, errText({ code: "no_mcp" }))); });
+</script>

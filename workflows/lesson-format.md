@@ -97,7 +97,8 @@ Listen to "Lektion 1, 4" (1:35), then answer:
 </toggle>
 ```
 
-Write the questions from the transcript in your own words; never paste the transcript or long
+Write audio file names as inline code (`` `L0-KB.mp3` ``); as plain text Notion turns them into
+broken links. Write the questions from the transcript in your own words; never paste the transcript or long
 quotes into the page (a few words of German in an answer are fine).
 
 Use the toggle syntax `<toggle>` exactly as in the Notion markdown spec: the summary line right

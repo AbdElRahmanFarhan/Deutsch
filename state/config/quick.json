@@ -1,0 +1,27 @@
+{
+ "add_words_to_review": true,
+ "enabled": true,
+ "exercises": 6,
+ "minutes": 12,
+ "new_words": 6,
+ "situations": [
+  "at the doctor",
+  "at the Bürgeramt",
+  "on the phone",
+  "at the supermarket",
+  "in a work meeting",
+  "on the train",
+  "with neighbours",
+  "at the bank",
+  "at the pharmacy",
+  "small talk with colleagues",
+  "renting a flat",
+  "at a restaurant"
+ ],
+ "types": [
+  "words",
+  "phrases",
+  "reading",
+  "grammar"
+ ]
+}

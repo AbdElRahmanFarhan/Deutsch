@@ -1,0 +1,9 @@
+{
+ "comeback_after_missed": 3,
+ "comeback_minutes": 30,
+ "min_sessions_per_7_days": 5,
+ "missed_day_message": "brief",
+ "missed_mode": "weekend",
+ "streak_counts": "either",
+ "weekend_makeup_cap_minutes": 60
+}

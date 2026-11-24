@@ -1,0 +1,27 @@
+{
+ "cards": 40,
+ "days": [
+  "mon",
+  "tue",
+  "wed",
+  "thu",
+  "fri",
+  "sat",
+  "sun"
+ ],
+ "enabled": true,
+ "min_gap_minutes": 90,
+ "minutes": 10,
+ "mix": {
+  "due_reviews": 3,
+  "past_lessons": 2,
+  "recent_mistakes": 5
+ },
+ "no_repeat_days": 3,
+ "per_day": 3,
+ "questions": 5,
+ "target_accuracy": 0.85,
+ "weak_spot_questions": 2,
+ "window_end": "21:00",
+ "window_start": "08:00"
+}

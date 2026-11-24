@@ -1,0 +1,19 @@
+{
+ "correct_during_speaking": false,
+ "correction_style": "short",
+ "emojis": false,
+ "explain_in": "english",
+ "help_after_wrong_tries": 2,
+ "help_keyword": "?",
+ "one_question_at_a_time": true,
+ "situations": [
+  "work",
+  "flat",
+  "doctor",
+  "Behörden",
+  "shopping",
+  "public transport"
+ ],
+ "speaking_mistakes_listed": 3,
+ "tone": "calm"
+}

@@ -1,0 +1,10 @@
+{
+ "channel": "both",
+ "daily_email_time": "12:00",
+ "email_to": "abdofarhan75@gmail.com",
+ "mention_missed": true,
+ "quiet_end": "07:30",
+ "quiet_start": "22:30",
+ "refresher_events": true,
+ "session_lead_minutes": 10
+}

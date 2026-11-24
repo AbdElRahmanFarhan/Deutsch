@@ -1,0 +1,55 @@
+{
+ "session": [
+  {
+   "day": "mon",
+   "kind": "split",
+   "minutes": 60,
+   "start": ""
+  },
+  {
+   "day": "tue",
+   "kind": "split",
+   "minutes": 60,
+   "start": ""
+  },
+  {
+   "day": "wed",
+   "kind": "split",
+   "minutes": 60,
+   "start": ""
+  },
+  {
+   "day": "thu",
+   "kind": "split",
+   "minutes": 60,
+   "start": ""
+  },
+  {
+   "day": "fri",
+   "kind": "full",
+   "minutes": 180,
+   "start": ""
+  },
+  {
+   "day": "sat",
+   "kind": "full",
+   "minutes": 120,
+   "start": ""
+  },
+  {
+   "day": "sat",
+   "kind": "practice",
+   "minutes": 120,
+   "start": ""
+  },
+  {
+   "day": "sun",
+   "days_off": [],
+   "kind": "weekly",
+   "minutes": 180,
+   "start": ""
+  }
+ ],
+ "start_date": "2026-11-24",
+ "timezone": "Europe/Berlin"
+}

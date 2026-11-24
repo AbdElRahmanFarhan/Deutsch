@@ -1,0 +1,87 @@
+{
+ "2026-11-23-mwttun0b": {
+  "correct": 6,
+  "date": "2026-11-23",
+  "id": "2026-11-23-mwttun0b",
+  "minutes": 2,
+  "total": 8
+ },
+ "2026-11-23-mwtudhhp": {
+  "cards": 0,
+  "cards_correct": 0,
+  "correct": 3,
+  "date": "2026-11-23",
+  "id": "2026-11-23-mwtudhhp",
+  "level": 2,
+  "minutes": 1,
+  "total": 5
+ },
+ "2026-11-23-mwtutoys": {
+  "cards": 0,
+  "cards_correct": 0,
+  "correct": 1,
+  "date": "2026-11-23",
+  "id": "2026-11-23-mwtutoys",
+  "level": 1,
+  "minutes": 2,
+  "total": 5
+ },
+ "2026-11-23-mwtv4gwn": {
+  "cards": 12,
+  "cards_correct": 12,
+  "correct": 0,
+  "date": "2026-11-23",
+  "id": "2026-11-23-mwtv4gwn",
+  "level": 1,
+  "minutes": 1,
+  "total": 0
+ },
+ "2026-11-23-qmwtv0h64": {
+  "correct": 6,
+  "date": "2026-11-23",
+  "id": "2026-11-23-qmwtv0h64",
+  "kind": "quick",
+  "minutes": 5,
+  "title": "Am Automaten: Ein Handy für den Abend",
+  "total": 6,
+  "type": "reading",
+  "words": [
+   "das Handy",
+   "die Reparatur",
+   "der Abend",
+   "der Bruder",
+   "geschlossen",
+   "telefonieren",
+   "das Handy",
+   "die Reparatur",
+   "der Abend",
+   "der Bruder",
+   "geschlossen",
+   "telefonieren"
+  ]
+ },
+ "2026-11-23-qmwtv3ols": {
+  "correct": 4,
+  "date": "2026-11-23",
+  "id": "2026-11-23-qmwtv3ols",
+  "kind": "quick",
+  "minutes": 2,
+  "title": "Ich arbeite hier: Verbs with ich, du, er/sie",
+  "total": 6,
+  "type": "grammar",
+  "words": [
+   "arbeiten",
+   "brauchen",
+   "spielen",
+   "die Haltestelle",
+   "das Bild",
+   "die Gruppe",
+   "arbeiten",
+   "brauchen",
+   "spielen",
+   "die Haltestelle",
+   "das Bild",
+   "die Gruppe"
+  ]
+ }
+}

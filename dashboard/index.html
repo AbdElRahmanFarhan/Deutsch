@@ -207,6 +207,7 @@ select { border: 1px solid var(--line); background: var(--surface); border-radiu
     <a href="#lessons" data-go="lessons">Lessons</a>
     <a href="#flashcards" data-go="flashcards">Cards</a>
     <a href="#speak" data-go="speak">Speak</a>
+    <button class="btn sm ghost" id="refresh" title="Reload everything from Notion">Refresh</button>
   </nav>
 </div></header>
 <main class="wrap" id="view"></main>
@@ -1585,6 +1586,14 @@ Reply with only JSON: {"title":"short English topic","intro":"2-4 sentences of e
     } catch (e) { log.replaceChildren(errBox(e)); }
   }
 }
+
+/* ---------- refresh: drop cached Notion data and redraw the current view ---------- */
+$("#refresh").addEventListener("click", () => {
+  ls.set("wmap", null); ls.set("home", null);
+  if (/^L\d+-p[12]$/.test(current || "")) ls.set("page:" + current, null);
+  coreP = null;
+  route(current);
+});
 
 /* ---------- boot ---------- */
 route();

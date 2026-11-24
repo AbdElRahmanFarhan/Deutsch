@@ -43,6 +43,7 @@ fall back to a view and filter the rows yourself. The views (`notion/ids.json` �
 | `lessons_by_key` | all lesson pages with Key, Part, Status (fetch a page by its url) |
 | `lektionen_course_order` | the 48 Lektionen in order, with Status and Book pages |
 | `handoffs_open` | handoffs not yet integrated (see `handoff.md`) |
+| `speaking_log` | all speaking handoffs, newest first, with mode, scores, words per answer |
 
 To check whether a word already exists, use `notion-search` with the Words data source url and the
 word as the query.
@@ -96,6 +97,19 @@ When the learner asks for help or types "?":
 2. A one-line rule reminder that does not contain the answer or any word of it.
 3. The answer. This counts as a miss.
 Right after a hint counts as right, but the card moves up only one box less (stays in its box).
+
+## Voice mode (Settings → Voice answers = on)
+
+When the learner is talking to you by voice (Claude app voice mode), in flashcards, refreshers and
+quick lessons:
+- Read prompts short and clearly; one prompt per turn.
+- Ask for spoken answers in **full sentences** where the question allows it ("Say it in a full
+  sentence: …"), e.g. a produce card "der Tisch" → "Der Tisch ist neu." rather than just the word.
+- Judge the transcript for words and grammar only. Spelling, capital letters and punctuation in
+  the transcript don't count. A word that came out as a different word: say "possibly
+  pronunciation", give the right word, and count the answer as right if the rest was correct.
+- Articles and plurals still count on produce cards.
+- Keep the save step: if tools don't work in voice, ask the learner to type "save" at the end.
 
 ## Difficulty level (refresher and quick-lesson questions)
 

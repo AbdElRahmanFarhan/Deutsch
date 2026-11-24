@@ -18,6 +18,9 @@ Trigger: "lesson", "start my session", or a planned session is due. Follow `comm
      exercises, one Goethe-A2-style task (A2 phase) or a dialogue task (A1 phase), and speaking.
    - `weekly`: review the week's Lektionen, a 10-item mini-test, then a short check-in (hours this
      week, what felt hard, plan for next week) and update the Weekly reviews row if it exists.
+     From Settings → "Goethe Sprechen from Lektion" on, add one Goethe speaking part, rotating
+     Teil 1 → 2 → 3 week by week (see the last Sprechen handoff), as a speaking handoff
+     (`goethe-sprechen.md`).
    - After Lektion index 47 is done, every session is exam prep: one timed section of a Goethe A2
      model test (Lesen, Hören via the learner's own audio, Schreiben, Sprechen), then feedback.
 4. If the session has `Make-up minutes`, add that much extra practice at the end (mixed review of

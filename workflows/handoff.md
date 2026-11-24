@@ -21,7 +21,8 @@ Used for speaking practice, and for anything that's better done by voice on the 
 
    ```
    ## Brief
-   Mode: role-play | free talk | Goethe Sprechen Teil 1 | Teil 2 | Teil 3 | retell
+   Mode: role-play | free talk | Sprechen Teil 1 | Sprechen Teil 2 | Sprechen Teil 3 | retell | shadowing
+   (modes are described in speak.md; exam parts in goethe-sprechen.md; also set the Mode property)
    Minutes: 10-20
    Level: A1 or A2, current Lektion and its grammar
    Situation: who the partner plays, where, what the learner has to achieve

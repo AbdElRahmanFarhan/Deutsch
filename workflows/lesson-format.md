@@ -53,6 +53,19 @@ Short explanation in English with 4-6 example sentences from everyday adult life
 </toggle>
 ```
 
+Part 1 ends with a short speaking task (placed after the Exercises answers toggle):
+
+```
+## Speaking (5 minutes)
+Task: <what to say, in English: describe, answer, retell, ask; uses this part's grammar and words>
+Partner prompts: 3-5 short German questions or cues, easy to hard
+Must use: 5-8 words from this part's Words table
+
+<toggle> Model answer
+3-4 German sentences at the learner's level (open only after trying)
+</toggle>
+```
+
 Part 2:
 
 ```

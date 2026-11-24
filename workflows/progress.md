@@ -16,6 +16,8 @@ Compute and show briefly (a small table is fine):
   row (Settings → Streak counts); days off don't break it.
 - **Words**: Learning / Known counts; Goethe coverage = Words with Goethe A1 (A2) and Box ≥ 1
   ÷ the number of A1 (A2) entries in `curriculum/goethe_words.json`; due today.
+- **Speaking** (`speaking_log`): sessions and minutes this week; average words per answer and the
+  four scores over the last 5 sessions vs the 5 before; Goethe Sprechen parts practised.
 - **Weak spots**: top 3 mistake categories of the last 21 days; hard words.
 - If Settings → Motivation includes progress facts: one encouraging but factual sentence. If it
   includes sayings: a saying from `curriculum/sayings.json` with its meaning.

@@ -13,7 +13,7 @@ and writes everything back to Notion, where Claude Code picks it up.
    everything between the two `===` lines below.
 4. **Knowledge from GitHub.** In the Project → Add content → GitHub → repository
    `AbdElRahmanFarhan/Deutsch` (public) → select:
-   - `workflows/` (whole folder)
+   - `workflows/` (whole folder, including `goethe-sprechen.md`)
    - `curriculum/goethe_words.json`, `curriculum/syllabus.md`, `curriculum/sayings.json`
    - `notion/ids.json`
    When workflows change in the repo, press the sync/refresh button on the GitHub files in the
@@ -43,7 +43,11 @@ What I'll send you:
   Don't correct me while we talk (unless I can't be understood); keep silent notes of my mistakes,
   the target words I used, the grammar point, how long my answers are, and how often I needed help.
   I can say "Hilfe" (help in English + simpler German), "langsamer" (slower) and "Ende" (finish).
-- **"speak"** → no brief yet: make one yourself from Notion (`speak.md` step 0), then run it.
+- **"speak"**, optionally with a mode → no brief yet: make one yourself from Notion (`speak.md`
+  step 0), then run it. Modes: role-play, free talk, Teil 1 / Teil 2 / Teil 3 (Goethe A2 speaking
+  exam, `goethe-sprechen.md`), retell (after a listening track), shadowing (read-aloud clarity check).
+- In voice mode, flashcards, refreshers and quick lessons ask for spoken full-sentence answers
+  (`common.md` → Voice mode).
 - "lesson", "refresher", "flashcards", "quick", "progress" → follow the matching file in
   `workflows/`.
 
@@ -69,6 +73,7 @@ Notion ids (also in `notion/ids.json`). Read through these views with query-data
 mode ({"mode":"view","view_url":"…","page_size":100}); SQL is rate-limited on my plan:
 - Settings: https://www.notion.so/422d1f319aab815bb7cffd8c5caf152f?v=422d1f319aab816ba00e000c3e40f443
 - Open handoffs: https://www.notion.so/422d1f319aab81c9a005deeedf9634a9?v=422d1f319aab81aba528000c384893e4
+- Speaking log: https://www.notion.so/422d1f319aab81c9a005deeedf9634a9?v=422d1f319aab81ed96c0000c7df18e62
 - Words due: https://www.notion.so/422d1f319aab81e49660d96c565d5e1a?v=422d1f319aab817cb54f000cc5d2cef9
 - Mistakes last month: https://www.notion.so/422d1f319aab81de95dbc852b6673359?v=422d1f319aab816cbb05000ce8d6ccd6
 - Lessons by key: https://www.notion.so/422d1f319aab81c6b8ccd3650a882278?v=422d1f319aab8108a43f000c101119d1

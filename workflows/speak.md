@@ -3,14 +3,30 @@
 Two ways in. Follow `common.md` (English for explanations, no emojis, calm).
 
 - **"Deutsch handoff: <Notion URL>"**: a brief prepared by Claude Code. Run it (below).
-- **"speak"** with no link: make your own brief first (step 0), then run it the same way.
+- **"speak"** with no link, optionally with a mode ("speak shadowing", "speak Teil 2", ...): make
+  your own brief first (step 0), then run it the same way.
+
+## Modes
+
+| Mode | What happens | Minutes |
+|---|---|---|
+| role-play | A situation from the current Lektion; Claude plays the other person(s) | 10-15 |
+| free talk | Conversation on an everyday topic, using due words | 10-20 |
+| Sprechen Teil 1 / 2 / 3 | Goethe A2 exam parts, exactly as `goethe-sprechen.md` describes | 5-10 |
+| retell | The learner plays a track from the Lektion's audio (Listening section has the start times), then retells it in their own words; Claude asks 2-3 follow-ups | 10 |
+| shadowing | Read-aloud practice for clarity: Claude gives 8-12 short sentences, one at a time (from the lesson's example sentences and Words table, never from the book's transcripts), the learner says each aloud; Claude compares the transcription with the sentence and marks words that came out differently ("possibly pronunciation"); missed sentences come back once at the end. Optional warm-up: repeat lines after an Aussprache track (listen and repeat, no check) | 10 |
+
+Without a mode, use Settings → "Default speak mode". From Settings → "Goethe Sprechen from
+Lektion" on, suggest one Sprechen part per week if none was done in the last 7 days (Handoffs).
 
 ## 0. Making a brief yourself ("speak")
 
 Read Settings (view `settings_all`), the current Lektion (`lektionen_course_order`: lowest Index
 not Done), its latest lesson page's Speaking section (`lessons_by_key`), up to 12 due words
-(`words_due`) and the 5 newest mistakes (`mistakes_last_month`). Create a Handoffs row
-(`For` Claude app, `Type` Speaking, Status Ready) with a Brief as in `handoff.md`, then run it.
+(`words_due`), the 5 newest mistakes (`mistakes_last_month`) and the last 5 speaking handoffs
+(`handoffs_open` plus integrated ones you can find by search) to avoid repeating topics. Create a
+Handoffs row (`For` Claude app, `Type` Speaking, `Mode`, Status Ready) with a Brief as in
+`handoff.md`, then run it.
 
 ## 1. Run a handoff
 
@@ -63,8 +79,10 @@ Do this right after the feedback. If you're in voice mode and can't use tools, s
 "Type 'save' and I'll store this" and save when the learner types it.
 
 1. Handoff page: replace the empty Results section with the feedback above plus the full list of
-   mistakes and notes (turns, words per answer, Hilfe count). Set `Minutes`, `Task`, `Range`,
-   `Accuracy`, `Fluency`, `Summary` (one line), `Status` Done.
+   mistakes and notes. Set `Mode`, `Minutes`, `Turns`, `Words per answer` (average words per
+   learner turn), `Help count`, `Task`, `Range`, `Accuracy`, `Fluency`, `Summary` (one line),
+   `Status` Done. For shadowing, Task = share of sentences said clearly (5 = all), Range = 3,
+   Accuracy = sentences without changed words, Fluency = how smoothly they were read.
 2. Mistakes: one row per real error (`common.md` → Mistakes), Source `speaking`, Lektion from
    the handoff.
 3. Words: any new word you taught when they said "Hilfe" (`common.md` → Words table, Source

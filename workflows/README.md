@@ -12,6 +12,7 @@ sessions on this repo (cloud or laptop).
 | `flashcards.md` | "flashcards": cards only, any time |
 | `quick.md` | "quick": 10-15 min of new material for the bus |
 | `speak.md` | Claude app speaking partner: runs a handoff (or "speak"), gives feedback, saves results |
+| `goethe-sprechen.md` | The Goethe A2 speaking exam parts, scoring and a topic bank |
 | `handoff.md` | How Claude Code and the Claude app pass work to each other through Notion |
 | `progress.md` | "progress": where you stand |
 | `morning-plan.md` | Daily cloud routine: sessions, missed sessions, calendar, Home page, email |

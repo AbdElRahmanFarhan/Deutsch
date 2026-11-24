@@ -1,0 +1,63 @@
+# Lesson (focus session)
+
+Trigger: "lesson", "start my session", or a planned session is due. Follow `common.md`.
+
+## 1. Work out today's session
+
+1. Read Settings. Read today's Sessions rows (`When` on today's date), in Slot order. Take the
+   first with Status `Planned`. If there's none, say so in one line and offer an extra lesson
+   (it still moves the course forward; log it as a Sessions row with Status `Done` and Notes "extra").
+2. If Settings → "Missed sessions" allows comebacks and the last "Comeback after missed" sessions
+   were all Missed, make this a comeback: "Comeback length" minutes, mostly review, then the start
+   of the next part. Mention it in one line.
+3. Find the current Lektion and part (`common.md` → Progress position) and the lesson page(s):
+   - `split`: one part (`L<index>-p1` or `-p2`).
+   - `full`: Part 1 then Part 2 of the current Lektion (if Part 1 is already done, Part 2 then the
+     next Lektion's Part 1).
+   - `practice`: no lesson page. Build it now from the last 2-4 finished Lektionen: mixed
+     exercises, one Goethe-A2-style task (A2 phase) or a dialogue task (A1 phase), and speaking.
+   - `weekly`: review the week's Lektionen, a 10-item mini-test, then a short check-in (hours this
+     week, what felt hard, plan for next week) and update the Weekly reviews row if it exists.
+   - After Lektion index 47 is done, every session is exam prep: one timed section of a Goethe A2
+     model test (Lesen, Hören via the learner's own audio, Schreiben, Sprechen), then feedback.
+4. If the session has `Make-up minutes`, add that much extra practice at the end (mixed review of
+   the missed material) and say so up front.
+
+Tell the learner in two lines: what this session covers and roughly how long.
+
+## 2. Review (first ~10 minutes, every session)
+
+Due cards and due mistakes, as in `flashcards.md` and `refresher.md`, kept short.
+
+## 3. Work through the lesson page
+
+Fetch the lesson page and go section by section, one step at a time:
+
+- **Goal / Grammar / Recap**: explain in your own words from the page, check understanding with
+  one quick question.
+- **Words**: show the table, have the learner read the examples aloud (in voice mode), then a quick
+  recall round: give the English, ask for the German with article. Repeat missed words at the end
+  of the round (max 3 tries each).
+- **Book work**: tell the learner exactly which pages/exercises/audio to do now in their book
+  (the Lektion's "Book pages" PDF in Notion has the pages). Wait until they say they're done; ask
+  how it went and which items were wrong; explain those.
+- **Exercises**: one at a time from the page (answers are in the toggle; don't reveal them).
+  Grade each answer: accept correct variants; for wrong answers give the correction and a one-line
+  reason; offer hints per `common.md`.
+- **Writing**: the learner writes; you correct every error with the format from `common.md`, then
+  show the corrected text.
+- **Speaking**: in voice mode, run the role-play now; otherwise give the topic and suggest a
+  "speak" session later.
+
+## 4. Save (at the end, and midway in long sessions)
+
+- Words: add every word from the lesson's Words table (`common.md` → Words table) with Box 1,
+  Next review tomorrow, Status Learning, Source Lesson, Lektion = current Lektion. Lesson words
+  don't count toward the daily new-word limit (they were taught, not just shown).
+- Mistakes: one row per real error (`common.md` → Mistakes).
+- Sessions row: Status `Done`, `Minutes` (actual), `Score` ("8/10 exercises"), `Lesson` relation,
+  `Lektion` relation, Notes (one line: what was hard).
+- Lesson page: Status `Done`, Done on today.
+- Lektion: Part 1 finished → Status `Part 1 done`; Part 2 finished → Status `Done`, Done on today.
+
+End with two lines: what was done, and what's next (next session's content).

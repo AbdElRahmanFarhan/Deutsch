@@ -95,9 +95,10 @@ def parse(entry, level):
     head = re.sub(r"\s*\(.*?\)\s*", " ", head).strip()
     if not head or len(head) > 40 or not re.match(r"[A-Za-zÄÖÜäöüß]", head):
         return None
-    if re.match(r"(hat|ist|geht) ", head) or re.search(r"\d|Goethe|\bwith\b|Bsp|e\.V\.", head):
+    if (head.isupper() and len(head) > 3) or re.match(r"(hat|ist|geht) ", head) or re.search(r"\d|Goethe|\bwith\b|Bsp|e\.V\.|\.", head) or len(head.split()) > 3:
         return None  # verb forms split from their entry, page furniture
-    plural = rest.strip().split(",")[0].strip() if article else ""
+    m = re.match(r"\s*([-–¨][¨\wäöüß-]*|–)", rest) if article else None
+    plural = m.group(1) if m else ""
     key = head.lower().rstrip("-")
     return {"key": key, "de": f"{article} {head}".strip(), "article": article, "plural": plural, "level": level}
 
@@ -111,7 +112,8 @@ def main():
         # Word groups (days, months, times of day, ...) come before the alphabetical part.
         for p in range(2, start):
             text = crop_text(pdf, p, 0, 596)
-            for art, head, plural in re.findall(r"\b(der|die|das) ([A-ZÄÖÜ][\wäöüß]+(?:/[A-ZÄÖÜ][\wäöüß]+)?)(?:,\s*([-¨][\wäöüß-]*))?", text):
+            # Only list entries (start of a line or a column), not nouns inside running text.
+            for art, head, plural in re.findall(r"(?:^|\s{2,})(der|die|das) ([A-ZÄÖÜ][\wäöüß]+(?:/[A-ZÄÖÜ][\wäöüß]+)?)(?:,\s*([-¨][\wäöüß-]*))?(?=\s{2,}|\s*$)", text, re.M):
                 key = head.split("/")[0].lower()
                 if key not in words:
                     words[key] = {"key": key, "de": f"{art} {head.split('/')[0]}", "article": art,

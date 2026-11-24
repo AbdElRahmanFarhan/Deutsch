@@ -126,13 +126,6 @@
 "level": "A1"
 },
 {
-"key": "alltagskommuni",
-"de": "der Alltagskommuni",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "als",
 "de": "als",
 "article": "",
@@ -180,13 +173,6 @@
 "article": "",
 "plural": "",
 "level": "A1"
-},
-{
-"key": "an sein / aus sein",
-"de": "an sein / aus sein",
-"article": "",
-"plural": "",
-"level": "A2"
 },
 {
 "key": "anbieten",
@@ -329,13 +315,6 @@
 "level": "A2"
 },
 {
-"key": "anspruchsniveau",
-"de": "das Anspruchsniveau",
-"article": "das",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "antwort",
 "de": "die Antwort",
 "article": "die",
@@ -348,13 +327,6 @@
 "article": "",
 "plural": "",
 "level": "A1"
-},
-{
-"key": "anweisungen",
-"de": "der Anweisungen",
-"article": "der",
-"plural": "",
-"level": "A2"
 },
 {
 "key": "anzeige",
@@ -498,9 +470,9 @@
 },
 {
 "key": "aufgabe",
-"de": "der Aufgabe",
-"article": "der",
-"plural": "",
+"de": "die Aufgabe",
+"article": "die",
+"plural": "-n",
 "level": "A1"
 },
 {
@@ -514,13 +486,6 @@
 "key": "aufmachen",
 "de": "aufmachen",
 "article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "aufnahme",
-"de": "die Aufnahme",
-"article": "die",
 "plural": "",
 "level": "A2"
 },
@@ -591,7 +556,7 @@
 "key": "ausbildung",
 "de": "die Ausbildung",
 "article": "die",
-"plural": "-en Ich möchte eine Ausbildung zum Krankenpfleger",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -647,7 +612,7 @@
 "key": "ausländer",
 "de": "der Ausländer",
 "article": "der",
-"plural": "",
+"plural": "-",
 "level": "A1"
 },
 {
@@ -710,7 +675,7 @@
 "key": "ausstellung",
 "de": "die Ausstellung",
 "article": "die",
-"plural": "-en Gehen wir morgen zusammen in die Ausstellung?",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -892,7 +857,7 @@
 "key": "basketball",
 "de": "der Basketball",
 "article": "der",
-"plural": "¨-e Yannick spielt lieber Basketball als Fußball.",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -985,13 +950,6 @@
 "article": "",
 "plural": "",
 "level": "A1"
-},
-{
-"key": "begriffe",
-"de": "der Begriffe",
-"article": "der",
-"plural": "",
-"level": "A2"
 },
 {
 "key": "begründen",
@@ -1193,8 +1151,8 @@
 "key": "besuch",
 "de": "der Besuch",
 "article": "der",
-"plural": "",
-"level": "A1"
+"plural": "-e",
+"level": "A2"
 },
 {
 "key": "besuchen",
@@ -1225,13 +1183,6 @@
 "level": "A2"
 },
 {
-"key": "bewältigung",
-"de": "die Bewältigung",
-"article": "die",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "bewölkt",
 "de": "bewölkt",
 "article": "",
@@ -1249,7 +1200,7 @@
 "key": "bibliothek",
 "de": "die Bibliothek",
 "article": "die",
-"plural": "-en Sie lernt jeden Tag in der Bibliothek.",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -1575,17 +1526,10 @@
 "level": "A2"
 },
 {
-"key": "circa/ca.",
-"de": "circa/ca.",
-"article": "",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "club",
 "de": "der Club",
 "article": "der",
-"plural": "-s /",
+"plural": "-s",
 "level": "A2"
 },
 {
@@ -1599,7 +1543,7 @@
 "key": "creme",
 "de": "die Creme",
 "article": "die",
-"plural": "-s/-n",
+"plural": "-s",
 "level": "A2"
 },
 {
@@ -1783,27 +1727,6 @@
 "article": "",
 "plural": "",
 "level": "A2"
-},
-{
-"key": "deutsche",
-"de": "die Deutsche",
-"article": "die",
-"plural": "-n",
-"level": "A1"
-},
-{
-"key": "deutschlernende",
-"de": "die Deutschlernende",
-"article": "die",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "deutschprüfung",
-"de": "der Deutschprüfung",
-"article": "der",
-"plural": "",
-"level": "A1"
 },
 {
 "key": "dezember",
@@ -2082,14 +2005,14 @@
 "key": "ehefrau",
 "de": "die Ehefrau",
 "article": "die",
-"plural": "-en/",
+"plural": "-en",
 "level": "A1"
 },
 {
 "key": "ehemann",
 "de": "der Ehemann",
 "article": "der",
-"plural": "ä",
+"plural": "",
 "level": "A1"
 },
 {
@@ -2129,8 +2052,8 @@
 },
 {
 "key": "ein",
-"de": "die Ein",
-"article": "die",
+"de": "ein-",
+"article": "",
 "plural": "",
 "level": "A1"
 },
@@ -2226,13 +2149,6 @@
 "level": "A1"
 },
 {
-"key": "einträge",
-"de": "der Einträge",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "einverstanden",
 "de": "einverstanden",
 "article": "",
@@ -2257,13 +2173,6 @@
 "key": "einziehen",
 "de": "einziehen",
 "article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "einübung",
-"de": "die Einübung",
-"article": "die",
 "plural": "",
 "level": "A2"
 },
@@ -2355,14 +2264,14 @@
 "key": "erdgeschoss",
 "de": "das Erdgeschoss",
 "article": "das",
-"plural": "-e Ich wohne im Erdgeschoss.",
+"plural": "-e",
 "level": "A2"
 },
 {
 "key": "erfahrung",
 "de": "die Erfahrung",
 "article": "die",
-"plural": "-en Ich habe zehn Jahre Erfahrung in diesem Beruf.",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -2411,7 +2320,7 @@
 "key": "ermäßigung",
 "de": "die Ermäßigung",
 "article": "die",
-"plural": "-en Für Schüler",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -2434,13 +2343,6 @@
 "article": "der",
 "plural": "-n",
 "level": "A1"
-},
-{
-"key": "erwachsenenprüfung",
-"de": "die Erwachsenenprüfung",
-"article": "die",
-"plural": "",
-"level": "A2"
 },
 {
 "key": "erzählen",
@@ -2782,7 +2684,7 @@
 "key": "flohmarkt",
 "de": "der Flohmarkt",
 "article": "der",
-"plural": "¨-e Ich gehe gern auf den Flohmarkt.",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -2831,7 +2733,7 @@
 "key": "fotoapparat",
 "de": "der Fotoapparat",
 "article": "der",
-"plural": "-e Ich möchte mir einen Fotoapparat kaufen.",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -2954,20 +2856,6 @@
 "level": "A1"
 },
 {
-"key": "frühjahr",
-"de": "das Frühjahr",
-"article": "das",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "frühling",
-"de": "der Frühling",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "frühstück",
 "de": "das Frühstück",
 "article": "das",
@@ -3006,13 +2894,6 @@
 "key": "fußball",
 "de": "der Fußball",
 "article": "der",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "fähigkeit",
-"de": "die Fähigkeit",
-"article": "die",
 "plural": "",
 "level": "A1"
 },
@@ -3528,13 +3409,6 @@
 "level": "A1"
 },
 {
-"key": "grundlage",
-"de": "der Grundlage",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "gruppe",
 "de": "die Gruppe",
 "article": "die",
@@ -3664,7 +3538,7 @@
 "key": "handtuch",
 "de": "das Handtuch",
 "article": "das",
-"plural": "¨-er Gibst du mir bitte ein frisches Handtuch?",
+"plural": "¨-er",
 "level": "A2"
 },
 {
@@ -3685,7 +3559,7 @@
 "key": "hauptstadt",
 "de": "die Hauptstadt",
 "article": "die",
-"plural": "¨-e Berlin ist die Hauptstadt von Deutschland.",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -3706,7 +3580,7 @@
 "key": "hausfrau",
 "de": "die Hausfrau",
 "article": "die",
-"plural": "-en/",
+"plural": "-en",
 "level": "A1"
 },
 {
@@ -4011,13 +3885,6 @@
 "level": "A2"
 },
 {
-"key": "hör",
-"de": "der Hör",
-"article": "der",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "hören",
 "de": "hören",
 "article": "",
@@ -4084,7 +3951,7 @@
 "key": "instrument",
 "de": "das Instrument",
 "article": "das",
-"plural": "-e Ich spiele Klavier. Spielen Sie auch ein Instrument?",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -4235,13 +4102,6 @@
 "level": "A1"
 },
 {
-"key": "jugendprüfung",
-"de": "die Jugendprüfung",
-"article": "die",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "juli",
 "de": "der Juli",
 "article": "der",
@@ -4343,7 +4203,7 @@
 "key": "kaufhaus",
 "de": "das Kaufhaus",
 "article": "das",
-"plural": "-¨er Meine Pullover kaufe ich immer im Kaufhaus",
+"plural": "-¨er",
 "level": "A2"
 },
 {
@@ -4602,7 +4462,7 @@
 "key": "krankheit",
 "de": "die Krankheit",
 "article": "die",
-"plural": "-en Welche Krankheit hat Herr Brandner?",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -4672,8 +4532,8 @@
 "key": "kundin",
 "de": "die Kundin",
 "article": "die",
-"plural": "",
-"level": "A1"
+"plural": "-nen",
+"level": "A2"
 },
 {
 "key": "kunst",
@@ -4784,7 +4644,7 @@
 "key": "landschaft",
 "de": "die Landschaft",
 "article": "die",
-"plural": "-en Die Landschaft ist sehr schön.",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -4875,14 +4735,7 @@
 "key": "lehrer",
 "de": "der Lehrer",
 "article": "der",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "lehrerin",
-"de": "die Lehrerin",
-"article": "die",
-"plural": "",
+"plural": "–",
 "level": "A1"
 },
 {
@@ -4924,13 +4777,6 @@
 "key": "lernen",
 "de": "lernen",
 "article": "",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "lernende",
-"de": "die Lernende",
-"article": "die",
 "plural": "",
 "level": "A1"
 },
@@ -5131,13 +4977,6 @@
 "level": "A2"
 },
 {
-"key": "mal / das mal",
-"de": "mal / das Mal",
-"article": "",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "malen",
 "de": "malen",
 "article": "",
@@ -5176,7 +5015,7 @@
 "key": "mannschaft",
 "de": "die Mannschaft",
 "article": "die",
-"plural": "-en Meine Lieblingsmannschaft hat 1:0 verloren.",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -5204,7 +5043,7 @@
 "key": "medikament",
 "de": "das Medikament",
 "article": "das",
-"plural": "-e Nehmen Sie dieses Medikament dreimal pro Tag!",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -5376,13 +5215,6 @@
 "level": "A1"
 },
 {
-"key": "mitschüler",
-"de": "der Mitschüler",
-"article": "der",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "mittag",
 "de": "der Mittag",
 "article": "der",
@@ -5393,7 +5225,7 @@
 "key": "mittagessen",
 "de": "das Mittagessen",
 "article": "das",
-"plural": "- Um zwölf Uhr gibt es Mittagessen.",
+"plural": "-",
 "level": "A2"
 },
 {
@@ -5437,13 +5269,6 @@
 "article": "",
 "plural": "",
 "level": "A2"
-},
-{
-"key": "modern language learning by adults",
-"de": "modern language learning by adults",
-"article": "",
-"plural": "",
-"level": "A1"
 },
 {
 "key": "moment",
@@ -5491,7 +5316,7 @@
 "key": "museum",
 "de": "das Museum",
 "article": "das",
-"plural": "-een Im Kunstmuseum gibt es eine neue Ausstellung.",
+"plural": "-een",
 "level": "A2"
 },
 {
@@ -5750,20 +5575,6 @@
 "key": "nirgends",
 "de": "nirgends",
 "article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "niveau",
-"de": "das Niveau",
-"article": "das",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "niveaustufe",
-"de": "der Niveaustufe",
-"article": "der",
 "plural": "",
 "level": "A2"
 },
@@ -6044,7 +5855,7 @@
 "key": "partner",
 "de": "der Partner",
 "article": "der",
-"plural": "-/",
+"plural": "-",
 "level": "A1"
 },
 {
@@ -6086,7 +5897,7 @@
 "key": "passwort",
 "de": "das Passwort",
 "article": "das",
-"plural": "¨-er Bitte schreiben Sie Ihr Passwort.",
+"plural": "¨-er",
 "level": "A2"
 },
 {
@@ -6121,7 +5932,7 @@
 "key": "pizza",
 "de": "die Pizza",
 "article": "die",
-"plural": "-s/-en",
+"plural": "-s",
 "level": "A2"
 },
 {
@@ -6286,13 +6097,6 @@
 "level": "A2"
 },
 {
-"key": "profile deutsch. lernzielbestimmungen",
-"de": "Profile Deutsch. Lernzielbestimmungen",
-"article": "",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "programm",
 "de": "das Programm",
 "article": "das",
@@ -6322,24 +6126,10 @@
 },
 {
 "key": "prüfung",
-"de": "der Prüfung",
-"article": "der",
+"de": "die Prüfung",
+"article": "die",
 "plural": "",
 "level": "A1"
-},
-{
-"key": "prüfungsauf",
-"de": "der Prüfungsauf",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "publikation",
-"de": "der Publikation",
-"article": "der",
-"plural": "",
-"level": "A2"
 },
 {
 "key": "pullover",
@@ -6380,7 +6170,7 @@
 "key": "rad",
 "de": "das Rad",
 "article": "das",
-"plural": "¨-er Wenn es nicht regnet",
+"plural": "¨-er",
 "level": "A2"
 },
 {
@@ -6454,25 +6244,11 @@
 "level": "A1"
 },
 {
-"key": "rechtslage",
-"de": "die Rechtslage",
-"article": "die",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "reden",
 "de": "reden",
 "article": "",
 "plural": "",
 "level": "A2"
-},
-{
-"key": "regel",
-"de": "der Regel",
-"article": "der",
-"plural": "",
-"level": "A1"
 },
 {
 "key": "regen",
@@ -6513,7 +6289,7 @@
 "key": "reinigung",
 "de": "die Reinigung",
 "article": "die",
-"plural": "-en Bringst du bitte die Bluse in die Reinigung? Man",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -6559,13 +6335,6 @@
 "level": "A2"
 },
 {
-"key": "relevanz",
-"de": "die Relevanz",
-"article": "die",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "renovieren",
 "de": "renovieren",
 "article": "",
@@ -6576,7 +6345,7 @@
 "key": "rentner",
 "de": "der Rentner",
 "article": "der",
-"plural": "- /",
+"plural": "-",
 "level": "A2"
 },
 {
@@ -6723,7 +6492,7 @@
 "key": "rundgang",
 "de": "der Rundgang",
 "article": "der",
-"plural": "¨-e Der Rundgang durch das Schloss beginnt in wenigen",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -6926,7 +6695,7 @@
 "key": "schlafzimmer",
 "de": "das Schlafzimmer",
 "article": "das",
-"plural": "- Hier ist das Schlafzimmer.",
+"plural": "-",
 "level": "A2"
 },
 {
@@ -7099,8 +6868,8 @@
 },
 {
 "key": "schweiz",
-"de": "der Schweiz",
-"article": "der",
+"de": "die Schweiz",
+"article": "die",
 "plural": "",
 "level": "A2"
 },
@@ -7171,7 +6940,7 @@
 "key": "schülerin",
 "de": "die Schülerin",
 "article": "die",
-"plural": "-nen Schüler.",
+"plural": "-nen",
 "level": "A2"
 },
 {
@@ -7514,7 +7283,7 @@
 "key": "sportplatz",
 "de": "der Sportplatz",
 "article": "der",
-"plural": "¨-e Das Fußballtraining ist um 17 Uhr auf dem",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -7522,27 +7291,6 @@
 "de": "die Sprache",
 "article": "die",
 "plural": "-n",
-"level": "A1"
-},
-{
-"key": "sprachkenntnisse",
-"de": "der Sprachkenntnisse",
-"article": "der",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "sprachkompetenz",
-"de": "der Sprachkompetenz",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "sprachniveau",
-"de": "das Sprachniveau",
-"article": "das",
-"plural": "",
 "level": "A1"
 },
 {
@@ -7600,13 +7348,6 @@
 "article": "",
 "plural": "",
 "level": "A2"
-},
-{
-"key": "start",
-"de": "der Start",
-"article": "der",
-"plural": "",
-"level": "A1"
 },
 {
 "key": "stattfinden",
@@ -7756,13 +7497,6 @@
 "level": "A1"
 },
 {
-"key": "stufe",
-"de": "der Stufe",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
 "key": "stuhl",
 "de": "der Stuhl",
 "article": "der",
@@ -7808,7 +7542,7 @@
 "key": "supermarkt",
 "de": "der Supermarkt",
 "article": "der",
-"plural": "¨-e Ich kaufe oft im Supermarkt ein.",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -8032,13 +7766,6 @@
 "key": "thema",
 "de": "das Thema",
 "article": "das",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "themenbereiche",
-"de": "die Themenbereiche",
-"article": "die",
 "plural": "",
 "level": "A1"
 },
@@ -8340,7 +8067,7 @@
 "key": "universität",
 "de": "die Universität",
 "article": "die",
-"plural": "-en Er studiert an der Universität Freiburg.",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -8382,7 +8109,7 @@
 "key": "unterkunft",
 "de": "die Unterkunft",
 "article": "die",
-"plural": "¨-e Ich suche noch eine Unterkunft in Basel. Kennst du",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -8403,7 +8130,7 @@
 "key": "unterschied",
 "de": "der Unterschied",
 "article": "der",
-"plural": "-e Was ist der Unterschied zwischen den beiden",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -8634,7 +8361,7 @@
 "key": "verspätung",
 "de": "die Verspätung",
 "article": "die",
-"plural": "-en Unser Zug hat leider 15 Minuten Verspätung.",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -8663,13 +8390,6 @@
 "de": "der Verwandte",
 "article": "der",
 "plural": "-n",
-"level": "A1"
-},
-{
-"key": "verwendung",
-"de": "die Verwendung",
-"article": "die",
-"plural": "",
 "level": "A1"
 },
 {
@@ -8704,7 +8424,7 @@
 "key": "volleyball",
 "de": "der Volleyball",
 "article": "der",
-"plural": "¨-e Ich spiele gern Volleyball.",
+"plural": "¨-e",
 "level": "A2"
 },
 {
@@ -8736,23 +8456,9 @@
 "level": "A2"
 },
 {
-"key": "vorbereitung",
-"de": "der Vorbereitung",
-"article": "der",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "vorgestern",
 "de": "vorgestern",
 "article": "",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "vorhandensein",
-"de": "das Vorhandensein",
-"article": "das",
 "plural": "",
 "level": "A2"
 },
@@ -9107,17 +8813,10 @@
 "level": "A1"
 },
 {
-"key": "werk",
-"de": "das Werk",
-"article": "das",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "werkstatt",
 "de": "die Werkstatt",
 "article": "die",
-"plural": "¨-en Mein Auto ist kaputt. Es ist in der Werkstatt.",
+"plural": "¨-en",
 "level": "A2"
 },
 {
@@ -9131,7 +8830,7 @@
 "key": "wettbewerb",
 "de": "der Wettbewerb",
 "article": "der",
-"plural": "-e Mein Sohn hat bei einem Wettbewerb gewonnen.",
+"plural": "-e",
 "level": "A2"
 },
 {
@@ -9313,7 +9012,7 @@
 "key": "wohnzimmer",
 "de": "das Wohnzimmer",
 "article": "das",
-"plural": "- Die Kinder sitzen im Wohnzimmer und sehen fern.",
+"plural": "-",
 "level": "A2"
 },
 {
@@ -9342,34 +9041,6 @@
 "de": "das Wort",
 "article": "das",
 "plural": "-ö",
-"level": "A1"
-},
-{
-"key": "wortbildung",
-"de": "der Wortbildung",
-"article": "der",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "wortliste",
-"de": "die Wortliste",
-"article": "die",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "wortschatzliste",
-"de": "der Wortschatzliste",
-"article": "der",
-"plural": "",
-"level": "A2"
-},
-{
-"key": "wortschatzlisten",
-"de": "die Wortschatzlisten",
-"article": "die",
-"plural": "",
 "level": "A1"
 },
 {
@@ -9436,13 +9107,6 @@
 "level": "A1"
 },
 {
-"key": "zahlung",
-"de": "die Zahlung",
-"article": "die",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "zahn",
 "de": "der Zahn",
 "article": "der",
@@ -9474,7 +9138,7 @@
 "key": "zeitschrift",
 "de": "die Zeitschrift",
 "article": "die",
-"plural": "-en Diese Zeitschrift kauft Andrea jede Woche.",
+"plural": "-en",
 "level": "A2"
 },
 {
@@ -9653,20 +9317,6 @@
 "level": "A1"
 },
 {
-"key": "zusammensetzung",
-"de": "die Zusammensetzung",
-"article": "die",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "zusammenstellung",
-"de": "der Zusammenstellung",
-"article": "der",
-"plural": "",
-"level": "A2"
-},
-{
 "key": "zwischen",
 "de": "zwischen",
 "article": "",
@@ -9733,13 +9383,6 @@
 "key": "übernachten",
 "de": "übernachten",
 "article": "",
-"plural": "",
-"level": "A1"
-},
-{
-"key": "übernachtung",
-"de": "die Übernachtung",
-"article": "die",
 "plural": "",
 "level": "A1"
 },

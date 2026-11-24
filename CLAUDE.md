@@ -1,72 +1,44 @@
 # Deutsch A2: personal German course (A1 → Goethe A2)
 
-This repo is the back office of a personal German course. The learner uses a dashboard on
-claude.ai (phone and laptop); Claude Code on the laptop prepares lessons, backs up data,
-builds the calendar and sends the daily email.
+This repo holds **how** the course runs (workflows, syllabus, helper scripts). **All data lives in
+Notion** under the page "Deutsch A2": settings, Lektionen, lessons, words, mistakes, sessions,
+activity, weekly reviews, book PDFs. Nothing personal or stateful is stored here.
 
-- **Dashboard:** https://claude.ai/artifact/5ZAdS7RsTg3dDGn6p15gQ4 (source: `dashboard/index.html`)
-- **Live data** (settings, progress, review queue, mistakes, sessions, prepared lessons) lives in
-  the dashboard's database. Read and write it with the `ArtifactData` tool and the URL above.
-- **The learner:** Abdelrahman, lives and works in Germany (engineering/tech), Egyptian, studies in
+- **The learner:** Abdelrahman, adult engineer living and working in Germany, Egyptian, studies in
   English. Everything the tutor writes is in English; German only as the thing being learned.
+- **Where he practises:** the Claude app Project "Deutsch" (phone/laptop, text or voice), set up
+  from `project/INSTRUCTIONS.md`. Claude Code sessions on this repo (cloud or laptop) can run the
+  same workflows.
+- **Automation:** cloud routines run `workflows/morning-plan.md` daily and
+  `workflows/weekly-review.md` on Sundays.
 
-## Sources
-
-- **Primary:** Menschen (Hueber) A1.1, A1.2, A2.1, A2.2, Kursbuch + Arbeitsbuch, in `Cirriculum/`
-  (the learner's own copies). Never commit, upload or paste those files or long passages from
-  them anywhere: not into the repo, the dashboard database, or a prompt. Use them on this laptop to
-  see what each Lektion covers, then write lessons in your own words, pointing to page numbers.
-- `curriculum/syllabus.md` (human) and `curriculum/syllabus.json` (machine) list the 48 Lektionen.
-  `scripts/book_text.py <index>` prints the OCR text of a Lektion's pages for reference.
-- Vocabulary must fit the Goethe A1/A2 word lists. Take articles and plurals from the book, not memory.
-
-## Database layout (dashboard)
+## Map
 
 | Path | What |
 |---|---|
-| `config/<area>` | Settings: schedule, refreshers, reminders, plan, tutor, review, accountability, motivation, profile. Defaults documented in `config/*.toml`. |
-| `meta/syllabus`, `meta/sayings` | The 48 Lektionen; German sayings |
-| `meta/rebuild` | `{requested_at, done_at}`: the learner pressed Rebuild |
-| `progress/main` | `{current_index, current_part, done: [indexes], started}` |
-| `sessions/<YYYY-MM-DD-slot>` | A focus session: `status` done/missed/extra, `minutes`, `kind`, `lektion_index`, `phase` |
-| `refreshers/<id>` | A finished refresher, or a quick lesson when `kind: "quick"` (`title`, `type`, `words`). Refresher: `date`, `minutes`, typed questions `total`/`correct`, their difficulty `level` (1-3), and `cards`/`cards_correct` |
-| `srs/<id>` | Review item. Words (`w-…`): `de` (with article), `en`, `plural`, `example`, `gender`, `lektion`, `hook`, `leech`, and two schedules `rec` (German→English) and `prod` (English→German, opens after 2 correct recognitions), each `{ef, reps, interval, due, lapses, correct, last}`. Mistakes (`m-…`): `de`, `front`, `category` and the schedule fields at top level |
-| `daily/<YYYY-MM-DD>` | Flashcard counts for the day: `reviews`, `new`, `cards_correct`, `cards_total` (daily limits), and `asked`: questions asked that day, so new ones don't repeat them |
-| `meta/goethe` | Goethe A1/A2 headwords as `[key, level]` pairs, for coverage. Full list: `curriculum/goethe_words.json` (private, from the official PDFs in `Cirriculum/goethe/`) |
-| `mistakes/<id>` | `date`, `wrong`, `right`, `reason`, `category`, `source` |
-| `lessons/<key>` | Prepared lesson. Key: `L<index>-p1`/`L<index>-p2` (split sessions), `L<index>-full`, or a session id for practice/weekly sessions |
-| `reports/<id>` | Reports pasted from Claude app voice sessions |
+| `workflows/` | The instructions for every activity. Start with `workflows/README.md` and `common.md`. |
+| `.claude/skills/` | Thin wrappers so `/lesson`, `/refresher`, ... run the matching workflow |
+| `project/INSTRUCTIONS.md` | Setup and custom instructions for the Claude app Project |
+| `notion/ids.json` | Notion page and data source ids; Lektion page id per course index |
+| `notion/book_pages.json` | Kursbuch/Arbeitsbuch PDF page ranges per Lektion |
+| `curriculum/syllabus.md`, `syllabus.json` | The 48 Menschen Lektionen (index 0-47) |
+| `curriculum/goethe_words.json` | Goethe A1/A2 headwords, for vocabulary choice and coverage |
+| `curriculum/sayings.json` | German sayings for motivation |
+| `scripts/book_text.py` | Laptop only: OCR text of a Lektion's book pages from `Cirriculum/` |
+| `scripts/goethe_list.py` | Laptop only: rebuilds `goethe_words.json` from the official PDFs |
 
-A lesson document is `{title, lektion_index, part, kind, minutes, steps: [...]}` where each step is one of:
-`{type:"explain", title, body}` (body: short markdown), `{type:"vocab", title, words:[{de, plural, en, example, example_en}]}`,
-`{type:"book", title, body}` (which Kursbuch/Arbeitsbuch exercises and audio to do, by page number),
-`{type:"exercise", title, items:[{q, answer, accept:[...]}]}`, `{type:"writing", title, prompt}`,
-`{type:"speaking", title, prompt}`.
+## Sources
 
-## Commands
+- **Primary:** Menschen (Hueber) A1.1-A2.2, Kursbuch + Arbeitsbuch: the learner's own copies, in
+  `Cirriculum/` on the laptop (ignored by git, never commit them). Per-Lektion page extracts and
+  the answer keys are in the learner's private Notion (Lektionen → Book pages, Books database).
+  Lessons are written in our own words with page references; never paste book texts, dialogues or
+  exercises into lesson pages.
+- Vocabulary fits the Goethe A1/A2 word lists. Articles and plurals come from the book.
 
-- `/sync`: back up the dashboard into `state/`, rebuild the calendar if asked, commit and push.
-- `/prepare`: prepare the next lessons from the book into the dashboard.
-- `/push-config <area>`: copy a `config/<area>.toml` file into the dashboard.
-- The daily email runs as a Claude app scheduled task ("Deutsch daily plan").
+## Rules
 
-## Refreshers vs quick lessons
-
-- **Refreshers** review only: flashcards of due words, then typed questions on past mistakes (re-asked
-  in new sentences) and on exercises from finished lessons. They never teach new material.
-- **Quick lessons** (10-15 min, made in the dashboard by Claude) teach something new without moving the
-  book pointer: a themed word set, phrases for a situation, a short reading, or a grammar bite, rotating.
-  Their words come from the Goethe list gaps and join the flashcards.
-
-## Rules for tutoring content
-
-- Explanations in English, short, with examples from everyday life in Germany (work, flat, doctor,
-  Behörden, shopping, public transport). Respect `config/tutor` (tone, correction style).
-- Corrections show the mistake, the correct form and a one-line reason.
-- Missed days: mention briefly, never lecture. Follow `config/accountability`.
-- Exercise questions never contain their own answers.
-
-## Git
-
-Commit after each change with a clear message. `Cirriculum/`, `build/` and caches are ignored.
-Remote: a private GitHub repo (see `git remote -v`); push after commits when a remote exists.
+- Follow `workflows/common.md` in every workflow: read Settings first, Leitner boxes, mistakes,
+  hints, no repeats, Europe/Berlin time.
+- Don't create data files in the repo; write data to Notion.
+- Commit after each change with a clear message and push (`origin` = github.com/AbdElRahmanFarhan/Deutsch, public).

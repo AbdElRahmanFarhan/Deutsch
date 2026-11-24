@@ -11,7 +11,8 @@ sessions on this repo (cloud or laptop).
 | `refresher.md` | "refresher": 10 min review of due words, mistakes and past lessons |
 | `flashcards.md` | "flashcards": cards only, any time |
 | `quick.md` | "quick": 10-15 min of new material for the bus |
-| `speak.md` | "speak": conversation practice, best in voice mode |
+| `speak.md` | Claude app speaking partner: runs a handoff (or "speak"), gives feedback, saves results |
+| `handoff.md` | How Claude Code and the Claude app pass work to each other through Notion |
 | `progress.md` | "progress": where you stand |
 | `morning-plan.md` | Daily cloud routine: sessions, missed sessions, calendar, Home page, email |
 | `weekly-review.md` | Sunday cloud routine: the week's summary page |

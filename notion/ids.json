@@ -9,7 +9,8 @@
   "activity": "collection://422d1f31-9aab-8198-be16-000b8862e4cc",
   "settings": "collection://422d1f31-9aab-810e-95bf-000b4a1dfa87",
   "weekly_reviews": "collection://422d1f31-9aab-81a7-b409-000b3a019b7a",
-  "books": "collection://422d1f31-9aab-81de-9095-000b8442a0d1"
+  "books": "collection://422d1f31-9aab-81de-9095-000b8442a0d1",
+  "handoffs": "collection://422d1f31-9aab-815c-be5d-000b9acff457"
  },
  "databases": {
   "lektionen": "422d1f319aab819aa404dd3b4c8372ef",
@@ -20,7 +21,8 @@
   "activity": "422d1f319aab8148b12ad3a22f7f9ec9",
   "settings": "422d1f319aab815bb7cffd8c5caf152f",
   "weekly_reviews": "422d1f319aab81b18ec1f0fe206debc4",
-  "books": "422d1f319aab81ba8d9ff92f8404e46e"
+  "books": "422d1f319aab81ba8d9ff92f8404e46e",
+  "handoffs": "422d1f319aab81c9a005deeedf9634a9"
  },
  "lektion_pages": {
   "0": "422d1f31-9aab-81b4-840f-e46094fd2c14",
@@ -83,6 +85,7 @@
   "sessions_missed": "https://www.notion.so/422d1f319aab81c0a116d2e36aeb2dfe?v=422d1f319aab811d98d6000ce346ca59",
   "activity_last_week": "https://www.notion.so/422d1f319aab8148b12ad3a22f7f9ec9?v=422d1f319aab815e84e7000c20e4bb11",
   "lessons_by_key": "https://www.notion.so/422d1f319aab81c6b8ccd3650a882278?v=422d1f319aab8108a43f000c101119d1",
-  "lektionen_course_order": "https://www.notion.so/422d1f319aab819aa404dd3b4c8372ef?v=422d1f319aab8146a239000cf96c3802"
+  "lektionen_course_order": "https://www.notion.so/422d1f319aab819aa404dd3b4c8372ef?v=422d1f319aab8146a239000cf96c3802",
+  "handoffs_open": "https://www.notion.so/422d1f319aab81c9a005deeedf9634a9?v=422d1f319aab81aba528000c384893e4"
  }
 }

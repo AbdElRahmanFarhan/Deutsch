@@ -49,8 +49,17 @@ Fetch the lesson page and go section by section, one step at a time:
   reason; offer hints per `common.md`.
 - **Writing**: the learner writes; you correct every error with the format from `common.md`, then
   show the corrected text.
-- **Speaking**: in voice mode, run the role-play now; otherwise give the topic and suggest a
-  "speak" session later.
+- **Speaking**:
+  - In the Claude app (voice available): run it now following `speak.md`, using the lesson's
+    Speaking section as the brief.
+  - In Claude Code: create a speaking handoff (`handoff.md`: Type Speaking, linked to this
+    Lesson, Lektion and Session; build the Brief from the lesson's Speaking section, the
+    Lektion's words and grammar, and the learner's recent mistakes) and give the learner the
+    trigger prompt in a code block: `Deutsch handoff: <handoff URL>`. Say: "Paste this into the
+    Deutsch project in the Claude app, do the speaking there, then come back and say done."
+    When they say done, fetch the handoff, show its Summary and scores in two lines, add its
+    minutes to the session, and set it `Integrated`. If it isn't Done yet, carry on with the
+    rest of the lesson and check again at the end.
 
 ## 4. Save (at the end, and midway in long sessions)
 

@@ -42,6 +42,7 @@ fall back to a view and filter the rows yourself. The views (`notion/ids.json` â
 | `activity_last_week` | activity of the last 7 days (limits, no-repeat, streak) |
 | `lessons_by_key` | all lesson pages with Key, Part, Status (fetch a page by its url) |
 | `lektionen_course_order` | the 48 Lektionen in order, with Status and Book pages |
+| `handoffs_open` | handoffs not yet integrated (see `handoff.md`) |
 
 To check whether a word already exists, use `notion-search` with the Words data source url and the
 word as the query.

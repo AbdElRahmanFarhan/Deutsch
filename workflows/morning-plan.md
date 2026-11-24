@@ -29,15 +29,17 @@ questions; do what you can and list anything that failed at the end.
      session. Create 10-minute events "Deutsch refresher" (description: "Say 'refresher' in the
      Claude app"). Use the date as the random seed so a rerun gives the same times; don't create
      duplicates if events for today already exist.
-6. **Due counts.** Words due today (recognise + produce), mistakes due today.
-7. **Home page** ("Deutsch A2", id `home_page` in `notion/ids.json`): replace the contents of the
+6. **Handoffs.** Read `handoffs_open` and integrate as `handoff.md` → "Integrating" describes
+   (finished speaking sessions from the Claude app, requests for Claude Code, expired ones).
+7. **Due counts.** Words due today (recognise + produce), mistakes due today.
+8. **Home page** ("Deutsch A2", id `home_page` in `notion/ids.json`): replace the contents of the
    two callouts under "Today" and "Progress" (keep everything else on the page):
    - Today: today's sessions (time, length, what they cover: current Lektion and part), refresher
      times, cards due, make-up minutes if any, one line if sessions were missed yesterday.
    - Progress: Lektionen done / 48, current Lektion, words Learning/Known, Goethe A1/A2 coverage,
      streak, hours this week vs plan, projected finish vs target date (`progress.md` maths), a
      progress fact and a saying (Settings → Motivation), updated time.
-8. **Email** (Settings → Daily email = on): send one plain-text email with the Gmail connector to
+9. **Email** (Settings → Daily email = on): send one plain-text email with the Gmail connector to
    the address in that setting. Subject `Deutsch today: <weekday> <date>`. Body: the Today and
    Progress content, a link to the Notion page, and one line if anything in this run failed.
-9. **Summary**: two lines in the session output: what changed, anything that failed.
+10. **Summary**: two lines in the session output: what changed, anything that failed.

@@ -143,7 +143,13 @@ table.sc td.num, table.sc th.num { text-align: right; font-family: var(--mono); 
 .word .de .art-der { color: #2f6fd0; } .word .de .art-die { color: #c0392b; } .word .de .art-das { color: #2c8a4b; }
 .word .ex { font-family: var(--read); font-size: .93rem; }
 .hide-en .word .en, .hide-en .word .exen { filter: blur(5px); }
-.speak-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; width: 30px; height: 28px; cursor: pointer; display: inline-grid; place-items: center; flex: none; }
+.speak-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; width: 30px; height: 28px; cursor: pointer; display: inline-grid; place-items: center; flex: none; font-size: 15px; }
+.speak-btn.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20; max-width: min(560px, calc(100vw - 32px)); background: var(--ink); color: var(--bg); padding: 10px 14px; border-radius: 8px; font-size: .92rem; box-shadow: 0 4px 16px #0004; }
+.bk-task { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.bk-task.done { border-color: var(--good); }
+.bk-task .score input { width: 56px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 5px 8px; }
+.bk-task textarea { width: 100%; min-height: 70px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 8px 10px; font-family: var(--mono); font-size: .9rem; }
 .q { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
 .q .qt { font-family: var(--read); }
 .q input, .q textarea, textarea.big, input.big { width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 8px 10px; }
@@ -363,17 +369,64 @@ async function askText(input, opts) {
 const LEARNER = "The learner is Abdelrahman, an adult engineer from Egypt who lives and works in Germany and studies German in English. Goal: Goethe-Zertifikat A2. Examples come from adult everyday life in Germany (work, flat, doctor, Behörden, shopping, public transport). Write everything in English except the German being practised. No emojis.";
 
 /* ---------- speech ---------- */
-let ttsNs = null; capTts.then(t => { ttsNs = t; });
-async function say(text) {
-  const clean = String(text).replace(/<[^>]+>/g, "").slice(0, 1900);
-  if (ttsNs) { try { await ttsNs.speak(clean, { language: "de" }); return; } catch (e) { if (e && e.code === "busy") return; } }
-  try {
-    const u = new SpeechSynthesisUtterance(clean); u.lang = "de-DE"; u.rate = 0.92;
-    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith("de")); if (v) u.voice = v;
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
-  } catch {}
+// Claude voice (tts capability) first; the browser's own German voice when that isn't offered.
+// Every failure is shown, never swallowed.
+let ttsNs = null, ttsOff = false, sayBtn = null, sayGen = 0;
+capTts.then(t => { ttsNs = t; });
+try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } catch {}
+let noteEl = null, noteTimer = 0;
+function soundNote(msg) {
+  if (!noteEl) { noteEl = h("div", { class: "toast", role: "status" }); document.body.append(noteEl); }
+  noteEl.textContent = msg; noteEl.hidden = false;
+  clearTimeout(noteTimer); noteTimer = setTimeout(() => { noteEl.hidden = true; }, 7000);
 }
-const speakBtn = text => h("button", { class: "speak-btn", title: "Listen", "aria-label": "Listen", onclick: e => { e.stopPropagation(); say(text); } }, "♪");
+function paintSay(btn, on) {
+  if (!btn) return;
+  btn.classList.toggle("on", on); btn.textContent = on ? "■" : "♪";
+  btn.title = on ? "Stop" : "Listen"; btn.setAttribute("aria-label", on ? "Stop" : "Listen");
+}
+function stopSay() {
+  sayGen++;
+  if (ttsNs) ttsNs.stop().catch(() => {});
+  try { speechSynthesis.cancel(); } catch {}
+  paintSay(sayBtn, false); sayBtn = null;
+}
+function browserSay(text, done) {
+  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return false;
+  try {
+    const u = new SpeechSynthesisUtterance(text); u.lang = "de-DE"; u.rate = 0.92;
+    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith("de")); if (v) u.voice = v;
+    let started = false;
+    u.onstart = () => { started = true; };
+    u.onend = () => done();
+    u.onerror = ev => { done(); if (!/interrupted|canceled/.test(ev.error || "")) soundNote("This browser couldn't play the German voice (" + (ev.error || "error") + ")."); };
+    speechSynthesis.cancel(); speechSynthesis.resume(); speechSynthesis.speak(u);
+    setTimeout(() => { if (!started && !speechSynthesis.speaking) { done(); soundNote("No German voice in this view. Open the control panel on claude.ai in Chrome or Edge, or in the Claude desktop app."); } }, 3000);
+    return true;
+  } catch { return false; }
+}
+async function say(text, btn) {
+  if (btn && btn === sayBtn) { stopSay(); return; }   // second click = stop
+  const clean = String(text || "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().slice(0, 1900);
+  if (!clean) return;
+  stopSay();
+  const gen = ++sayGen; sayBtn = btn || null; paintSay(btn, true);
+  const done = () => { if (gen === sayGen) { paintSay(btn, false); sayBtn = null; } };
+  if (ttsNs && !ttsOff) {
+    try { await ttsNs.speak(clean, { language: "de" }); done(); return; }
+    catch (e) {
+      const c = e && e.code;
+      if (c === "stopped") { done(); return; }
+      if (c === "not_granted") { ttsOff = true; done(); soundNote("Reading aloud is turned off for this page. Turn it back on in the artifact's Permissions menu, then reload."); return; }
+      if (c === "no_gesture") { done(); soundNote("Press ♪ once more to hear it."); return; }
+      if (c === "rate_limited") { done(); soundNote("Too much audio for now. Try again in a minute."); return; }
+      if (gen !== sayGen) return;
+      // busy, unavailable, upstream_error: try the browser's voice instead
+    }
+  }
+  if (!browserSay(clean, done)) { done(); soundNote("Sound isn't available in this view (the Claude mobile app, Safari and Firefox have no voice here). Open the control panel on claude.ai in Chrome or Edge, or in the Claude desktop app."); }
+}
+const speakBtn = text => h("button", { class: "speak-btn", type: "button", title: "Listen", "aria-label": "Listen", onclick: e => { e.preventDefault(); e.stopPropagation(); say(text, e.currentTarget); } }, "♪");
 
 /* ---------- Goethe word list (published next to the page) ---------- */
 let GOETHE = null;
@@ -436,7 +489,7 @@ function go(t) {
 function route(t) {
   t = t || hashTarget(); current = t;
   cleanup.forEach(f => { try { f(); } catch {} }); cleanup = [];
-  try { speechSynthesis.cancel(); } catch {}
+  stopSay();
   document.querySelectorAll("#nav a").forEach(a => a.setAttribute("aria-current", a.dataset.go === t || (t.startsWith("L") && a.dataset.go === "lessons") ? "page" : "false"));
   view.replaceChildren();
   window.scrollTo(0, 0);
@@ -890,11 +943,7 @@ function renderLesson(root, key, row, page) {
     }
     if (k === "reading") stage.append(...readingStep());
     if (k === "listening") stage.append(...listeningStep());
-    if (k === "book") {
-      stage.append(h("h2", null, "Book work"), h("p", { class: "muted small" }, "Menschen book pages for this Lektion are on the Lektion page in Notion (Book pages). The answer keys are in the Books database."),
-        h("div", { class: "row" }, lektionUrl ? h("a", { class: "btn sm", href: lektionUrl, target: "_blank", rel: "noopener" }, "Open the book pages in Notion") : null),
-        h("div", { class: "prose", html: md(L.book) }), nextBtn(k));
-    }
+    if (k === "book") stage.append(...bookStep());
     if (k === "exercises") {
       const items = L.exercises.items.map(x => ({ id: "e" + x.n, n: x.n, q: unesc(x.q), expected: parseAnswer(x.a).all }));
       const qs = questionSet({ items, store: st.ex, ctx: `for ${key} (${lek.Grammar || ""})`, onGraded: (res) => collectMistakes(res, "lesson") });
@@ -915,6 +964,71 @@ function renderLesson(root, key, row, page) {
       } else st.mistakes = st.mistakes.filter(m => m.qid !== it.id);
     }
     st.save();
+  }
+
+  function bookStep() {
+    // One card per book task: do it in the book, tick it, score it, type the items you got wrong;
+    // Claude explains them and gives similar items to try here. Mistakes go to Notion at Finish.
+    st.bk = st.bk || {};
+    const lines = L.book.split("\n").map(l => l.match(/^\s*[-*]\s+(.*)$/)).filter(Boolean).map(m => m[1].trim());
+    const tasks = lines.length ? lines : [L.book.trim()];
+    const out = [h("h2", null, "Book work"),
+      h("p", { class: "muted small" }, "Do each task in your book (pages on the Lektion page in Notion), check it with the answer key (Books database), then fill in the card. Claude explains what you got wrong and gives you similar items to practise."),
+      h("div", { class: "row" }, lektionUrl ? h("a", { class: "btn sm", href: lektionUrl, target: "_blank", rel: "noopener" }, "Open the book pages in Notion") : null)];
+    const summary = h("p", { class: "small muted" });
+    const paintSummary = () => {
+      const t = tasks.map((_, i) => st.bk[i] || {});
+      const done = t.filter(x => x.done).length, right = t.reduce((a, x) => a + (+x.right || 0), 0), total = t.reduce((a, x) => a + (+x.total || 0), 0);
+      summary.textContent = `${done} of ${tasks.length} tasks done` + (total ? ` · ${right} of ${total} items right (${Math.round(right / total * 100)}%)` : "");
+    };
+    tasks.forEach((task, i) => {
+      const s = st.bk[i] = Object.assign({ done: false, right: "", total: "", wrong: "", help: null, pr: {} }, st.bk[i]);
+      s.pr.save = st.save;
+      const card = h("div", { class: "bk-task" + (s.done ? " done" : "") });
+      const tick = h("input", { type: "checkbox", id: `bk-${i}` }); tick.checked = s.done;
+      tick.onchange = () => { s.done = tick.checked; card.classList.toggle("done", s.done); st.save(); paintSummary(); };
+      const num = (name, ph) => { const x = h("input", { type: "number", min: "0", inputmode: "numeric", placeholder: ph, "aria-label": name === "right" ? "items right" : "items in total" }); x.value = s[name]; x.oninput = () => { s[name] = x.value; st.save(); paintSummary(); }; return x; };
+      const wrong = h("textarea", { placeholder: "Items you got wrong, one per line: number, what you wrote → what the key says\ne.g. 3b: Ich heiße aus Ägypten → Ich komme aus Ägypten", lang: "de", spellcheck: "false" });
+      wrong.value = s.wrong; wrong.oninput = () => { s.wrong = wrong.value; st.save(); };
+      const help = h("div", { class: "stack" });
+      const status = h("span", { class: "small muted" });
+      const drawHelp = () => {
+        help.replaceChildren();
+        if (!s.help) return;
+        const ex = s.help.explanations || [];
+        if (ex.length) help.append(h("div", { class: "q wrong" }, h("b", null, "Why these were wrong"), h("ul", null, ex.map(m => h("li", null, m.item ? h("span", { class: "mono small" }, m.item + " ") : null, h("s", { lang: "de" }, m.wrong), " → ", h("b", { lang: "de" }, m.correct), " ", speakBtn(m.correct), h("div", { class: "small muted" }, m.reason))))));
+        const items = (s.help.practice || []).map((p, j) => ({ id: `bk${i}p${j}`, n: j + 1, q: p.q, expected: [p.answer].concat(p.also || []) }));
+        if (items.length) help.append(h("h3", null, "Try these"), questionSet({ items, store: s.pr, ctx: `practising a Menschen ${lek.Volume} Lektion ${lek.Number} book task (${lek.Grammar || ""})`, onGraded: res => collectMistakes(res, "lesson") }).el);
+      };
+      const explain = h("button", { class: "btn primary", onclick: async () => {
+        const list = s.wrong.trim();
+        if (!list) { status.textContent = "Type the items you got wrong first (or tick Done if all were right)."; return; }
+        explain.disabled = true; status.replaceChildren(spinner("Claude is looking at your mistakes…"));
+        try {
+          const r = await ask(`${LEARNER}
+The learner did this task in their Menschen ${lek.Volume} book (Lektion ${lek.Number}, grammar: ${lek.Grammar}; level ${level}): "${plain(task)}".
+They checked it with the answer key. These are the items they got wrong, as they typed them (what they wrote → what the key says):
+${list}
+For each item: the wrong form, the correct form, and a one-line reason in English that explains the rule (not just "the key says so"), and a category from: article, case, word order, verb form, grammar, vocabulary, spelling, pronunciation. If a line is unclear, make your best guess.
+Then write ${Math.min(6, Math.max(3, list.split("\n").length + 1))} new practice items that train exactly these points: short fill-in or transformation tasks with an English instruction and the German to work on, everyday adult life in Germany, original sentences (never copy the book).
+Reply with only JSON: {"explanations":[{"item":"3b","wrong":"...","correct":"...","reason":"...","category":"..."}],"practice":[{"q":"instruction + German with ___ for the gap","answer":"...","also":["other correct answers"]}]}`);
+          s.help = r; s.pr = { save: st.save };
+          st.mistakes = st.mistakes.filter(m => !String(m.qid).startsWith(`bk${i}e`)).concat((r.explanations || []).map((m, j) => ({ qid: `bk${i}e${j}`, source: "lesson", question: `Book: ${plain(task).slice(0, 100)}${m.item ? " · " + m.item : ""}`, wrong: m.wrong, correct_form: m.correct, reason: m.reason, category: m.category })));
+          st.save(); status.textContent = `${(r.explanations || []).length} mistakes noted; they go to Notion when you finish the lesson.`; drawHelp();
+        } catch (e) { status.textContent = sampleErr(e); }
+        explain.disabled = false;
+      } }, s.help ? "Explain again" : "Explain my mistakes");
+      card.append(
+        h("div", { class: "row", style: "justify-content:space-between;align-items:flex-start;flex-wrap:nowrap" }, h("div", { class: "prose", html: inline(task) }), h("label", { class: "row small", style: "gap:6px;white-space:nowrap", for: `bk-${i}` }, tick, "Done")),
+        h("div", { class: "row score small" }, "Right:", num("right", "–"), "of", num("total", "–")),
+        h("details", { open: s.wrong || s.help ? true : null }, h("summary", { class: "small", style: "cursor:pointer;font-weight:600" }, "Got some wrong? Get them explained"),
+          h("div", { class: "stack", style: "margin-top:10px" }, wrong, h("div", { class: "row" }, explain, status), help)));
+      drawHelp();
+      out.push(card);
+    });
+    paintSummary();
+    out.push(summary, nextBtn("book"));
+    return out;
   }
 
   function readingStep() {
@@ -1191,7 +1305,7 @@ Start now with your first line.`;
       mic.onclick = () => {
         if (listening) { d.stop().catch(() => {}); return; }
         base = ta.value.trim();
-        try { speechSynthesis.cancel(); } catch {} if (ttsNs) { try { ttsNs.stop(); } catch {} }
+        stopSay();
         d.start().catch(e => { if (e && e.code === "not_granted") mic.hidden = true; });
       };
       cleanup.push(() => { try { d.stop(); } catch {} });

@@ -44,8 +44,14 @@ Used for speaking practice, and for anything that's better done by voice on the 
 ## Running a handoff (in the Claude app)
 
 See `speak.md` → "Run a handoff". In short: fetch the page, set Status `In progress`, run the brief,
-give feedback, write the Results section, Mistakes rows, Words rows, one Activity row, set the
-scores and `Summary`, Status `Done`. Then tell the learner they can go back.
+give feedback, then save as a checklist (`speak.md` step 3), in this order: Results section, scores
+and `Summary`; one Mistakes row per listed mistake; Words rows; one Activity row; and only then
+Status `Done`. `Done` means everything is saved. End with a receipt line
+(`Saved: results ✓ · mistakes 3/3 ✓ · words 0 ✓ · activity ✓ · handoff Done ✓`); if anything failed,
+leave the status In progress, list what's missing and ask the learner to type "save".
+
+Before creating a speaking handoff (the app's "speak", Claude Code, or the control panel), reuse an
+open one (Ready or In progress) for the same Lesson instead of making a duplicate.
 
 ## Sending work to Claude Code (from the Claude app)
 
@@ -59,9 +65,17 @@ the next morning plan (or any Claude Code session) picks it up.
 The morning plan, and any Claude Code session that starts or resumes a lesson, reads the view
 `handoffs_open`:
 
-- `For` Claude app, `Status` Done: check the Mistakes/Words/Activity rows exist (create any that
-  the Results list but are missing), link the handoff to its Session and mark the session's
+- `For` Claude app, `Status` Done, or `Status` In progress with a filled Results section and the
+  chat clearly over (Created before today): a partial save. Repair it: fetch the page and read
+  the full mistakes list in Results. Compare with Mistakes rows for that Lektion whose `Date` is
+  the handoff's date (or the day after) and whose `Wrong` matches (ignoring case, punctuation and
+  spaces); create only the missing ones (Source `speaking`, Next review the next day). Same for
+  Words the Results name as taught, and for the Activity row (Type `Speaking`, Notes containing
+  the handoff code). Set Done if it wasn't. Then link the handoff to its Session and mark the session's
   speaking part done (Notes: "speaking via handoff <Code>"), add the scores to the lesson's progress
   notes, then set `Integrated`.
 - `For` Claude Code, `Status` Ready: do the request, write Results, set `Done` then `Integrated`.
-- Older than 7 days and still Ready/In progress: set `Integrated` with Summary "expired".
+- Older than 7 days and still Ready/In progress with an empty Results section: set `Integrated`
+  with Summary "expired".
+- Two or more open speaking handoffs for the same Lesson: keep the newest, set the others
+  `Integrated` with Summary "Not run: duplicate" (only if their Results are empty).

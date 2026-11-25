@@ -234,6 +234,7 @@ const V = {
   lessons: NV("422d1f319aab81c6b8ccd3650a882278", "422d1f319aab8108a43f000c101119d1"),
   lektionen: NV("422d1f319aab819aa404dd3b4c8372ef", "422d1f319aab8146a239000cf96c3802"),
   speaking: NV("422d1f319aab81c9a005deeedf9634a9", "422d1f319aab81ed96c0000c7df18e62"),
+  handoffsOpen: NV("422d1f319aab81c9a005deeedf9634a9", "422d1f319aab81aba528000c384893e4"),
 };
 const T = { query: "notion-query-data-sources", fetch: "notion-fetch", create: "notion-create-pages", update: "notion-update-page" };
 const MODES = ["role-play", "free talk", "Sprechen Teil 1", "Sprechen Teil 2", "Sprechen Teil 3"];
@@ -1112,16 +1113,29 @@ function speakingPanel(brief, opts) {
   const area = h("div", { class: "stack" }); box.append(area);
 
   async function toApp() {
-    area.replaceChildren(spinner("Creating the handoff in Notion…"));
+    area.replaceChildren(spinner("Preparing the handoff in Notion…"));
     try {
       const content = `## Brief\nMode: ${brief.mode}\nMinutes: ${Math.max(10, brief.minutes || 10)}\nLevel: ${brief.level}, ${brief.grammar || ""}\nSituation: ${brief.situation}\nPartner's questions: ${brief.prompts.join(" · ")}\nMust use: ${brief.must_use.join(", ")}\nGrammar to use: ${brief.grammar || ""}\nWatch for: ${(brief.watch_for || []).join("; ") || "recent mistakes in Notion"}\nSuccess: completes the task in full sentences, uses most of the Must-use words.\n\n## Results\n`;
       const props = Object.assign({ Handoff: brief.title, Type: "Speaking", Status: "Ready", For: "Claude app", Mode: brief.mode }, dateProp("Created", today()), brief.lektionUrl ? { Lektion: [brief.lektionUrl] } : {}, brief.lessonUrl ? { Lesson: [brief.lessonUrl] } : {});
-      const res = await nt(T.create, { parent: { data_source_id: DS.handoffs }, pages: [{ properties: props, content }] });
-      const first = res && (res.pages || res.results || [])[0];
-      const found = (first && first.url) || (JSON.stringify(res).match(/https:\/\/[^"\s]*notion[^"\s]*\/p\/[0-9a-f]{32}/) || [])[0];
+      // reuse an open speaking handoff for the same lesson (or, without a lesson, same Lektion + mode)
+      const has = (v, url) => !!url && rel(v).some(u => pageId(u) === pageId(url));
+      const open = (await viewAll(V.handoffsOpen, 100)).filter(r => r.Type === "Speaking" && r.For === "Claude app" && (r.Status === "Ready" || r.Status === "In progress")
+        && (brief.lessonUrl ? has(r.Lesson, brief.lessonUrl) : has(r.Lektion, brief.lektionUrl) && r.Mode === brief.mode));
+      open.sort((a, b) => (a.Status === "In progress" ? -1 : 0) - (b.Status === "In progress" ? -1 : 0));
+      let found = open[0] && open[0].url, reused = !!found;
+      if (found && open[0].Status === "Ready") {
+        // not started yet: refresh its brief with today's version
+        await nt(T.update, { page_id: pageId(found), command: "replace_content", new_str: content });
+        await updateRow(found, { Handoff: brief.title, Mode: brief.mode });
+      }
+      if (!found) {
+        const res = await nt(T.create, { parent: { data_source_id: DS.handoffs }, pages: [{ properties: props, content }] });
+        const first = res && (res.pages || res.results || [])[0];
+        found = (first && first.url) || (JSON.stringify(res).match(/https:\/\/[^"\s]*notion[^"\s]*\/p\/[0-9a-f]{32}/) || [])[0];
+      }
       const trigger = `Deutsch handoff: ${found || "(open Notion → Handoffs, newest row)"}`;
       const code = h("code", { class: "mono", style: "user-select:all;display:block;padding:10px;background:var(--sunk);border-radius:6px;overflow-wrap:anywhere" }, trigger);
-      area.replaceChildren(h("div", { class: "banner good" }, "Handoff ready. Paste this line into a new chat in the Deutsch Project, then switch to voice:"), code,
+      area.replaceChildren(h("div", { class: "banner good" }, (reused ? "Using the open handoff for this lesson (no duplicate). " : "Handoff ready. ") + "Paste this line into a new chat in the Deutsch Project, then switch to voice:"), code,
         h("div", { class: "row" }, h("button", { class: "btn sm", onclick: e => { navigator.clipboard.writeText(trigger).then(() => { e.target.textContent = "Copied"; }, () => { const r = document.createRange(); r.selectNodeContents(code); const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = "Selected, press Ctrl+C"; }); } }, "Copy")),
         h("p", { class: "small muted" }, "The Claude app saves your scores and mistakes to Notion when you say “Ende”."));
     } catch (e) { area.replaceChildren(errBox(e, toApp)); }

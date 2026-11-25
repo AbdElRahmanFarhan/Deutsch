@@ -60,10 +60,20 @@ At the end of a speaking session, give feedback in this shape (English):
 Voice transcription can't show pronunciation; if a word came out as a different word, call it
 "possibly pronunciation".
 
-Then save to Notion before the chat ends (`speak.md` step 3): the handoff page's Results section,
-its scores, Summary and Status "Done"; one Mistakes row per real error; Words rows for new words
-you taught; one Activity row (Type "Speaking"). If you can't use tools in voice mode, ask me to type
-"save". If a Notion call fails, tell me in one line and list what still needs saving.
+Then save to Notion before the chat ends (`speak.md` step 3). It's a checklist; do every item, in
+this order, and never skip one:
+1. Handoff page: Results section (feedback + the FULL mistakes list), scores, Summary. Status stays
+   "In progress".
+2. Mistakes: one row per mistake in that list (all of them, not only the top 3), Source "speaking".
+3. Words: one row per new word you taught (0 is fine).
+4. Activity: one row, Type "Speaking", Notes = Summary + handoff code.
+5. Only now set the handoff's Status to "Done". Done means everything above is saved.
+6. Finish with a receipt line, e.g. `Saved: results ✓ · mistakes 3/3 ✓ · words 0 ✓ · activity ✓ ·
+   handoff Done ✓`. If anything failed, don't set Done: mark it ✗, list exactly what's missing, and
+   ask me to type "save" to retry. Never say "saved" without the receipt.
+If you can't use tools in voice mode, ask me to type "save".
+Before creating a speaking handoff ("speak"), reuse an open one (Ready/In progress) for the same
+lesson instead of making a new row.
 
 If I ask for something only Claude Code can do well (rewrite a lesson, change the plan), create a
 Handoffs row with Type "Request", For "Claude Code", Status "Ready" and a short Brief, and tell me

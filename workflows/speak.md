@@ -24,9 +24,13 @@ Lektion" on, suggest one Sprechen part per week if none was done in the last 7 d
 Read Settings (view `settings_all`), the current Lektion (`lektionen_course_order`: lowest Index
 not Done), its latest lesson page's Speaking section (`lessons_by_key`), up to 12 due words
 (`words_due`), the 5 newest mistakes (`mistakes_last_month`) and the last 5 speaking handoffs
-(`handoffs_open` plus integrated ones you can find by search) to avoid repeating topics. Create a
-Handoffs row (`For` Claude app, `Type` Speaking, `Mode`, Status Ready) with a Brief as in
-`handoff.md`, then run it.
+(`handoffs_open` plus integrated ones you can find by search) to avoid repeating topics.
+
+**Reuse before creating.** If `handoffs_open` already has a Speaking handoff (`For` Claude app)
+with Status Ready or In progress for the same Lesson (or, without a Lesson, the same Lektion and
+Mode), run that one: fill in its Brief if it's empty. Create a new Handoffs row (`For` Claude app,
+`Type` Speaking, `Mode`, Status Ready, Brief as in `handoff.md`) only when there is none. Never
+leave two open speaking handoffs for the same lesson.
 
 ## 1. Run a handoff
 
@@ -73,22 +77,37 @@ Next time: <one concrete focus>
 
 Settings → "Speaking mistakes listed" sets how many mistakes (default 3); list the rest only in Notion.
 
-## 3. Save to Notion (before the chat ends)
+## 3. Save to Notion (before the chat ends): a checklist, every item, in this order
 
 Do this right after the feedback. If you're in voice mode and can't use tools, say
 "Type 'save' and I'll store this" and save when the learner types it.
 
-1. Handoff page: replace the empty Results section with the feedback above plus the full list of
-   mistakes and notes. Set `Mode`, `Minutes`, `Turns`, `Words per answer` (average words per
-   learner turn), `Help count`, `Task`, `Range`, `Accuracy`, `Fluency`, `Summary` (one line),
-   `Status` Done. For shadowing, Task = share of sentences said clearly (5 = all), Range = 3,
-   Accuracy = sentences without changed words, Fluency = how smoothly they were read.
-2. Mistakes: one row per real error (`common.md` → Mistakes), Source `speaking`, Lektion from
-   the handoff.
-3. Words: any new word you taught when they said "Hilfe" (`common.md` → Words table, Source
-   `Speaking`, Box 1, Next review tomorrow). Must-use words they used correctly count as a right
-   answer on their card (box + 1) if they were due.
-4. Activity: Type `Speaking`, Date today, Minutes, Notes = the Summary and the handoff code.
+The handoff's `Status` Done means "everything is saved". So write the rows first and set Done
+last, only once every row exists. A handoff that isn't Done is unfinished, and the morning plan
+repairs it.
 
-Then tell the learner in one line that it's saved and, if this came from a lesson in Claude Code,
-that they can go back there and say "done".
+1. **Results.** Handoff page: replace the empty Results section with the feedback above plus the
+   full list of mistakes (one line each: `wrong → right · Category · reason`) and notes. Set
+   `Mode`, `Minutes`, `Turns`, `Words per answer` (average words per learner turn), `Help count`,
+   `Task`, `Range`, `Accuracy`, `Fluency`, `Summary` (one line). Leave Status In progress.
+   For shadowing, Task = share of sentences said clearly (5 = all), Range = 3, Accuracy =
+   sentences without changed words, Fluency = how smoothly they were read.
+2. **Mistakes.** One row per real error in that list, every one, not only the 3 in the feedback
+   (`common.md` → Mistakes), Source `speaking`, Lektion from the handoff. Count them: rows
+   written must equal mistakes listed.
+3. **Words.** Any new word you taught when they said "Hilfe" (`common.md` → Words table, Source
+   `Speaking`, Box 1, Next review tomorrow). Must-use words they used correctly count as a right
+   answer on their card (box + 1) if they were due. Zero is fine; say 0.
+4. **Activity.** One row: Type `Speaking`, Date today, Minutes, Notes = the Summary and the
+   handoff code.
+5. **Done.** Only now set the handoff's `Status` Done.
+6. **Receipt.** Always end with one line that shows each item, for example:
+
+   `Saved: results ✓ · mistakes 3/3 ✓ · words 0 ✓ · activity ✓ · handoff Done ✓`
+
+   If any write failed or you skipped one, don't set Done; write the receipt with ✗ for each
+   missing item, list exactly what is still missing, and ask the learner to type **save** to
+   retry. Never say "saved" without the receipt.
+
+Then, if this came from a lesson in Claude Code, tell the learner they can go back there and say
+"done".

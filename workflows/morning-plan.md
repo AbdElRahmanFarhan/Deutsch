@@ -29,8 +29,15 @@ questions; do what you can and list anything that failed at the end.
      session. Create 10-minute events "Deutsch refresher" (description: "Say 'refresher' in the
      Claude app"). Use the date as the random seed so a rerun gives the same times; don't create
      duplicates if events for today already exist.
-6. **Handoffs.** Read `handoffs_open` and integrate as `handoff.md` → "Integrating" describes
-   (finished speaking sessions from the Claude app, requests for Claude Code, expired ones).
+6. **Handoffs.** Read `handoffs_open` and integrate each row as `handoff.md` → "Integrating"
+   describes (finished or partly saved speaking sessions from the Claude app, requests for Claude
+   Code, duplicates, expired ones). For every speaking handoff with Results, fetch the page and
+   check the save is complete before setting Integrated:
+   - Mistakes: every item in the Results mistakes list has a Mistakes row (match `Wrong` + `Date`,
+     see `handoff.md`); create the missing ones. Never create a second row for the same Wrong
+     and Date.
+   - Words and Activity: create what's missing, as `handoff.md` says.
+   - In the summary, count repairs, e.g. "handoff TALK-3: added 2 mistakes, 1 activity"
 7. **Due counts.** Words due today (recognise + produce), mistakes due today.
 8. **Home page** ("Deutsch A2", id `home_page` in `notion/ids.json`): replace the contents of the
    two callouts under "Today" and "Progress" (keep everything else on the page):

@@ -22,6 +22,32 @@ are made on the day by the session workflow, not prepared here.
 
 ## Page body (Notion markdown)
 
+**German questions, English on demand.** Instructions and questions in the Workbook, Exercises,
+Listening questions, Writing and Speaking tasks are written in simple German at the learner's
+level (A1.1: very short, the same verbs again and again: "Ergänze", "Schreib", "Übersetze ins
+Deutsche", "Bilde einen Satz", "Verneine", "Antworte", "Wähle", "Hör … und beantworte die Fragen").
+Each such part ends with a `Translation` toggle (before the `Answers` toggle) holding the
+English instruction and the English of each numbered item, numbered the same way:
+
+```
+1. Verneine den Satz: Ich wohne in Hamburg.
+
+<toggle>
+Translation
+
+1. Make the sentence negative: Ich wohne in Hamburg.
+</toggle>
+
+<toggle>
+Answers
+
+1. Ich wohne nicht in Hamburg.
+</toggle>
+```
+Writing and Speaking: the German task, then a `Translation` toggle with the English task. Goal,
+Grammar, Recap and track descriptions stay in English (they are explanations). The control
+panel shows each translation behind a "Show translation" button.
+
 **Self-contained rule.** A lesson page never sends the learner to the book: no page numbers,
 exercise numbers, "look at the photo", "check with the answer key". The book is only the source
 the lesson writer reads to choose content. Audio is the exception: the Lektion's MP3 is played in

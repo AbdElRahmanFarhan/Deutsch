@@ -153,6 +153,8 @@ table.sc td.num, table.sc th.num { text-align: right; font-family: var(--mono); 
 .bk-task textarea { width: 100%; min-height: 70px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 8px 10px; font-family: var(--mono); font-size: .9rem; }
 .q { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
 .q .qt { font-family: var(--read); }
+.tr-btn { justify-self: start; padding: 2px 8px; font-size: .8rem; }
+.tr { font-family: var(--body); }
 .q input, .q textarea, textarea.big, input.big { width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 8px 10px; }
 textarea.big { min-height: 160px; font-family: var(--read); font-size: 1.02rem; line-height: 1.55; }
 .q.right { border-color: var(--good); background: var(--good-bg); }
@@ -815,10 +817,25 @@ function parseAnswer(a) {
 function qaBlock(body) {
   const { main, list } = toggles(body);
   const ansT = list.find(t => /answer/i.test(t.summary));
+  const trT = list.find(t => /translation|english/i.test(t.summary));
   const answers = ansT ? numbered(ansT.body) : [];
+  const trs = trT ? numbered(trT.body) : [];
   const qs = numbered(main);
-  const intro = main.split("\n").filter(l => !/^\s*\d+\.\s/.test(l)).join("\n").trim();
-  return { intro, items: qs.map(q => ({ n: q.n, q: q.text, a: (answers.find(a => a.n === q.n) || {}).text || "" })) };
+  const notNum = t => t.split("\n").filter(l => !/^\s*\d+\.\s/.test(l)).join("\n").trim();
+  const intro = notNum(main), introEn = trT ? notNum(trT.body) : "";
+  return { intro, introEn, items: qs.map(q => ({ n: q.n, q: q.text, a: (answers.find(a => a.n === q.n) || {}).text || "", en: (trs.find(a => a.n === q.n) || {}).text || "" })) };
+}
+/* German text with its English translation one click away */
+function trToggle(en, label) {
+  if (!en) return null;
+  const box = h("div", { class: "small muted tr", lang: "en", hidden: true, html: md(en) });
+  const btn = h("button", { class: "btn sm ghost tr-btn", type: "button", onclick: () => { box.hidden = !box.hidden; btn.textContent = box.hidden ? (label || "Show translation") : "Hide translation"; } }, label || "Show translation");
+  return h("div", { class: "stack", style: "gap:4px" }, btn, box);
+}
+function splitTr(body) {
+  const { main, list } = toggles(body || "");
+  const t = list.find(x => /translation|english/i.test(x.summary));
+  return { de: main, en: t ? t.body : "", rest: list.filter(x => x !== t) };
 }
 function parseWords(body) {
   const rows = body.split("\n").filter(l => /^\|/.test(l.trim()) && !/^\|\s*-{2,}/.test(l.trim()));
@@ -835,7 +852,7 @@ function parseListening(body) {
   const file = (main.match(/L(\d+)-(KB|AB)\.mp3/) || []);
   const tracks = [];
   for (const l of main.split("\n")) { const m = l.match(/^\s*[-*]\s+(\d+):(\d\d)\s+(.*)$/); if (m) { const [label, ...rest] = m[3].split(/:\s/); tracks.push({ t: +m[1] * 60 + +m[2], label: plain(label), desc: plain(rest.join(": ")) }); } }
-  const qa = qaBlock(main.split("\n").filter(l => !/^\s*[-*]\s+\d+:\d\d/.test(l) && !/^Audio:/.test(l)).join("\n") + (list.length ? "\n<toggle>\n" + list[0].summary + "\n" + list[0].body + "\n</toggle>" : ""));
+  const qa = qaBlock(main.split("\n").filter(l => !/^\s*[-*]\s+\d+:\d\d/.test(l) && !/^Audio:/.test(l)).join("\n") + list.map(t => "\n<toggle>\n" + t.summary + "\n" + t.body + "\n</toggle>").join(""));
   return { idx: file[1] != null ? +file[1] : null, kind: file[2] || "KB", tracks, ...qa };
 }
 function parseSpeaking(body, words) {
@@ -844,11 +861,12 @@ function parseSpeaking(body, words) {
   const grab = name => { const m = main.match(new RegExp(`<b>${name}:</b>\\s*([^\\n]*)`, "i")); return m ? plain(m[1]) : ""; };
   let task = grab("Task"), prompts = grab("Partner prompts").split("·").map(s => s.trim()).filter(Boolean), must = grab("Must use").split(",").map(s => s.trim()).filter(Boolean);
   if (!task) {
-    task = plain(main.split("\n").filter(l => !/^\s*[-*]\s/.test(l) && !/should ask/i.test(l)).join(" "));
+    task = plain(main.split("\n").filter(l => !/^\s*[-*]\s/.test(l) && !/should ask|partner fragt|fragt dich/i.test(l)).join(" "));
     prompts = main.split("\n").filter(l => /^\s*[-*]\s/.test(l)).map(l => plain(l.replace(/^\s*[-*]\s+/, "")));
     must = words.slice(0, 8).map(w => w.de);
   }
-  return { task, prompts, must, model: plain(model) };
+  const tr = list.find(t => /translation|english/i.test(t.summary));
+  return { task, prompts, must, model: plain(model), taskEn: tr ? tr.body : "" };
 }
 function parseLesson(content) {
   const sec = sections(content); const get = re => sec.find(s => re.test(s.title));
@@ -907,7 +925,7 @@ function questionSet({ items, store, ctx, onGraded, multiline }) {
     input.value = store.answers[it.id] || "";
     input.addEventListener("input", () => { store.answers[it.id] = input.value; store.save && store.save(); });
     const fb = h("div", { class: "fb" });
-    const box = h("div", { class: "q" }, h("div", { class: "qt", html: `<b>${esc(String(it.n ?? ""))}.</b> ${inline(it.q)}` }), input, fb);
+    const box = h("div", { class: "q" }, h("div", { class: "qt", lang: "de", html: `<b>${esc(String(it.n ?? ""))}.</b> ${inline(it.q)}` }), it.en && norm(it.en) !== norm(it.q) ? trToggle(it.en) : null, input, fb);
     els[it.id] = { box, fb, input };
     wrap.append(box);
   }
@@ -1025,9 +1043,9 @@ function renderLesson(root, key, row, page, restored) {
     if (k === "listening") stage.append(...listeningStep());
     if (k === "book") stage.append(...bookStep());
     if (k === "exercises") {
-      const items = L.exercises.items.map(x => ({ id: "e" + x.n, n: x.n, q: unesc(x.q), expected: parseAnswer(x.a).all }));
+      const items = L.exercises.items.map(x => ({ id: "e" + x.n, n: x.n, q: unesc(x.q), en: x.en, expected: parseAnswer(x.a).all }));
       const qs = questionSet({ items, store: st.ex, ctx: `for ${key} (${lek.Grammar || ""})`, onGraded: (res) => collectMistakes(res, "lesson") });
-      stage.append(h("h2", null, "Exercises"), L.exercises.intro ? h("div", { class: "prose", html: md(L.exercises.intro) }) : null,
+      stage.append(h("h2", null, "Exercises"), L.exercises.intro ? h("div", { class: "prose", lang: "de", html: md(L.exercises.intro) }) : null, trToggle(L.exercises.introEn, "Show translation of the instructions"),
         h("p", { class: "small muted" }, "Type your answers, then check. Close answers in other good German count as right."), qs.el,
         h("details", { class: "prose" }, h("summary", null, "Show the answer key"), h("ol", null, L.exercises.items.map(x => h("li", { html: inline(x.a) })))), nextBtn(k));
     }
@@ -1125,12 +1143,12 @@ Reply with only JSON: {"parts":[{"title":"short English title","instruction":"En
       const scores = [];
       const paintTotal = () => { const n = parts.reduce((a, p) => a + p.items.length, 0); const r = scores.reduce((a, f) => a + f(), 0); total.textContent = `${r} of ${n} right so far.`; };
       parts.forEach((p, i) => {
-        const items = p.items.map(x => ({ id: `wb${i}-${x.n}`, n: x.n, q: unesc(x.q), expected: parseAnswer(x.a).all }));
+        const items = p.items.map(x => ({ id: `wb${i}-${x.n}`, n: x.n, q: unesc(x.q), en: x.en, expected: parseAnswer(x.a).all }));
         const store = { answers: st.wb.answers, results: st.wb.results, save: st.save };
         // questionSet replaces store.results on each check; keep per-part results merged into st.wb.results
         const qs = questionSet({ items, store: new Proxy(store, { set(t, k, v) { if (k === "results") { Object.assign(st.wb.results, v); st.save(); return true; } t[k] = v; return true; } }), ctx: `in a workbook part "${p.title}" for ${key} (${lek.Grammar || ""})`, onGraded: res => { collectMistakes(res, "lesson"); paintTotal(); } });
         scores.push(qs.score);
-        box.append(h("div", { class: "bk-task" }, h("h3", null, p.title), p.intro ? h("div", { class: "prose", lang: "de", html: md(p.intro) }) : null, qs.el));
+        box.append(h("div", { class: "bk-task" }, h("h3", null, p.title), p.intro ? h("div", { class: "prose", lang: "de", html: md(p.intro) }) : null, trToggle(p.introEn, "Show translation of the instructions"), qs.el));
       });
       paintTotal();
       box.append(total);
@@ -1150,7 +1168,7 @@ Reply with only JSON: {"parts":[{"title":"short English title","instruction":"En
       box.append(h("div", { class: "row", style: "justify-content:space-between" }, h("h3", null, r.title || "Text"), h("div", { class: "row" }, speakBtn(r.text), h("button", { class: "btn sm ghost", onclick: () => { st.rd = { save: st.save }; st.save(); gen(); } }, "New text"))),
         h("div", { class: "prose", lang: "de", style: "background:var(--bg);padding:16px;border-radius:8px" }, r.text.split(/\n+/).map(p => h("p", null, p))),
         r.glossary && r.glossary.length ? h("details", { class: "prose" }, h("summary", null, "Words you may not know"), h("ul", null, r.glossary.map(g => h("li", null, h("b", { lang: "de" }, g.de), " – ", g.en)))) : null);
-      const items = (r.questions || []).map((q, i) => ({ id: "r" + (i + 1), n: i + 1, q: q.q, expected: [q.answer] }));
+      const items = (r.questions || []).map((q, i) => ({ id: "r" + (i + 1), n: i + 1, q: q.q, en: q.q_en || "", expected: [q.answer] }));
       if (items.length) { st.rd.save = st.save; box.append(h("h3", null, "Questions"), questionSet({ items, store: st.rd, ctx: "about a short reading text (comprehension; answers may be English or German)", onGraded: () => {} }).el); }
       box.append(nextBtn("reading"));
     };
@@ -1161,8 +1179,8 @@ Reply with only JSON: {"parts":[{"title":"short English title","instruction":"En
 Write a short German reading text for lesson "${row.Lesson}" (level ${level}, Menschen ${lek.Volume} Lektion ${lek.Number}). Grammar of this Lektion: ${lek.Grammar}. Topic: ${lek.Topic}.
 Use as many of these words as fit naturally: ${L.words.map(w => w.de).join(", ")}.
 Rules: ${level === "A1" ? "7-9 short sentences, present tense, only A1 grammar met so far" : "9-12 sentences, A2 level"}; an everyday adult situation in Germany (an email, a chat between colleagues, a notice, a short story about someone's day); German names; original text (never copy the textbook).
-Then 4 comprehension questions in English with short answers, and a glossary of up to 6 harder words.
-Reply with only JSON: {"title":"German title","text":"paragraphs separated by \\n","questions":[{"q":"...","answer":"..."}],"glossary":[{"de":"...","en":"..."}]}`);
+Then 4 comprehension questions in simple German at this level with short answers (German answers expected), each with "q_en", the question in English, and a glossary of up to 6 harder words.
+Reply with only JSON: {"title":"German title","text":"paragraphs separated by \\n","questions":[{"q":"German question","q_en":"English translation","answer":"..."}],"glossary":[{"de":"...","en":"..."}]}`);
         st.rd.text = out; st.rd.answers = {}; st.rd.results = {}; st.save(); draw();
       } catch (e) { box.replaceChildren(h("div", { class: "banner bad" }, sampleErr(e)), genBtn); }
     };
@@ -1182,16 +1200,17 @@ Reply with only JSON: {"title":"German title","text":"paragraphs separated by \\
     audio.addEventListener("error", () => audioBox.append(h("div", { class: "banner bad" }, "The audio file didn't load. It may not be uploaded yet; it's also on the Lektion page in Notion (Audio).")), { once: true });
     const rate = h("select", { id: "rate-" + key, "aria-label": "Speed", onchange: e => { audio.playbackRate = +e.target.value; } }, [["1", "Normal speed"], ["0.85", "Slower (0.85×)"], ["0.75", "Slow (0.75×)"]].map(([v, t]) => h("option", { value: v }, t)));
     const audioBox = h("div", { class: "audio" }, h("div", { class: "row", style: "justify-content:space-between" }, h("b", { class: "mono" }, src.split("/")[1]), rate), audio, h("div", { class: "tracks" }, trackEls));
-    const items = Li.items.map(x => ({ id: "l" + x.n, n: x.n, q: unesc(x.q), expected: parseAnswer(x.a).all }));
+    const items = Li.items.map(x => ({ id: "l" + x.n, n: x.n, q: unesc(x.q), en: x.en, expected: parseAnswer(x.a).all }));
     const out = [h("h2", null, "Listening"), h("p", { class: "small muted" }, "Click a track to jump to it. Slow it down if you need to."), audioBox];
-    if (Li.intro) out.push(h("div", { class: "prose", html: md(Li.intro) }));
+    if (Li.intro) out.push(h("div", { class: "prose", lang: "de", html: md(Li.intro) }), trToggle(Li.introEn, "Show translation of the instructions"));
     if (items.length) out.push(questionSet({ items, store: st.li, ctx: "about listening tracks (comprehension questions; English answers are fine)", onGraded: () => {} }).el);
     out.push(nextBtn("listening"));
     return out;
   }
 
   function writingStep() {
-    const task = L.writing ? plain(L.writing) :
+    const wsp = splitTr(L.writing);
+    const task = L.writing ? plain(wsp.de) :
       `Write 4-5 sentences in German about yourself that use this lesson's grammar (${lek.Grammar}). Use at least four of: ${(L.speaking ? L.speaking.must : L.words.map(w => w.de)).slice(0, 8).join(", ")}.`;
     const ta = h("textarea", { class: "big", id: "wr-" + key, lang: "de", spellcheck: "false", placeholder: "Schreib hier…" });
     ta.value = st.wr.text || "";
@@ -1222,14 +1241,14 @@ Reply with only JSON: {"task_score":n,"comment":"...","mistakes":[{"wrong":"..."
       } catch (e) { status.textContent = sampleErr(e); }
       btn.disabled = false;
     } }, "Correct my text");
-    return [h("h2", null, "Writing"), h("div", { class: "prose" }, h("p", null, task)), ta, h("div", { class: "row" }, btn, count, status), fb, nextBtn("writing")];
+    return [h("h2", null, "Writing"), h("div", { class: "prose", lang: "de", html: md(wsp.de || task) }), trToggle(wsp.en), ta, h("div", { class: "row" }, btn, count, status), fb, nextBtn("writing")];
   }
 
   function speakingStep() {
     const sp = L.speaking;
     const brief = { title: `Speaking · ${lek.Volume} L${lek.Number} · ${row.Lesson.split("·").pop().trim()}`, mode: "role-play", situation: sp.task, prompts: sp.prompts, must_use: sp.must, grammar: lek.Grammar, level, lektionUrl, lessonUrl: row.url, minutes: part === 1 ? 5 : 10 };
     const out = [h("h2", null, part === 1 ? "Speaking (5 minutes)" : "Speaking"),
-      h("div", { class: "prose" }, h("p", null, h("b", null, "Task: "), sp.task),
+      h("div", { class: "prose" }, h("p", { lang: "de" }, h("b", null, "Aufgabe: "), sp.task), trToggle(sp.taskEn),
         sp.prompts.length ? h("p", null, h("b", null, "Partner prompts: "), h("span", { lang: "de" }, sp.prompts.join(" · "))) : null,
         sp.must.length ? h("p", null, h("b", null, "Must use: "), h("span", { lang: "de" }, sp.must.join(", "))) : null,
         sp.model ? h("details", null, h("summary", null, "Model answer (open after trying)"), h("p", { lang: "de" }, sp.model), h("div", null, speakBtn(sp.model))) : null)];

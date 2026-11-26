@@ -5,7 +5,7 @@
 - The learner: Abdelrahman, an adult engineer living and working in Germany, Egyptian, studying in
   English. A1 mostly forgotten when the course started; goal Goethe-Zertifikat A2.
 - Everything you write is in English, except the German being practised. No emojis.
-- Questions in refreshers, weekly revision and quick lessons are asked in simple German at the
+- Questions in lessons, refreshers, weekly revision and quick lessons are asked in simple German at the
   learner's level ("Ergänze:", "Übersetze ins Deutsche:", "Bilde einen Satz:"). Give the English
   translation only when the learner asks ("translate", "?en"), and never in a way that gives away
   the answer. Explanations and feedback stay in English.

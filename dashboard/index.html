@@ -305,7 +305,7 @@ async function cloudRef(key) {
   if (!db || !u) return null;
   if (cloudUid === undefined) { try { cloudUid = await u.id(); } catch { cloudUid = null; } }
   if (!cloudUid) return null;
-  return db.collection("data/users/" + cloudUid).doc("lesson-" + key);
+  return db.collection("data/users/" + cloudUid).doc(key);
 }
 function paintSaveState() {
   const el = document.getElementById("savestate"); if (!el) return;
@@ -343,6 +343,25 @@ function cloudSave(key, data, now) {
 const cloudFlush = () => Object.values(cloud.pending).forEach(run => run());
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") cloudFlush(); });
 window.addEventListener("pagehide", cloudFlush);
+/* a saved activity session (refresher, weekly, quick): browser + online copy, newest wins */
+function sessionStore(kind, maxDays) {
+  const k = "session-" + kind;
+  return {
+    save(st, now) { st.savedAt = Date.now(); ls.set(k, st); cloudSave(k, st, now === true); },
+    clear() { const st = { cleared: true, savedAt: Date.now() }; ls.set(k, st); cloudSave(k, st, true); },
+    async load() {
+      const loc = ls.get(k, null); let rem = null;
+      try { rem = await cloudLoad(k); } catch {}
+      const best = [loc, rem].filter(Boolean).sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0))[0];
+      if (!best || best.cleared || !best.day || daysBetween(best.day, today()) > (maxDays || 0)) return null;
+      ls.set(k, best); return best;
+    },
+  };
+}
+function resumeBox(host, saved, label, onResume, onNew) {
+  host.replaceChildren(h("div", { class: "banner" }, h("b", null, "You have an unfinished session. "), label),
+    h("div", { class: "row", style: "margin-top:12px" }, h("button", { class: "btn go", onclick: onResume }, "Continue"), h("button", { class: "btn", onclick: onNew }, "Start new")));
+}
 async function cloudLoad(key) {
   const ref = await cloudRef(key);
   if (!ref) return null;
@@ -945,7 +964,7 @@ function renderLesson(root, key, row, page, restored) {
   const lektionUrl = lek.url || rel(row.Lektion)[0];
   const st = ls.get("prog:" + key, { done: {}, ex: {}, li: {}, rd: {}, wr: {}, started: Date.now() });
   let opened = false;
-  st.save = now => { st.savedAt = Date.now(); const { save, ...rest } = st; ls.set("prog:" + key, rest); cloudSave(key, rest, now === true); };
+  st.save = now => { st.savedAt = Date.now(); const { save, ...rest } = st; ls.set("prog:" + key, rest); cloudSave("lesson-" + key, rest, now === true); };
   st.ex.save = st.li.save = st.rd.save = st.save;
   st.mistakes = st.mistakes || [];
   const level = levelOf(lek.Index || 0);
@@ -1264,14 +1283,14 @@ Reply with only JSON: {"task_score":n,"comment":"...","mistakes":[{"wrong":"..."
   show(cur); opened = true; paintSaveState();
   // bring in the online copy if it is newer (another device, or browser storage was cleared)
   const openedAt = st.savedAt || 0;
-  if (!restored) cloudLoad(key).then(remote => {
+  if (!restored) cloudLoad("lesson-" + key).then(remote => {
     if (!root.isConnected) return;
     const local = st.savedAt || 0;
     if (remote && (remote.savedAt || 0) > local && local === openedAt) {
       ls.set("prog:" + key, remote); if (remote.step) ls.set("step:" + key, remote.step);
       renderLesson(root, key, row, page, true);
       soundNote("Picked up where you left off.");
-    } else if (local > ((remote && remote.savedAt) || 0)) { const { save, ...rest } = st; cloudSave(key, rest, true); }
+    } else if (local > ((remote && remote.savedAt) || 0)) { const { save, ...rest } = st; cloudSave("lesson-" + key, rest, true); }
     else setSaveState(remote ? "saved" : cloud.state, remote ? "" : cloud.detail);
   }).catch(() => {});
 }
@@ -1516,9 +1535,11 @@ function cardDeck(due, practice, n) {
   return deck.slice(0, n);
 }
 /* runs cards inside `host`; resolves {cards, reviews, right, updates} when finished or stopped */
-function runCards(host, deck, title) {
+function runCards(host, deck, title, state, onProgress) {
   return new Promise(resolve => {
-    let i = 0, right = 0, reviews = 0; const updates = [];
+    const S0 = state || {};
+    let i = S0.i || 0, right = S0.right || 0, reviews = S0.reviews || 0; const updates = S0.updates || [];
+    const progress = () => { if (state) { Object.assign(state, { i, right, reviews, updates, n: deck.length }); onProgress && onProgress(); } };
     const done = () => resolve({ cards: i, reviews, right, updates });
     if (!deck.length) { host.replaceChildren(h("div", { class: "empty" }, "No cards to review right now.")); return done(); }
     const draw = () => {
@@ -1540,14 +1561,14 @@ function runCards(host, deck, title) {
       const actions = h("div", { class: "row", style: "justify-content:center" }, reveal);
       host.replaceChildren(h("div", { class: "row", style: "justify-content:space-between" }, h("span", { class: "label" }, title || "Cards"), h("span", { class: "mono small" }, `${i + 1} / ${deck.length}`)),
         h("div", { class: "progress" }, h("i", { style: `width:${i / deck.length * 100}%` })), card, actions,
-        h("div", { class: "row", style: "justify-content:center" }, h("button", { class: "btn sm ghost", onclick: () => { deck.length = i; done(); } }, "Stop here")));
+        h("div", { class: "row", style: "justify-content:center" }, h("button", { class: "btn sm ghost", onclick: () => { deck.length = i; progress(); done(); } }, "Stop here")));
     };
     function rate(ok) {
       const c = deck[i];
       if (!(c.practice && ok)) { const p = leitner(c.w, c.stage, ok); updates.push({ url: c.w.url, p, word: c.w }); Object.assign(c.w, p); }
       if (!c.practice) reviews++;
       if (ok) right++;
-      i++; draw();
+      i++; progress(); draw();
     }
     draw();
   });
@@ -1608,10 +1629,22 @@ function showReview(kind) {
   const host = h("div", { class: "step", style: "margin-top:16px" });
   root.append(h("div", { class: "lesson-head" }, h("h1", null, weekly ? "Weekly revision" : "Refresher"),
     h("p", { class: "muted" }, weekly ? "This week's Lektionen and mistakes: cards, mixed questions, then a short writing task." : "Review only: due cards, your past mistakes in new sentences, and exercises from finished lessons.")), host);
-  host.append(h("div", { class: "row" }, h("button", { class: "btn go", onclick: run }, weekly ? "Start weekly revision" : "Start refresher"), h("span", { class: "small muted" }, weekly ? "About 30-40 minutes." : `About ${setn("Refresher length", 10)} minutes.`)));
+  host.append(h("div", { class: "row" }, h("button", { class: "btn go", onclick: () => run() }, weekly ? "Start weekly revision" : "Start refresher"), h("span", { class: "small muted" }, weekly ? "About 30-40 minutes." : `About ${setn("Refresher length", 10)} minutes.`)));
+
+  const store = sessionStore(kind, weekly ? 6 : 0);
+  const title = weekly ? "Weekly revision" : "Refresher";
+  const startRow = host.firstChild;
+  store.load().then(saved => {
+    if (!saved || !saved.phase || !host.isConnected || host.firstChild !== startRow) return;
+    const where = saved.phase === "cards" ? `cards: ${saved.cards.i || 0} of ${saved.deck.length} done`
+      : saved.phase === "questions" ? (saved.qs ? `question ${Math.min((saved.q.i || 0) + 1, saved.qs.length)} of ${saved.qs.length}` : "questions next")
+      : saved.phase === "writing" ? "the writing task" : "saving to Notion";
+    resumeBox(host, saved, `Started ${saved.day === today() ? "today" : prettyDate(saved.day)}, at ${where}.`, () => continueRun(saved), () => { store.clear(); host.replaceChildren(startRow); });
+  });
 
   async function run() {
     const t0 = Date.now();
+    store.clear();
     host.replaceChildren(spinner("Reading your cards, mistakes and finished lessons…"));
     let data;
     try {
@@ -1643,16 +1676,10 @@ function showReview(kind) {
 
     // 1) cards
     const deck = cardDeck(due.slice(0, left), practice, nCards);
-    const cardsRes = deck.length ? await runCards(host, deck, weekly ? "Weekly revision · cards" : "Refresher · cards") : { cards: 0, reviews: 0, right: 0, updates: [] };
-
-    // 2) questions
-    host.replaceChildren(spinner("Claude is writing your questions…"));
     const pos = position();
     const weekMist = weekly ? mMonth.filter(r => (r["date:Date:start"] || "") >= addDays(today(), -7)) : [];
     const mistakesForQ = (weekly ? weekMist.concat(mDue) : mDue).slice(0, 10);
-    let qs;
-    try {
-      const out = await ask(`${LEARNER}
+    const qPrompt = `${LEARNER}
 Write ${nQ} review questions for a ${weekly ? "weekly revision" : "10-minute refresher"}. Review only, nothing new. Difficulty level ${level} (1 = single words, articles, short gaps; 2 = phrases and short sentences; 3 = full sentences, transformations, word order, cases). Current position: ${pos ? `${pos.lektion.Lektion}, grammar so far up to: ${pos.lektion.Grammar}` : "course finished"}; never test grammar beyond it.
 Draw from:
 - due mistakes: write a NEW question in a different sentence that tests the same point (never show the reason): ${JSON.stringify(mistakesForQ.map(m => ({ url: m.url, wrong: m.Wrong, correct: m.Correct, reason: m.Reason, category: m.Category, question: m.Question })))}
@@ -1661,41 +1688,66 @@ Draw from:
 - words in the produce stage, used in a sentence: ${practice.filter(w => (w["Produce box"] || 0) > 0).slice(0, 15).map(w => w.Word).join(", ") || "none"}
 Vary the styles: translate into German, fill the gap, article and plural, build a sentence from given words, transform (tense, person, du/Sie), answer in a full sentence, spot and fix the mistake, translate into English.
 Never repeat or closely copy these recent questions: ${recentQs || "none"}.
-Each question: an English instruction plus the German to work on; never put the answer inside the question. Give the expected answer, other accepted answers, a one-line rule reminder that does NOT contain the answer or any word of it, and the category (article, case, word order, verb form, grammar, vocabulary, spelling).
+Each question: the instruction in simple German the learner can read at this level (e.g. "Ergänze:", "Übersetze ins Deutsche:", "Bilde einen Satz:", "Wie heißt der Plural?", "Finde den Fehler:") plus the material to work on; for "translate into German" the material is the English sentence. Never put the answer inside the question. Also give "q_en": the whole question in English, which must not reveal the answer either. Give the expected answer, other accepted answers, a one-line rule reminder that does NOT contain the answer or any word of it, and the category (article, case, word order, verb form, grammar, vocabulary, spelling).
 If a question re-tests a due mistake, set "mistake_url" to that mistake's url, else null.
-Reply with only JSON: {"questions":[{"q":"...","answer":"...","accepted":["..."],"rule":"...","category":"...","mistake_url":null}]}`);
-      qs = (out.questions || []).slice(0, nQ);
-    } catch (e) { qs = []; host.replaceChildren(h("div", { class: "banner bad" }, sampleErr(e))); }
-    const qRes = await runQuestions(host, qs, weekly ? "Weekly revision" : "Refresher");
+Reply with only JSON: {"questions":[{"q":"German instruction + material","q_en":"English translation","answer":"...","accepted":["..."],"rule":"...","category":"...","mistake_url":null}]}`;
+    const st = { day: today(), t0, phase: "cards", deck, cards: {}, level, weak: weak ? weak[0] : "", nQ, qPrompt, qs: null, q: {}, wr: {},
+      pages: pages.map(p => ({ title: p.title, ex: p.ex.slice(0, 1500) })), lektionUrl: pos ? pos.lektion.url : null,
+      mistSrc: mDue.concat(mMonth).map(r => ({ url: r.url, Box: r.Box, Lapses: r.Lapses })), done: {} };
+    store.save(st, true);
+    return continueRun(st);
+  }
 
-    // 3) writing (weekly)
-    let writingMistakes = [];
-    if (weekly) writingMistakes = await runWritingTask(host, pages, pos);
-
-    // save
+  async function continueRun(st) {
+    const save = () => store.save(st);
+    if (st.phase === "cards") {
+      if (st.deck.length) await runCards(host, st.deck, title + " · cards", st.cards, save);
+      st.phase = "questions"; store.save(st, true);
+    }
+    if (st.phase === "questions") {
+      if (!st.qs) {
+        host.replaceChildren(spinner("Claude is writing your questions…"));
+        try { const out = await ask(st.qPrompt); st.qs = (out.questions || []).slice(0, st.nQ); store.save(st, true); }
+        catch (e) { host.replaceChildren(h("div", { class: "banner bad" }, sampleErr(e)), h("div", { class: "row", style: "margin-top:10px" }, h("button", { class: "btn", onclick: () => continueRun(st) }, "Try again"))); return; }
+      }
+      await runQuestions(host, st.qs, title, st.q, save);
+      st.phase = weekly ? "writing" : "save"; store.save(st, true);
+    }
+    if (st.phase === "writing") {
+      st.writingMistakes = await runWritingTask(host, st.pages, position(), st.wr, save);
+      st.phase = "save"; store.save(st, true);
+    }
+    // save to Notion; each part only once, so a retry after a failure doesn't duplicate rows
+    const cardsRes = { cards: st.cards.i || 0, reviews: st.cards.reviews || 0, right: st.cards.right || 0, updates: st.cards.updates || [] };
+    const qRes = { right: st.q.right || 0, newMistakes: st.q.newMistakes || [], mistakeUpdates: st.q.mistakeUpdates || [] };
+    const qs = st.qs || [], level = st.level, t0 = st.t0, weak = st.weak ? [st.weak] : null;
     host.replaceChildren(h("h2", null, `Questions: ${qRes.right} of ${qs.length} right · cards: ${cardsRes.right} of ${cardsRes.cards}`), h("div", { class: "stack small" }, spinner("Saving to Notion…")));
     const log = host.lastChild;
+    const once = async (name, fn) => { if (st.done[name]) return; await fn(); st.done[name] = true; store.save(st, true); };
     try {
-      await saveCardUpdates(cardsRes.updates);
+      await once("cards", () => saveCardUpdates(cardsRes.updates));
       const t = today(), iv = intervals();
-      for (const m of qRes.mistakeUpdates) { const src = mDue.concat(mMonth).find(r => r.url === m.url); if (!src) continue; m.box = src.Box || 1; m.lapses = src.Lapses || 0; await updateRow(m.url, m.right ? Object.assign({ Box: Math.min(5, (m.box || 1) + 1) }, dateProp("Next review", addDays(t, iv[Math.min(5, (m.box || 1) + 1) - 1]))) : Object.assign({ Box: 1, Lapses: (m.lapses || 0) + 1 }, dateProp("Next review", addDays(t, 1)), dateProp("Date", t))); }
-      await createRows(DS.mistakes, qRes.newMistakes.concat(writingMistakes).map(m => mistakeRow(m, m.source || "refresher", pos && pos.lektion.url)));
-      await createRows(DS.activity, [{ properties: Object.assign({ Activity: weekly ? `Weekly revision · week of ${addDays(t, -6)}` : `Refresher · ${weak ? weak[0] : "mixed"}`, Type: "Refresher", Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Correct: qRes.right, Total: qs.length, Level: level, Cards: cardsRes.cards, Reviews: cardsRes.reviews, "New cards": 0, "Questions asked": qs.map(q => plain(q.q)).join("; ").slice(0, 1900), Notes: weekly ? "weekly revision" : "" }, dateProp("Date", t)) }]);
-      if (weekly) {
+      await once("mistakeUpdates", async () => { for (const m of qRes.mistakeUpdates) { const src = (st.mistSrc || []).find(r => r.url === m.url); if (!src) continue; m.box = src.Box || 1; m.lapses = src.Lapses || 0; await updateRow(m.url, m.right ? Object.assign({ Box: Math.min(5, (m.box || 1) + 1) }, dateProp("Next review", addDays(t, iv[Math.min(5, (m.box || 1) + 1) - 1]))) : Object.assign({ Box: 1, Lapses: (m.lapses || 0) + 1 }, dateProp("Next review", addDays(t, 1)), dateProp("Date", t))); } });
+      await once("mistakes", () => createRows(DS.mistakes, qRes.newMistakes.concat(st.writingMistakes || []).map(m => mistakeRow(m, m.source || "refresher", st.lektionUrl))));
+      await once("activity", () => createRows(DS.activity, [{ properties: Object.assign({ Activity: weekly ? `Weekly revision · week of ${addDays(t, -6)}` : `Refresher · ${weak ? weak[0] : "mixed"}`, Type: "Refresher", Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Correct: qRes.right, Total: qs.length, Level: level, Cards: cardsRes.cards, Reviews: cardsRes.reviews, "New cards": 0, "Questions asked": qs.map(q => plain(q.q)).join("; ").slice(0, 1900), Notes: weekly ? "weekly revision" : "" }, dateProp("Date", t)) }]));
+      if (weekly) await once("session", async () => {
         const sess = await viewAll(V.sessions, 100).catch(() => []);
         const s = sess.find(r => (r["date:When:start"] || "").slice(0, 10) === t && r.Status === "Planned" && r.Kind === "weekly");
         if (s) await updateRow(s.url, { Status: "Done", Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Score: `questions ${qRes.right}/${qs.length}` });
-      }
+      });
+      store.clear();
       log.replaceChildren(h("div", { class: "banner good" }, "Saved to Notion: cards, mistakes and the activity log."), h("div", { class: "row", style: "margin-top:12px" },
         weekly ? h("button", { class: "btn go", onclick: () => go("speak") }, "Finish with speaking") : h("button", { class: "btn go", onclick: () => go("quick") }, "Quick lesson next"),
         h("a", { class: "btn", href: "#home", "data-go": "home" }, "Back to today")));
-    } catch (e) { log.replaceChildren(errBox(e)); }
+    } catch (e) { log.replaceChildren(errBox(e, () => continueRun(st))); }
   }
 }
 /* one question at a time with 3-step hints */
-function runQuestions(host, qs, title) {
+function runQuestions(host, qs, title, state, onProgress) {
   return new Promise(resolve => {
-    let i = 0, right = 0; const newMistakes = [], mistakeUpdates = [];
+    const S0 = state || {};
+    let i = S0.i || 0, right = S0.right || 0; const newMistakes = S0.newMistakes || [], mistakeUpdates = S0.mistakeUpdates || [];
+    const progress = n => { if (state) { Object.assign(state, { i: n, right, newMistakes, mistakeUpdates }); onProgress && onProgress(); } };
     if (!qs.length) return resolve({ right, newMistakes, mistakeUpdates });
     const draw = () => {
       if (i >= qs.length) return resolve({ right, newMistakes, mistakeUpdates });
@@ -1709,7 +1761,9 @@ function runQuestions(host, qs, title) {
         if (hints === 2) hintBox.append(h("div", null, "Rule: ", q.rule || "–"));
         if (hints === 3) { hintBox.append(h("div", null, "Answer: ", h("b", { lang: "de" }, q.answer))); hint.disabled = true; }
       } }, "Hint");
-      const box = h("div", { class: "q" }, h("div", { class: "qt", html: inline(q.q) }), input, h("div", { class: "row" }, check, hint), hintBox, fb);
+      const tr = q.q_en ? h("div", { class: "small muted", hidden: true, lang: "en" }, q.q_en) : null;
+      const trBtn = q.q_en ? h("button", { class: "btn sm ghost", onclick: () => { tr.hidden = !tr.hidden; trBtn.textContent = tr.hidden ? "Show translation" : "Hide translation"; } }, "Show translation") : null;
+      const box = h("div", { class: "q" }, h("div", { class: "qt", lang: "de", html: inline(q.q) }), tr, input, h("div", { class: "row" }, check, hint, trBtn), hintBox, fb);
       host.replaceChildren(h("div", { class: "row", style: "justify-content:space-between" }, h("span", { class: "label" }, title + " · questions"), h("span", { class: "mono small" }, `${i + 1} / ${qs.length}`)),
         h("div", { class: "progress" }, h("i", { style: `width:${i / qs.length * 100}%` })), box);
       input.focus();
@@ -1724,6 +1778,7 @@ function runQuestions(host, qs, title) {
         if (ok) right++;
         else if (!r.empty || hints) newMistakes.push({ question: q.q, wrong: input.value || "(no answer)", correct_form: r.correct_form || q.answer, reason: r.reason || q.rule || "", category: r.category || q.category, source: "refresher" });
         if (q.mistake_url) mistakeUpdates.push({ url: q.mistake_url, right: ok, box: null });
+        progress(i + 1);   // counted: a reload continues with the next question
         const nx = h("button", { class: "btn go", onclick: () => { i++; draw(); } }, i + 1 < qs.length ? "Next" : "Finish");
         check.replaceWith(nx); nx.focus();
       };
@@ -1733,10 +1788,11 @@ function runQuestions(host, qs, title) {
     draw();
   });
 }
-function runWritingTask(host, pages, pos) {
+function runWritingTask(host, pages, pos, state, onProgress) {
   return new Promise(resolve => {
     const task = `Write 6-8 sentences in German about your week: what you did at work and at home, and one plan for next week. Use grammar from this week's lessons${pages.length ? ` (${pages.map(p => p.title.split("·").pop().trim()).join(", ")})` : ""}.`;
     const ta = h("textarea", { class: "big", id: "weekly-writing", lang: "de", spellcheck: "false" });
+    if (state) { ta.value = state.text || ""; ta.addEventListener("input", () => { state.text = ta.value; onProgress && onProgress(); }); }
     const fb = h("div", { class: "stack" });
     const skip = h("button", { class: "btn ghost", onclick: () => resolve([]) }, "Skip writing");
     const btn = h("button", { class: "btn primary", onclick: async () => {
@@ -1762,10 +1818,20 @@ function showQuick() {
   const host = h("div", { class: "step", style: "margin-top:16px" });
   const typeSel = h("select", { id: "quick-type" }, h("option", { value: "" }, "Next in rotation"), ["words", "phrases", "reading", "grammar"].map(t => h("option", { value: t }, t)));
   root.append(h("div", { class: "lesson-head" }, h("h1", null, "Quick lesson"), h("p", { class: "muted" }, "10-15 minutes of something new for the bus. It doesn't move the book forward; new words become flashcards from tomorrow.")), host);
-  host.append(h("div", { class: "row" }, typeSel, h("button", { class: "btn go", onclick: run }, "Start")));
+  host.append(h("div", { class: "row" }, typeSel, h("button", { class: "btn go", onclick: () => run() }, "Start")));
+
+  const store = sessionStore("quick", 6);
+  const startRow = host.firstChild;
+  store.load().then(saved => {
+    if (!saved || !saved.lesson || !host.isConnected || host.firstChild !== startRow) return;
+    const n = (saved.lesson.exercises || []).length;
+    const where = saved.phase === "teach" ? "the words" : saved.phase === "questions" ? `exercise ${Math.min((saved.q.i || 0) + 1, n)} of ${n}` : "saving to Notion";
+    resumeBox(host, saved, `“${saved.lesson.title || saved.type}”, at ${where}.`, () => continueRun(saved), () => { store.clear(); host.replaceChildren(startRow); });
+  });
 
   async function run() {
     const t0 = Date.now();
+    store.clear();
     host.replaceChildren(spinner("Choosing today's topic…"));
     let lesson, type, cands;
     try {
@@ -1789,11 +1855,18 @@ Make a ${setn("Quick lesson length", 12)}-minute quick lesson of type "${type}" 
 Types: words = a small themed set (work, home, health, shopping, travel, free time, weather, offices); phrases = ready-made phrases for the situation "${situation}"; reading = a 6-8 sentence everyday text then questions; grammar = one small point from the Lektionen already studied (recent first).
 Avoid these recent topics: ${recent.slice(0, 12).join("; ") || "none"}.
 Teach ${nW} new words or phrases. For words, choose ONLY from these Goethe-list words the learner hasn't started (German with article, plural): ${cands.map(w => `${w.de}${w.plural ? " (" + w.plural + ")" : ""}`).join(", ")}.
-Then ${nE} short exercises using them (instruction in English + the German to work on; never put the answer in the question).
-Reply with only JSON: {"title":"short English topic","intro":"2-4 sentences of explanation in English (markdown allowed)","text":"German text for type reading, else empty","words":[{"de":"German with article","plural":"","en":"","example":"German sentence","example_en":""}],"exercises":[{"q":"...","answer":"...","accepted":["..."],"rule":"one-line reminder without the answer","category":"..."}]}`);
+Then ${nE} short exercises using them: the instruction in simple German at this level (e.g. "Ergänze:", "Übersetze ins Deutsche:", "Bilde einen Satz:") plus the material, and "q_en" with the whole exercise in English; never put the answer in the question or in q_en.
+Reply with only JSON: {"title":"short English topic","intro":"2-4 sentences of explanation in English (markdown allowed)","text":"German text for type reading, else empty","words":[{"de":"German with article","plural":"","en":"","example":"German sentence","example_en":""}],"exercises":[{"q":"German instruction + material","q_en":"English translation","answer":"...","accepted":["..."],"rule":"one-line reminder without the answer","category":"..."}]}`);
     } catch (e) { host.replaceChildren(e && e.code === "no_sample" || (e && /rate|grant/.test(e.code || "")) ? h("div", { class: "banner bad" }, sampleErr(e)) : errBox(e, run)); return; }
 
-    // teach
+    const st = { day: today(), t0, type, lesson, phase: "teach", q: {}, done: {} };
+    store.save(st, true);
+    return continueRun(st);
+  }
+
+  async function continueRun(st) {
+    const { lesson, type, t0 } = st;
+    if (st.phase === "teach") {
     await new Promise(res => {
       host.replaceChildren(h("span", { class: "label" }, `Quick lesson · ${type}`), h("h2", null, lesson.title || "Quick lesson"),
         h("div", { class: "prose", html: md(lesson.intro || "") }),
@@ -1803,18 +1876,26 @@ Reply with only JSON: {"title":"short English topic","intro":"2-4 sentences of e
           w.plural ? h("span", { class: "small muted" }, "Plural: ", w.plural) : null, h("span", null, w.en), w.example ? h("span", { class: "ex", lang: "de" }, w.example) : null, w.example_en ? h("span", { class: "small muted" }, w.example_en) : null))),
         h("div", { class: "row" }, h("button", { class: "btn go", onclick: res }, "Practise")));
     });
-    const qRes = await runQuestions(host, lesson.exercises || [], "Quick lesson");
+      st.phase = "questions"; store.save(st, true);
+    }
+    if (st.phase === "questions") {
+      await runQuestions(host, lesson.exercises || [], "Quick lesson", st.q, () => store.save(st));
+      st.phase = "save"; store.save(st, true);
+    }
+    const qRes = { right: st.q.right || 0, newMistakes: st.q.newMistakes || [] };
     host.replaceChildren(h("h2", null, `${qRes.right} of ${(lesson.exercises || []).length} right`), h("div", { class: "stack small" }, spinner("Saving to Notion…")));
     const log = host.lastChild;
+    const once = async (name, fn) => { if (st.done[name]) return st.done[name]; const v = await fn(); st.done[name] = v || true; store.save(st, true); return st.done[name]; };
     try {
       const words = (lesson.words || []).map(w => ({ de: w.de, en: w.en, plural: w.plural, ex: w.example, exen: w.example_en, art: (w.de.match(/^(der|die|das)\s/) || [])[1] || "" }));
       const pos = position();
-      const r = await saveWords(words, null, "Quick lesson");
-      await createRows(DS.mistakes, qRes.newMistakes.map(m => mistakeRow(m, "quick lesson", pos && pos.lektion.url)));
-      await createRows(DS.activity, [{ properties: Object.assign({ Activity: lesson.title || "Quick lesson", Type: "Quick lesson", "Quick type": type, Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Correct: qRes.right, Total: (lesson.exercises || []).length, "New cards": r.started + r.created, "Questions asked": (lesson.exercises || []).map(q => plain(q.q)).join("; ").slice(0, 1900) }, dateProp("Date", today())) }]);
+      const r = await once("words", () => saveWords(words, null, "Quick lesson"));
+      await once("mistakes", () => createRows(DS.mistakes, qRes.newMistakes.map(m => mistakeRow(m, "quick lesson", pos && pos.lektion.url))));
+      await once("activity", () => createRows(DS.activity, [{ properties: Object.assign({ Activity: lesson.title || "Quick lesson", Type: "Quick lesson", "Quick type": type, Minutes: Math.max(1, Math.round((Date.now() - t0) / 60000)), Correct: qRes.right, Total: (lesson.exercises || []).length, "New cards": r.started + r.created, "Questions asked": (lesson.exercises || []).map(q => plain(q.q)).join("; ").slice(0, 1900) }, dateProp("Date", today())) }]));
+      store.clear();
       log.replaceChildren(h("div", { class: "banner good" }, `Learned: ${lesson.title}. ${r.started + r.created} words come back as flashcards tomorrow.`),
-        h("div", { class: "row", style: "margin-top:12px" }, h("button", { class: "btn go", onclick: run }, "Another one"), h("a", { class: "btn", href: "#home", "data-go": "home" }, "Back to today")));
-    } catch (e) { log.replaceChildren(errBox(e)); }
+        h("div", { class: "row", style: "margin-top:12px" }, h("button", { class: "btn go", onclick: () => run() }, "Another one"), h("a", { class: "btn", href: "#home", "data-go": "home" }, "Back to today")));
+    } catch (e) { log.replaceChildren(errBox(e, () => continueRun(st))); }
   }
 }
 

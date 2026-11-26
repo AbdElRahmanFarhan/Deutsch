@@ -14,12 +14,15 @@ https://claude.ai/artifact/NFccKogXmU69aP5ZNtkPhL
 - **Refresher, weekly revision, quick lesson, flashcards, speaking** follow the matching files in
   `workflows/` (Leitner rules, hints, no repeats, levels) and log to Notion the same way.
 
-All data stays in Notion; the page keeps only per-browser conveniences (step position, drafts).
+All course data stays in Notion. Progress inside an unfinished lesson (step, answers, drafts) is
+saved on every change and step, in the browser and in the artifact's private per-viewer store, so it
+survives reloads, tab switches and other devices; Finish writes the results to Notion.
 
 ## Publishing
 
 The page needs capabilities `mcp` (server `Notion`: `notion-query-data-sources`, `notion-fetch`,
-`notion-create-pages`, `notion-update-page`), `sample`, `tts` and `dictation`. Supporting files
+`notion-create-pages`, `notion-update-page`), `sample`, `tts`, `dictation`, and `db` + `user`
+(unfinished-lesson progress, saved privately per viewer under `data/users/<id>/lesson-<key>`). Supporting files
 published next to it:
 
 - `goethe.json` = `curriculum/goethe_words.json`

@@ -145,6 +145,7 @@ table.sc td.num, table.sc th.num { text-align: right; font-family: var(--mono); 
 .hide-en .word .en, .hide-en .word .exen { filter: blur(5px); }
 .speak-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; width: 30px; height: 28px; cursor: pointer; display: inline-grid; place-items: center; flex: none; font-size: 15px; }
 .speak-btn.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.bad-text { color: var(--bad); }
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20; max-width: min(560px, calc(100vw - 32px)); background: var(--ink); color: var(--bg); padding: 10px 14px; border-radius: 8px; font-size: .92rem; box-shadow: 0 4px 16px #0004; }
 .bk-task { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
 .bk-task.done { border-color: var(--good); }
@@ -290,6 +291,64 @@ const dateProp = (name, iso) => ({ [`date:${name}:start`]: iso, [`date:${name}:i
 /* ---------- capabilities ---------- */
 const use = name => (window.claude && window.claude.use ? window.claude.use(name) : Promise.resolve(null)).catch(() => null);
 const capMcp = use("mcp"), capSample = use("sample"), capTts = use("tts"), capDict = use("dictation");
+const capDb = use("db"), capUser = use("user");
+
+/* ---------- lesson progress, saved online (private to the viewer) ----------
+   Browser storage alone gets wiped when claude.ai or the Claude app reloads the page, so every
+   save also goes to the artifact's own database under data/users/<id>/ (only the viewer can
+   read it). On open, the newer of the two copies wins. Notion still gets the real records
+   (words, mistakes, lesson done) at Finish. */
+const cloud = { timers: {}, pending: {}, last: {}, chain: Promise.resolve(), state: "", detail: "" };
+let cloudUid;
+async function cloudRef(key) {
+  const db = await capDb, u = await capUser;
+  if (!db || !u) return null;
+  if (cloudUid === undefined) { try { cloudUid = await u.id(); } catch { cloudUid = null; } }
+  if (!cloudUid) return null;
+  return db.collection("data/users/" + cloudUid).doc("lesson-" + key);
+}
+function paintSaveState() {
+  const el = document.getElementById("savestate"); if (!el) return;
+  const t = { saving: "Saving…", saved: "Saved " + cloud.detail, local: "Saved on this device only", error: "Not saved online: " + cloud.detail }[cloud.state] || "";
+  el.textContent = t; el.className = "small " + (cloud.state === "error" ? "bad-text" : "muted");
+}
+function setSaveState(state, detail) { cloud.state = state; cloud.detail = detail || ""; paintSaveState(); }
+function cloudSave(key, data, now) {
+  clearTimeout(cloud.timers[key]);
+  const run = () => {
+    delete cloud.pending[key]; clearTimeout(cloud.timers[key]);
+    const body = JSON.parse(JSON.stringify(data)); const text = JSON.stringify(body);
+    if (cloud.last[key] === text) return cloud.chain;
+    cloud.chain = cloud.chain.then(async () => {
+      const ref = await cloudRef(key);
+      if (!ref) { setSaveState("local"); return; }
+      setSaveState("saving");
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          await ref.set(body); cloud.last[key] = text;
+          setSaveState("saved", new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Berlin" }));
+          return;
+        } catch (e) {
+          if (e && e.code === "unavailable" && attempt === 0) { await new Promise(r => setTimeout(r, 700 + Math.random() * 900)); continue; }
+          setSaveState(e && (e.code === "not_granted" || e.code === "capability_disabled" || e.code === "revoked") ? "local" : "error", (e && e.message ? String(e.message) : (e && e.code) || "error").slice(0, 80));
+          return;
+        }
+      }
+    });
+    return cloud.chain;
+  };
+  cloud.pending[key] = run;
+  if (now) run(); else cloud.timers[key] = setTimeout(run, 1200);
+}
+const cloudFlush = () => Object.values(cloud.pending).forEach(run => run());
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") cloudFlush(); });
+window.addEventListener("pagehide", cloudFlush);
+async function cloudLoad(key) {
+  const ref = await cloudRef(key);
+  if (!ref) return null;
+  const snap = await Promise.race([ref.get(), new Promise((_, rej) => setTimeout(() => rej({ code: "timeout" }), 8000))]);
+  return snap && snap.exists ? snap.data() : null;
+}
 
 /* ---------- Notion ---------- */
 async function nt(tool, input) {
@@ -879,13 +938,14 @@ function showLesson(key) {
   })().catch(e => { if (root.isConnected) root.replaceChildren(h("div", { class: "lesson-head" }, h("h1", null, key)), errBox(e, () => go(key))); });
 }
 
-function renderLesson(root, key, row, page) {
+function renderLesson(root, key, row, page, restored) {
   const L = parseLesson(page.content);
   const lek = lektionOfKey(key) || {};
   const part = +key.slice(-1);
   const lektionUrl = lek.url || rel(row.Lektion)[0];
   const st = ls.get("prog:" + key, { done: {}, ex: {}, li: {}, rd: {}, wr: {}, started: Date.now() });
-  st.save = () => { const { save, ...rest } = st; ls.set("prog:" + key, rest); };
+  let opened = false;
+  st.save = now => { st.savedAt = Date.now(); const { save, ...rest } = st; ls.set("prog:" + key, rest); cloudSave(key, rest, now === true); };
   st.ex.save = st.li.save = st.rd.save = st.save;
   st.mistakes = st.mistakes || [];
   const level = levelOf(lek.Index || 0);
@@ -916,13 +976,14 @@ function renderLesson(root, key, row, page) {
 
   root.replaceChildren(
     h("div", { class: "lesson-head" },
-      h("div", { class: "row" }, h("a", { href: "#home", "data-go": "home", class: "small" }, "← Today"), h("span", { class: "plate" }, key), isDone ? h("span", { class: "chip done" }, "done") : null, h("span", { class: "chip" }, `${row.Minutes || 60} min`)),
+      h("div", { class: "row" }, h("a", { href: "#home", "data-go": "home", class: "small" }, "← Today"), h("span", { class: "plate" }, key), isDone ? h("span", { class: "chip done" }, "done") : null, h("span", { class: "chip" }, `${row.Minutes || 60} min`), h("span", { id: "savestate", class: "small muted" })),
       h("h1", null, row.Lesson.replace(/^.*?·\s*Part \d\s*·\s*/, "")),
       h("div", { class: "muted" }, `${lek.Volume || ""} Lektion ${lek.Number || ""} · Part ${part} · ${lek.Grammar || ""}`)),
     h("div", { class: "player" }, rail, stage));
 
   function show(id) {
     cur = id; ls.set("step:" + key, id); paintRail(); stage.replaceChildren();
+    if (st.step !== id) { st.step = id; if (opened) st.save(true); }
     const k = id;
     if (k === "learn") {
       if (part === 1) {
@@ -1199,7 +1260,20 @@ Reply with only JSON: {"task_score":n,"comment":"...","mistakes":[{"wrong":"..."
       h("label", { class: "row" }, "Minutes studied", minutesIn), h("div", { class: "row" }, btn), log];
   }
 
-  show(cur);
+  if (st.step && steps.find(s => s.id === st.step)) cur = st.step;
+  show(cur); opened = true; paintSaveState();
+  // bring in the online copy if it is newer (another device, or browser storage was cleared)
+  const openedAt = st.savedAt || 0;
+  if (!restored) cloudLoad(key).then(remote => {
+    if (!root.isConnected) return;
+    const local = st.savedAt || 0;
+    if (remote && (remote.savedAt || 0) > local && local === openedAt) {
+      ls.set("prog:" + key, remote); if (remote.step) ls.set("step:" + key, remote.step);
+      renderLesson(root, key, row, page, true);
+      soundNote("Picked up where you left off.");
+    } else if (local > ((remote && remote.savedAt) || 0)) { const { save, ...rest } = st; cloudSave(key, rest, true); }
+    else setSaveState(remote ? "saved" : cloud.state, remote ? "" : cloud.detail);
+  }).catch(() => {});
 }
 
 /* ---------- words: map of the Words table (key → row), cached for the day ---------- */

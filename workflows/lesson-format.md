@@ -131,7 +131,9 @@ Listen to "Lektion 1, 4" (1:35), then answer:
 1. <comprehension question in English about what is said>
 2. ...
 (4-6 questions per part, about the 1-3 most useful dialogues; pronunciation-only tracks get
-"listen and repeat" instead of questions)
+"listen and repeat what you hear, pausing after each line" instead of questions. Name audio by
+file (`L0-KB.mp3`, `L0-AB.mp3`) and track label; never "Kursbuch"/"Arbeitsbuch", page numbers,
+"read along" or "answer key": the learner has only the audio, not the printed text)
 
 <toggle> Answers
 1. <short answer>

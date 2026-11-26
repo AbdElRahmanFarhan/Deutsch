@@ -31,3 +31,10 @@ published next to it:
 
 To update the page only, publish `dashboard/index.html` again to the same artifact URL; files
 already published stay.
+
+## Language
+
+The interface is German by default; the button at the top right switches to English (remembered per
+device). The page is written in English and a translation layer (`I18N` phrases and `I18N_RX`
+patterns in `index.html`) swaps interface text; German course content and Claude's explanations are
+left as they are. New interface text needs an entry in `I18N`, or it stays English.

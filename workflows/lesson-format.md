@@ -4,8 +4,8 @@ Every Lektion has two lesson pages, one per hour of study:
 
 | Key | Part | Content |
 |---|---|---|
-| `L<index>-p1` | Part 1 | goal, grammar explanation, new words, Kursbuch work, exercises |
-| `L<index>-p2` | Part 2 | recap, Arbeitsbuch work, more exercises, writing, speaking |
+| `L<index>-p1` | Part 1 | goal, grammar explanation, new words, workbook, exercises |
+| `L<index>-p2` | Part 2 | recap, workbook, more exercises, writing, speaking |
 
 `<index>` is the course position 0-47 from `curriculum/syllabus.json` (A1.1 L1 = 0, A2.2 L24 = 47).
 A `full` session (2-3 hours) does Part 1 then Part 2 in one sitting. Practice and weekly sessions
@@ -21,6 +21,13 @@ are made on the day by the session workflow, not prepared here.
 - **Status**: `Ready`
 
 ## Page body (Notion markdown)
+
+**Self-contained rule.** A lesson page never sends the learner to the book: no page numbers,
+exercise numbers, "look at the photo", "check with the answer key". The book is only the source
+the lesson writer reads to choose content. Audio is the exception: the Lektion's MP3 is played in
+the control panel, so Listening may name track start times. Older pages still have a
+`## Book work` section; the control panel (and `lesson.md`) replace it with a `## Workbook` the
+first time the lesson is opened.
 
 Part 1:
 
@@ -38,9 +45,30 @@ Short explanation in English with 4-6 example sentences from everyday adult life
 | der Name | die Namen | name | Mein Name ist Abdelrahman. |
 (15 words for A1, 20 for A2; nouns with article; verbs in the infinitive)
 
-## Book work
-- Kursbuch p. 9, ex. 1-2: what to do, which audio file (e.g. "Lektion 1, 3")
-- ...
+## Workbook
+Self-contained practice in our own words. The learner has no book: never mention a book, page,
+exercise number, photo or answer key anywhere in a lesson page.
+
+### A · short English title
+English instruction.
+<b>Scene:</b> (optional) a short text or situation the items are about. Use it wherever the book
+would use a picture (a family photo, a room, a form, a map, prices, clocks): give all the facts.
+
+1. German item with a gap \_\_\_ (English hint in brackets if needed)
+2. ...
+
+<toggle>
+Answers
+
+1. answer (also accepted: ...)
+2. ...
+</toggle>
+
+### B · ...
+(4-6 parts, 16-24 items in total, easy to hard: fill the gap, choose the form, complete a
+dialogue, transform, word order, questions on a scene. Each item has one short typed answer, so
+the control panel and the app can check it. Cover what the book's Kursbuch/Arbeitsbuch tasks for
+this part train, as topics only; never copy or paraphrase their texts.)
 
 ## Exercises
 1. Instruction in English + the German to work on
@@ -72,9 +100,9 @@ Part 2:
 ## Recap
 Three-line reminder of Part 1's grammar, plus one new related point if the Lektion has one.
 
-## Book work
-- Arbeitsbuch Lektion N: exercises 1-6 and the Test page; check with the answer key (Books database)
-- Kursbuch p. 12: Sprechtraining / phrase box
+## Workbook
+(as in Part 1; for Part 2 cover what the Arbeitsbuch trains: its exercises, Lesen, Hören,
+Schreiben and the Test page, as topics in our own words)
 
 ## Exercises
 (10-12 items, harder than Part 1, mixing this and earlier Lektionen)

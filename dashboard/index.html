@@ -777,7 +777,7 @@ function parseLesson(content) {
   const words = get(/^Words/) ? parseWords(get(/^Words/).body) : [];
   return {
     goal: get(/^Goal/)?.body || "", grammar: get(/^Grammar/)?.body || "", recap: get(/^Recap/)?.body || "",
-    words, book: get(/^Book work/)?.body || "",
+    words, book: get(/^Book work/)?.body || "", workbook: get(/^Workbook/)?.body || "",
     listening: get(/^Listening/) ? parseListening(get(/^Listening/).body) : null,
     exercises: get(/^Exercises/) ? qaBlock(get(/^Exercises/).body) : { intro: "", items: [] },
     writing: get(/^Writing/)?.body || "",
@@ -895,7 +895,7 @@ function renderLesson(root, key, row, page) {
   if (L.words.length) steps.push({ id: "words", name: "Words" });
   steps.push({ id: "reading", name: "Reading" });
   if (L.listening) steps.push({ id: "listening", name: "Listening" });
-  if (L.book) steps.push({ id: "book", name: "Book work" });
+  if (L.workbook || L.book) steps.push({ id: "book", name: "Workbook" });
   if (L.exercises.items.length) steps.push({ id: "exercises", name: "Exercises" });
   steps.push({ id: "writing", name: "Writing" });
   if (L.speaking) steps.push({ id: "speaking", name: "Speaking" });
@@ -966,68 +966,97 @@ function renderLesson(root, key, row, page) {
     st.save();
   }
 
-  function bookStep() {
-    // One card per book task: do it in the book, tick it, score it, type the items you got wrong;
-    // Claude explains them and gives similar items to try here. Mistakes go to Notion at Finish.
-    st.bk = st.bk || {};
-    const lines = L.book.split("\n").map(l => l.match(/^\s*[-*]\s+(.*)$/)).filter(Boolean).map(m => m[1].trim());
-    const tasks = lines.length ? lines : [L.book.trim()];
-    const out = [h("h2", null, "Book work"),
-      h("p", { class: "muted small" }, "Do each task in your book (pages on the Lektion page in Notion), check it with the answer key (Books database), then fill in the card. Claude explains what you got wrong and gives you similar items to practise."),
-      h("div", { class: "row" }, lektionUrl ? h("a", { class: "btn sm", href: lektionUrl, target: "_blank", rel: "noopener" }, "Open the book pages in Notion") : null)];
-    const summary = h("p", { class: "small muted" });
-    const paintSummary = () => {
-      const t = tasks.map((_, i) => st.bk[i] || {});
-      const done = t.filter(x => x.done).length, right = t.reduce((a, x) => a + (+x.right || 0), 0), total = t.reduce((a, x) => a + (+x.total || 0), 0);
-      summary.textContent = `${done} of ${tasks.length} tasks done` + (total ? ` · ${right} of ${total} items right (${Math.round(right / total * 100)}%)` : "");
-    };
-    tasks.forEach((task, i) => {
-      const s = st.bk[i] = Object.assign({ done: false, right: "", total: "", wrong: "", help: null, pr: {} }, st.bk[i]);
-      s.pr.save = st.save;
-      const card = h("div", { class: "bk-task" + (s.done ? " done" : "") });
-      const tick = h("input", { type: "checkbox", id: `bk-${i}` }); tick.checked = s.done;
-      tick.onchange = () => { s.done = tick.checked; card.classList.toggle("done", s.done); st.save(); paintSummary(); };
-      const num = (name, ph) => { const x = h("input", { type: "number", min: "0", inputmode: "numeric", placeholder: ph, "aria-label": name === "right" ? "items right" : "items in total" }); x.value = s[name]; x.oninput = () => { s[name] = x.value; st.save(); paintSummary(); }; return x; };
-      const wrong = h("textarea", { placeholder: "Items you got wrong, one per line: number, what you wrote → what the key says\ne.g. 3b: Ich heiße aus Ägypten → Ich komme aus Ägypten", lang: "de", spellcheck: "false" });
-      wrong.value = s.wrong; wrong.oninput = () => { s.wrong = wrong.value; st.save(); };
-      const help = h("div", { class: "stack" });
-      const status = h("span", { class: "small muted" });
-      const drawHelp = () => {
-        help.replaceChildren();
-        if (!s.help) return;
-        const ex = s.help.explanations || [];
-        if (ex.length) help.append(h("div", { class: "q wrong" }, h("b", null, "Why these were wrong"), h("ul", null, ex.map(m => h("li", null, m.item ? h("span", { class: "mono small" }, m.item + " ") : null, h("s", { lang: "de" }, m.wrong), " → ", h("b", { lang: "de" }, m.correct), " ", speakBtn(m.correct), h("div", { class: "small muted" }, m.reason))))));
-        const items = (s.help.practice || []).map((p, j) => ({ id: `bk${i}p${j}`, n: j + 1, q: p.q, expected: [p.answer].concat(p.also || []) }));
-        if (items.length) help.append(h("h3", null, "Try these"), questionSet({ items, store: s.pr, ctx: `practising a Menschen ${lek.Volume} Lektion ${lek.Number} book task (${lek.Grammar || ""})`, onGraded: res => collectMistakes(res, "lesson") }).el);
-      };
-      const explain = h("button", { class: "btn primary", onclick: async () => {
-        const list = s.wrong.trim();
-        if (!list) { status.textContent = "Type the items you got wrong first (or tick Done if all were right)."; return; }
-        explain.disabled = true; status.replaceChildren(spinner("Claude is looking at your mistakes…"));
-        try {
-          const r = await ask(`${LEARNER}
-The learner did this task in their Menschen ${lek.Volume} book (Lektion ${lek.Number}, grammar: ${lek.Grammar}; level ${level}): "${plain(task)}".
-They checked it with the answer key. These are the items they got wrong, as they typed them (what they wrote → what the key says):
-${list}
-For each item: the wrong form, the correct form, and a one-line reason in English that explains the rule (not just "the key says so"), and a category from: article, case, word order, verb form, grammar, vocabulary, spelling, pronunciation. If a line is unclear, make your best guess.
-Then write ${Math.min(6, Math.max(3, list.split("\n").length + 1))} new practice items that train exactly these points: short fill-in or transformation tasks with an English instruction and the German to work on, everyday adult life in Germany, original sentences (never copy the book).
-Reply with only JSON: {"explanations":[{"item":"3b","wrong":"...","correct":"...","reason":"...","category":"..."}],"practice":[{"q":"instruction + German with ___ for the gap","answer":"...","also":["other correct answers"]}]}`);
-          s.help = r; s.pr = { save: st.save };
-          st.mistakes = st.mistakes.filter(m => !String(m.qid).startsWith(`bk${i}e`)).concat((r.explanations || []).map((m, j) => ({ qid: `bk${i}e${j}`, source: "lesson", question: `Book: ${plain(task).slice(0, 100)}${m.item ? " · " + m.item : ""}`, wrong: m.wrong, correct_form: m.correct, reason: m.reason, category: m.category })));
-          st.save(); status.textContent = `${(r.explanations || []).length} mistakes noted; they go to Notion when you finish the lesson.`; drawHelp();
-        } catch (e) { status.textContent = sampleErr(e); }
-        explain.disabled = false;
-      } }, s.help ? "Explain again" : "Explain my mistakes");
-      card.append(
-        h("div", { class: "row", style: "justify-content:space-between;align-items:flex-start;flex-wrap:nowrap" }, h("div", { class: "prose", html: inline(task) }), h("label", { class: "row small", style: "gap:6px;white-space:nowrap", for: `bk-${i}` }, tick, "Done")),
-        h("div", { class: "row score small" }, "Right:", num("right", "–"), "of", num("total", "–")),
-        h("details", { open: s.wrong || s.help ? true : null }, h("summary", { class: "small", style: "cursor:pointer;font-weight:600" }, "Got some wrong? Get them explained"),
-          h("div", { class: "stack", style: "margin-top:10px" }, wrong, h("div", { class: "row" }, explain, status), help)));
-      drawHelp();
-      out.push(card);
+  /* ---------- Workbook: self-contained practice in our own words (no book needed) ----------
+     Format in Notion (lesson-format.md):  ## Workbook / ### A · title / instruction, Scene / 1. … / <toggle> Answers … */
+  function parseWorkbook(body) {
+    const parts = []; let cur = null;
+    for (const line of body.split("\n")) {
+      const m = line.match(/^###\s+(.*)/);
+      if (m) { cur = { title: m[1].trim(), lines: [] }; parts.push(cur); }
+      else if (cur) cur.lines.push(line);
+    }
+    return parts.map(p => Object.assign({ title: p.title }, qaBlock(p.lines.join("\n")))).filter(p => p.items.length);
+  }
+  const mdEsc = t => String(t || "").replace(/_/g, "\\_");
+  function workbookMarkdown(wb) {
+    const out = ["## Workbook", ""];
+    (wb.parts || []).forEach((p, i) => {
+      out.push(`### ${String.fromCharCode(65 + i)} · ${p.title}`, "");
+      if (p.instruction) out.push(mdEsc(p.instruction), "");
+      if (p.scene) out.push(`<b>Scene:</b> ${mdEsc(p.scene)}`, "");
+      (p.items || []).forEach((it, k) => out.push(`${k + 1}. ${mdEsc(it.q)}`));
+      out.push("", "<toggle>", "Answers", "");
+      (p.items || []).forEach((it, k) => out.push(`${k + 1}. ${mdEsc(it.answer)}${it.also && it.also.length ? ` (also accepted: ${it.also.map(mdEsc).join("; ")})` : ""}`));
+      out.push("</toggle>", "");
     });
-    paintSummary();
-    out.push(summary, nextBtn("book"));
+    return out.join("\n").trim() + "\n";
+  }
+  async function writeWorkbook() {
+    const wb = await ask(`${LEARNER}
+Write the Workbook part of lesson "${row.Lesson}" (Menschen ${lek.Volume} Lektion ${lek.Number}, level ${level}). Grammar: ${lek.Grammar}. Topic: ${lek.Topic}.
+The learner has NO book. Everything must work on its own: never mention a book, page, exercise number, photo, picture in the book, audio track or answer key.
+What the book's own workbook tasks train in this part (use only as a list of topics and task types, never copy or paraphrase their content):
+${plain(L.book || "(none listed: use the lesson's grammar and words)").slice(0, 1800)}
+This lesson's words: ${L.words.map(w => w.de).join(", ")}.
+Write 4-6 parts, 16-24 items in total, easy to hard. Task types like a good workbook: fill the gap, choose the right form, complete a dialogue, transform a sentence, put words in order, answer a question about a short text you write, describe a scene. Where the topic would need a picture (a family photo, a room, a form, a map, prices, clocks), write a short "scene" in plain English or German instead that gives all the facts needed, and ask about it.
+Each item has ONE short typed answer (a word, a form or a sentence); write gaps as ___ ; give other correct answers in "also". Original everyday sentences from adult life in Germany; only grammar met so far at this level.
+Reply with only JSON: {"parts":[{"title":"short English title","instruction":"English instruction","scene":"optional: the text or situation the items are about","items":[{"q":"German item (English hints in brackets if needed)","answer":"...","also":["..."]}]}]}`, "complex");
+    if (!wb || !Array.isArray(wb.parts) || !wb.parts.length) throw { message: "Claude didn't return a workbook. Try again." };
+    const mdText = workbookMarkdown(wb);
+    // save into the lesson page in Notion, replacing the old "Book work" section
+    let saved = false;
+    try {
+      const c = page.content;
+      const a = c.indexOf("## Book work");
+      if (a >= 0) {
+        const b = c.indexOf("\n## ", a + 5);
+        const old = c.slice(a, b < 0 ? c.length : b).trim();
+        await nt(T.update, { page_id: pageId(row.url), command: "update_content", allow_async: false, content_updates: [{ old_str: old, new_str: mdText.trim() }] });
+        page.content = c.slice(0, a) + mdText + (b < 0 ? "" : c.slice(b));
+      } else {
+        await nt(T.update, { page_id: pageId(row.url), command: "insert_content", content: mdText, position: c.includes("## Exercises") ? { type: "before_content", anchor: "## Exercises" } : { type: "end" } });
+        page.content = c + "\n" + mdText;
+      }
+      ls.set("page:" + key, page); saved = true;
+    } catch (e) { console.warn("workbook save failed", e); }
+    st.wb = { md: mdText, saved, answers: {}, results: {} }; st.save();
+    return st.wb;
+  }
+  function bookStep() {
+    st.wb = st.wb || {};
+    const out = [h("h2", null, "Workbook"), h("p", { class: "small muted" }, "Everything you need is on this page. Type your answers, then check each part. Mistakes go to Notion when you finish the lesson.")];
+    const box = h("div", { class: "stack" });
+    const draw = () => {
+      const body = L.workbook || (st.wb.md ? st.wb.md.replace(/^## Workbook\s*/, "") : "");
+      box.replaceChildren();
+      if (!body) {
+        const go = h("button", { class: "btn primary", onclick: async () => {
+          box.replaceChildren(spinner("Claude is writing this lesson's workbook (about 30 seconds)…"));
+          try { await writeWorkbook(); draw(); }
+          catch (e) { box.replaceChildren(h("div", { class: "banner bad" }, e && e.code ? sampleErr(e) : (e.message || "Something went wrong.")), go); }
+        } }, "Make the workbook");
+        box.append(h("div", { class: "empty" }, h("p", null, "This lesson's workbook hasn't been written yet. Claude writes it once, from the lesson's topics, and saves it to the lesson in Notion."), go));
+        return;
+      }
+      if (st.wb.md && st.wb.saved === false) box.append(h("div", { class: "banner" }, "Saved on this device only: Notion didn't accept the update. It will be written again next time you open the step on another device."));
+      const parts = parseWorkbook(body);
+      st.wb.answers = st.wb.answers || {}; st.wb.results = st.wb.results || {};
+      const total = h("p", { class: "small muted" });
+      const scores = [];
+      const paintTotal = () => { const n = parts.reduce((a, p) => a + p.items.length, 0); const r = scores.reduce((a, f) => a + f(), 0); total.textContent = `${r} of ${n} right so far.`; };
+      parts.forEach((p, i) => {
+        const items = p.items.map(x => ({ id: `wb${i}-${x.n}`, n: x.n, q: unesc(x.q), expected: parseAnswer(x.a).all }));
+        const store = { answers: st.wb.answers, results: st.wb.results, save: st.save };
+        // questionSet replaces store.results on each check; keep per-part results merged into st.wb.results
+        const qs = questionSet({ items, store: new Proxy(store, { set(t, k, v) { if (k === "results") { Object.assign(st.wb.results, v); st.save(); return true; } t[k] = v; return true; } }), ctx: `in a workbook part "${p.title}" for ${key} (${lek.Grammar || ""})`, onGraded: res => { collectMistakes(res, "lesson"); paintTotal(); } });
+        scores.push(qs.score);
+        box.append(h("div", { class: "bk-task" }, h("h3", null, p.title), p.intro ? h("div", { class: "prose", lang: "de", html: md(p.intro) }) : null, qs.el));
+      });
+      paintTotal();
+      box.append(total);
+    };
+    draw();
+    out.push(box, nextBtn("book"));
     return out;
   }
 

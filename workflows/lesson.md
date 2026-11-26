@@ -41,9 +41,11 @@ Fetch the lesson page and go section by section, one step at a time:
 - **Words**: show the table, have the learner read the examples aloud (in voice mode), then a quick
   recall round: give the English, ask for the German with article. Repeat missed words at the end
   of the round (max 3 tries each).
-- **Book work**: tell the learner exactly which pages/exercises/audio to do now in their book
-  (the Lektion's "Book pages" PDF in Notion has the pages). Wait until they say they're done; ask
-  how it went and which items were wrong; explain those.
+- **Workbook**: run the parts one at a time like Exercises (one item at a time, grade, hints,
+  Mistakes rows). Never send the learner to the book. If the page still has a `## Book work`
+  section instead (older pages), first write a `## Workbook` in our own words as
+  `lesson-format.md` describes (the Book work lines tell you only which topics to cover), save it
+  into the page in place of the Book work section (`update-page`, `update_content`), then run it.
 - **Listening**: tell the learner which track to play and its start time in the Lektion's Audio
   file (Notion, Lektion page → Audio). After they listen, ask the questions one at a time and
   grade them like exercises; if they struggle, suggest listening again before giving hints.

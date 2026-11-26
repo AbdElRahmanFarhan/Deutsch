@@ -11,7 +11,8 @@ were prepared once; use this to rewrite or improve one.
 3. Read the learner's data that should shape the lesson: weak-spot categories (Mistakes, last 21
    days), hard words, and any notes the learner left on the lesson page.
 4. Rewrite the lesson page(s) in Notion (`update-page` with `replace_content`), keeping the
-   properties. Own words only; page and exercise references instead of copied book content.
+   properties. Own words only, and fully self-contained: write the Workbook from what the book's
+   tasks train, never refer the learner to the book (`lesson-format.md` → Self-contained rule).
 
 From a cloud session (no book files): you can still refine a lesson from its existing content,
 the syllabus and the learner's data; for book details, download the Lektion's "Book pages" PDF

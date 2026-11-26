@@ -40,7 +40,8 @@ activity, weekly reviews, book PDFs. Nothing personal or stateful is stored here
   copies with audio are in the private repo github.com/AbdElRahmanFarhan/deutsch-books; to work
   on lessons elsewhere, clone it into `Cirriculum/`. Per-Lektion page extracts and
   the answer keys are in the learner's private Notion (Lektionen → Book pages, Books database).
-  Lessons are written in our own words with page references; never paste book texts, dialogues or
+  Lessons are written in our own words and are self-contained: the learner never needs the book
+  (no page or exercise references; a Workbook section instead). Never paste book texts, dialogues or
   exercises into lesson pages.
 - Vocabulary fits the Goethe A1/A2 word lists. Articles and plurals come from the book.
 
